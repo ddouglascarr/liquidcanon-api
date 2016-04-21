@@ -19,10 +19,11 @@ public class Member
     @GeneratedValue
     private Long id;
 
-    private String login;
+    @Column(name="password_liquidcanon")
     private String password;
-    private String name;
+    private String login;
 
+    private String name;
     private Boolean admin;
     private String notify_email;
     private Boolean active;
