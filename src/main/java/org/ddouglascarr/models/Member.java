@@ -2,6 +2,8 @@ package org.ddouglascarr.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.data.annotation.ReadOnlyProperty;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +36,7 @@ public class Member
     private Boolean active;
     private Date last_activity;
 
-    @JsonIgnore
+    @ReadOnlyProperty
     @ManyToMany
     @JoinTable(
             name = "privilege",
