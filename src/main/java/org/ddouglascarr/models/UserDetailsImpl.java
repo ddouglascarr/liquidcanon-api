@@ -6,9 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by daniel on 21/04/16.
- */
 public class UserDetailsImpl extends Member implements UserDetails
 {
     private List<String> memberRoles;

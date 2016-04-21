@@ -13,9 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-/**
- * Created by daniel on 21/04/16.
- */
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = UserDetailsServiceImpl.class)

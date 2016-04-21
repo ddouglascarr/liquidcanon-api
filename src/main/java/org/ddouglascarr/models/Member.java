@@ -8,9 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Created by daniel on 17/04/16.
- */
 @Entity
 @Table(name="member")
 public class Member
