@@ -1,6 +1,6 @@
 package org.ddouglascarr.enums;
 
-public enum Exceptions
+public enum ExceptionCodes
 {
     ITEM_NOT_FOUND,
     UNAUTHORIZED

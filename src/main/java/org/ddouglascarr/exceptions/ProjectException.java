@@ -1,8 +1,8 @@
 package org.ddouglascarr.exceptions;
 
-import org.ddouglascarr.enums.Exceptions;
+import org.ddouglascarr.enums.ExceptionCodes;
 
 public interface ProjectException
 {
-    Exceptions getCode();
+    ExceptionCodes getCode();
 }
