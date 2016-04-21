@@ -3,6 +3,7 @@ package org.ddouglascarr.repositories;
 import org.ddouglascarr.models.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>
 
     @Query(
             nativeQuery = true,
-            value = "SELECT m.name FROM (SELECT * FROM unit WHERE unit.id = :unitId) AS u JOIN privilege AS p on u.id = p.unit_id JOIN member AS m ON m.id = p.member_id"
+            value = "SELECT m.* FROM (SELECT * FROM unit WHERE unit.id = :unitId) AS u JOIN privilege AS p on u.id = p.unit_id JOIN member AS m ON m.id = p.member_id"
     )
-    List<Member> findByUnitId(Long unitId);
+    List<Member> findByUnitId(@Param("unitId") Long unitId);
 }
