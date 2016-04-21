@@ -90,4 +90,16 @@ public class UnitsControllerTests
         assertEquals(returnedList.get(0), mockMember2);
         assertEquals(returnedList.get(1), mockMember3);
     }
+
+    @Test
+    public void getMembersShouldReturnEmptyListIfNoMembers()
+    {
+        List<Member> mockList = new ArrayList<>();
+        when(memberService.findByUnitId(new Long(6))).thenReturn(mockList);
+
+        ResponseEntity<List<Member>> resp = unitsController.getMembers(new Long(6));
+        assertEquals(resp.getStatusCode(), HttpStatus.OK);
+        List<Member> returnedList = resp.getBody();
+        assertEquals(returnedList.size(), 0);
+    }
 }
