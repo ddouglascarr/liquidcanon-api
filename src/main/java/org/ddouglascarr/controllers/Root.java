@@ -1,6 +1,5 @@
-package org.ddouglascarr.controlers;
+package org.ddouglascarr.controllers;
 
-import org.ddouglascarr.models.Member;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

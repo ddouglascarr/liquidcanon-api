@@ -3,13 +3,12 @@ package org.ddouglascarr.exceptions;
 import org.ddouglascarr.enums.ExceptionCodes;
 
 public class ItemNotFoundException
-        extends Exception
-        implements ProjectException
+        extends ProjectException
 {
-    private static ExceptionCodes code = ExceptionCodes.ITEM_NOT_FOUND;
 
+    @Override
     public ExceptionCodes getCode()
     {
-        return code;
+        return ExceptionCodes.ITEM_NOT_FOUND;
     }
 }
