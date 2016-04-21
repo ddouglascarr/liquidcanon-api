@@ -1,11 +1,14 @@
 package org.ddouglascarr.unit;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.services.MemberServiceImpl;
 import org.ddouglascarr.repositories.MemberRepository;
 import org.ddouglascarr.services.MemberService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -41,7 +44,8 @@ public class MemberServiceImplTests
         mockMember3.setLogin("mock_member_3");
     }
 
-    @Test public void findOneShouldReturnMember()
+    @Test
+    public void findOneShouldReturnMember() throws ItemNotFoundException
     {
         when(memberRepository.findOneById(new Long(2))).thenReturn(mockMember2);
         Member returnedMember = memberService.findOne(new Long(2));
@@ -49,29 +53,28 @@ public class MemberServiceImplTests
         assertNotEquals(returnedMember, mockMember3);
     }
 
-    @Test
-    public void findOneShouldReturnNullIfMemberNotFound()
+    @Test(expected = ItemNotFoundException.class)
+    public void findOneShouldThrowIfMemberNotFound() throws ItemNotFoundException
     {
         when(memberRepository.findOneById(new Long(6))).thenReturn(null);
         Member returnedMember = memberService.findOne(new Long(6));
-        assertNull(returnedMember);
+        fail("should have thrown");
     }
 
 
     @Test
-    public void findOneByLoginShouldReturnMember()
+    public void findOneByLoginShouldReturnMember() throws ItemNotFoundException
     {
         when(memberRepository.findOneByLogin("mock_member_2")).thenReturn(mockMember2);
         Member returnedMember = memberService.findOneByLogin("mock_member_2");
         assertEquals(returnedMember, mockMember2);
     }
 
-    @Test
-    public void findOneByLoginShouldReturnNullWhenMemberNotFound()
+    @Test(expected = ItemNotFoundException.class )
+    public void findOneByLoginShouldThrowIfMemberNotFound() throws ItemNotFoundException
     {
         when(memberRepository.findOneByLogin("mock_member_404")).thenReturn(null);
         Member returnedMember = memberService.findOneByLogin("mock_member_404");
-        assertNull(returnedMember);
     }
 
 }

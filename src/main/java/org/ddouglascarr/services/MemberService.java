@@ -1,5 +1,6 @@
 package org.ddouglascarr.services;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Member;
 
 /**
@@ -7,6 +8,6 @@ import org.ddouglascarr.models.Member;
  */
 public interface MemberService
 {
-    Member findOne(Long id);
-    Member findOneByLogin(String login);
+    Member findOne(Long id) throws ItemNotFoundException;
+    Member findOneByLogin(String login) throws ItemNotFoundException;
 }
