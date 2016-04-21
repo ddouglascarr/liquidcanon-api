@@ -4,6 +4,7 @@ import org.ddouglascarr.enums.ExceptionCodes;
 
 public class ItemNotFoundException
         extends Exception
+        implements ProjectException
 {
     private static ExceptionCodes code = ExceptionCodes.ITEM_NOT_FOUND;
 
