@@ -13,6 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -75,6 +78,19 @@ public class MemberServiceImplTests
     {
         when(memberRepository.findOneByLogin("mock_member_404")).thenReturn(null);
         Member returnedMember = memberService.findOneByLogin("mock_member_404");
+    }
+
+    @Test
+    public void findByUnitIdShouldReturnListOfMembers()
+    {
+        List<Member> mockList = new ArrayList<>();
+        mockList.add(mockMember2);
+        mockList.add(mockMember3);
+        when(memberRepository.findByUnitId(new Long(2))).thenReturn(mockList);
+        List<Member> returnedList = memberService.findByUnitId(new Long(2));
+        assertEquals(returnedList.size(), 2);
+        assertEquals(returnedList.get(0), mockMember2);
+        assertEquals(returnedList.get(1), mockMember3);
     }
 
 }

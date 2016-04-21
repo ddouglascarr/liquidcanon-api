@@ -6,6 +6,8 @@ import org.ddouglascarr.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by daniel on 17/04/16.
  */
@@ -29,5 +31,12 @@ public class MemberServiceImpl implements MemberService
         Member member = memberRepository.findOneByLogin(login);
         if (null == member) throw new ItemNotFoundException();
         return member;
+    }
+
+    @Override
+    public List<Member> findByUnitId(Long unitId)
+    {
+        List<Member> members = memberRepository.findByUnitId(unitId);
+        return members;
     }
 }
