@@ -3,11 +3,16 @@ package org.ddouglascarr.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +33,15 @@ public class Member
     private String notify_email;
     private Boolean active;
     private Date last_activity;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "privilege",
+            joinColumns = @JoinColumn(name = "member_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "unit_id", referencedColumnName = "id")
+    )
+    private List<Unit> units;
 
     public Member()
     {}
@@ -123,5 +137,15 @@ public class Member
     public void setLast_activity(Date last_activity)
     {
         this.last_activity = last_activity;
+    }
+
+    public List<Unit> getUnits()
+    {
+        return units;
+    }
+
+    public void setUnits(List<Unit> units)
+    {
+        this.units = units;
     }
 }
