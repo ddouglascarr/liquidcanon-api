@@ -1,5 +1,7 @@
 package org.ddouglascarr.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ public class Member
     private Long id;
 
     @Column(name="password_liquidcanon")
+    @JsonIgnore
     private String password;
     private String login;
 

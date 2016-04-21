@@ -20,7 +20,7 @@ public class MembersController
     private MemberService memberService;
 
     @RequestMapping(
-            value = "/members/{id}",
+            value = "/members/{memberId}",
             method = RequestMethod.GET
     )
     public ResponseEntity<Member> getMember(@PathVariable Long memberId)
