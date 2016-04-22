@@ -28,4 +28,12 @@ public class AreaServiceImpl implements AreaService
         List<Area> areas = areaRepository.findByUnitId(unitId);
         return areas;
     }
+
+    @Override
+    public Area findOneByUnitId(Long unitId, Long id) throws ItemNotFoundException
+    {
+        Area area = areaRepository.findOneByUnitId(unitId, id);
+        if (null == area) throw new ItemNotFoundException();
+        return area;
+    }
 }

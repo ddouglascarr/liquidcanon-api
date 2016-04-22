@@ -57,6 +57,21 @@ public class AreaServiceImplTests
         assertEquals(returnedArea, mockArea2);
     }
 
+    @Test(expected = ItemNotFoundException.class)
+    public void findOneByUnitIdShouldThrowIfNotFound() throws ItemNotFoundException
+    {
+        when(areaRepository.findOneByUnitId(new Long(6), new Long(7))).thenReturn(null);
+        Area returnedArea = areaService.findOneByUnitId(new Long(6), new Long(7));
+    }
+
+    @Test
+    public void findOneByUnitIdShouldReturnArea() throws ItemNotFoundException
+    {
+        when(areaRepository.findOneByUnitId(new Long(12), new Long(2))).thenReturn(mockArea2);
+        Area returnedArea = areaService.findOneByUnitId(new Long(12), new Long(2));
+        assertEquals(mockArea2, returnedArea);
+    }
+
     @Test
     public void findByUnitIdShouldReturnListOfAreas()
     {

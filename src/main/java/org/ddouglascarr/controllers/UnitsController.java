@@ -26,6 +26,9 @@ public class UnitsController
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private AreaService areaService;
+
     @RequestMapping(
             value = "/units/{unitId}",
             method = RequestMethod.GET
@@ -61,6 +64,20 @@ public class UnitsController
             return new ResponseEntity<>(unit.getAreas(), HttpStatus.OK);
         } catch (ItemNotFoundException e) {
             return new ResponseEntity<>(e.getResponseHeaders(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(
+            value = "/units/{unitId}/areas/{areaId}",
+            method = RequestMethod.GET
+    )
+    public ResponseEntity<Area> getArea(@PathVariable Long unitId, @PathVariable Long areaId)
+    {
+        try {
+            Area area = areaService.findOneByUnitId(unitId, areaId);
+            return new ResponseEntity<Area>(area, HttpStatus.OK);
+        } catch (ItemNotFoundException e) {
+            return new ResponseEntity<Area>(e.getResponseHeaders(), HttpStatus.NOT_FOUND);
         }
     }
 }

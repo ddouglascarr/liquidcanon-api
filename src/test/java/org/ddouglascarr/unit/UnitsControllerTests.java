@@ -6,6 +6,7 @@ import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Area;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.models.Unit;
+import org.ddouglascarr.services.AreaService;
 import org.ddouglascarr.services.MemberService;
 import org.ddouglascarr.services.UnitService;
 import org.junit.Before;
@@ -30,6 +31,9 @@ public class UnitsControllerTests
 
     @Mock
     private MemberService memberService;
+
+    @Mock
+    private AreaService areaService;
 
     @InjectMocks
     private UnitsController unitsController = new UnitsController();
@@ -134,5 +138,28 @@ public class UnitsControllerTests
         assertEquals(resp.getHeaders().getFirst("error-code"),
                 ExceptionCodes.ITEM_NOT_FOUND.toString());
 
+    }
+
+    @Test
+    public void getAreaShouldReturn404IfAreaDoesNotExist() throws ItemNotFoundException
+    {
+        when(areaService.findOneByUnitId(new Long(2), new Long(6))).thenThrow(new ItemNotFoundException());
+        ResponseEntity<Area> resp = unitsController.getArea(new Long(2), new Long(6));
+        assertEquals(resp.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertEquals(resp.getHeaders().getFirst("error-code"),
+                ExceptionCodes.ITEM_NOT_FOUND.toString());
+    }
+
+    @Test
+    public void getAreaShouldReturnArea() throws ItemNotFoundException
+    {
+        Area mockArea = new Area();
+        mockArea.setId(new Long(12));
+        mockArea.setUnitId(new Long(2));
+        when(areaService.findOneByUnitId(new Long(2), new Long(12))).thenReturn(mockArea);
+
+        ResponseEntity<Area> resp = unitsController.getArea(new Long(2), new Long(12));
+        assertEquals(resp.getStatusCode(), HttpStatus.OK);
+        assertEquals(mockArea, resp.getBody());
     }
 }
