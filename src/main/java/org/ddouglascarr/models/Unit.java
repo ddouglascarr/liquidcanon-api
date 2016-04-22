@@ -1,12 +1,16 @@
 package org.ddouglascarr.models;
 
+import org.springframework.data.annotation.ReadOnlyProperty;
+
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Unit
@@ -24,6 +28,10 @@ public class Unit
 
     @Column(name = "member_count")
     private Long memberCount;
+
+    @ReadOnlyProperty
+    @OneToMany(mappedBy = "unitId")
+    private List<Area> areas;
 
     // Getters and Setters
 
@@ -85,5 +93,15 @@ public class Unit
     public void setMemberCount(Long memberCount)
     {
         this.memberCount = memberCount;
+    }
+
+    public List<Area> getAreas()
+    {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas)
+    {
+        this.areas = areas;
     }
 }

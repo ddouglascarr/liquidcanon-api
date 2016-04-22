@@ -3,6 +3,7 @@ package org.ddouglascarr.unit;
 import org.ddouglascarr.controllers.UnitsController;
 import org.ddouglascarr.enums.ExceptionCodes;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
+import org.ddouglascarr.models.Area;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.models.Unit;
 import org.ddouglascarr.services.MemberService;
@@ -35,6 +36,7 @@ public class UnitsControllerTests
 
     private Unit mockUnit2;
     private Unit mockUnit3;
+    private List<Area> mockAreaList;
 
     @Before
     public void setup()
@@ -48,6 +50,15 @@ public class UnitsControllerTests
         mockUnit3 = new Unit();
         mockUnit3.setId(new Long(3));
         mockUnit3.setName("Mock Unit 3");
+
+        Area mockArea12 = new Area();
+        mockArea12.setId(new Long(12));
+        Area mockArea13 = new Area();
+        mockArea13.setId(new Long(13));
+        mockAreaList = new ArrayList<>();
+        mockAreaList.add(mockArea12);
+        mockAreaList.add(mockArea13);
+        mockUnit2.setAreas(mockAreaList);
     }
 
     @Test
@@ -101,5 +112,27 @@ public class UnitsControllerTests
         assertEquals(resp.getStatusCode(), HttpStatus.OK);
         List<Member> returnedList = resp.getBody();
         assertEquals(returnedList.size(), 0);
+    }
+
+    @Test
+    public void getAreasShouldReturnListOfAreas() throws ItemNotFoundException
+    {
+        when(unitService.findOne(new Long(2))).thenReturn(mockUnit2);
+
+        ResponseEntity<List<Area>> resp = unitsController.getAreas(new Long(2));
+        assertEquals(resp.getStatusCode(), HttpStatus.OK);
+        List<Area> returnedList = resp.getBody();
+        assertEquals(returnedList, mockAreaList);
+    }
+
+    @Test
+    public void getAreasShouldReturn404IfUnitDoesNotExist() throws ItemNotFoundException
+    {
+        when(unitService.findOne(new Long(6))).thenThrow(new ItemNotFoundException());
+        ResponseEntity<List<Area>> resp = unitsController.getAreas(new Long(6));
+        assertEquals(resp.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertEquals(resp.getHeaders().getFirst("error-code"),
+                ExceptionCodes.ITEM_NOT_FOUND.toString());
+
     }
 }
