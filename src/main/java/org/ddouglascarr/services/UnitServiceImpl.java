@@ -1,6 +1,7 @@
 package org.ddouglascarr.services;
 
 import org.ddouglascarr.exceptions.ItemNotFoundException;
+import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Unit;
 import org.ddouglascarr.repositories.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,14 @@ public class UnitServiceImpl implements UnitService
     @Autowired
     private UnitRepository unitRepository;
 
+    @Autowired
+    private PrivilegeService privilegeService;
+
     @Override
-    public Unit findOne(Long id) throws ItemNotFoundException
+    public Unit findOne(Long memberId, Long id)
+            throws ItemNotFoundException, MemberUnprivilegedException
     {
+        privilegeService.assertUnitReadPrivilege(memberId, id);
         Unit unit = unitRepository.findOne(id);
         if (null == unit) throw new ItemNotFoundException();
         return unit;
