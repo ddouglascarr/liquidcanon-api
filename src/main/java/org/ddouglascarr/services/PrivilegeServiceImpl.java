@@ -22,7 +22,7 @@ public class PrivilegeServiceImpl implements PrivilegeService
             throws MemberUnprivilegedException
     {
         UnitPermission unitPermission = unitPermissionRepository.findOneByUnitId(unitId);
-        if (unitPermission.getPublicRead()) return;
+        if (null != unitPermission && unitPermission.getPublicRead()) return;
         Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
         if (null != privilege) return;
         throw new MemberUnprivilegedException();

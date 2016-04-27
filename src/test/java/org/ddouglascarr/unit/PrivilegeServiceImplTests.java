@@ -58,6 +58,26 @@ public class PrivilegeServiceImplTests
         privilegeService.assertUnitReadPrivilege(new Long(12), new Long(51));
     }
 
+    @Test(expected = MemberUnprivilegedException.class)
+    public void assertUnitReadPrivilegeShouldThrowIfUnitPermissionMissingAndNoPrivilege()
+            throws MemberUnprivilegedException
+    {
+        when(unitPermissionRepository.findOneByUnitId(MOCK_UNIT_ID)).thenReturn(null);
+        when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
+                .thenReturn(null);
+        privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
+    }
+
+    @Test
+    public void assertUnitReadPrivilegeShouldNotThrowIfUnitPermisionMissingButPrivilegeExists()
+            throws MemberUnprivilegedException
+    {
+        when(unitPermissionRepository.findOneByUnitId(MOCK_UNIT_ID)).thenReturn(null);
+        when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
+                .thenReturn(mockPrivilege);
+        privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
+    }
+
     @Test
     public void assertUnitReadPrivilegeShouldNotThrowOnPrivilegeWithoutPublicRead()
             throws MemberUnprivilegedException
