@@ -93,7 +93,7 @@ public class PrivilegeServiceImplTests
     public void assertUnitVotingPrivilegeShouldThrowIfNoVotingPrivilege()
             throws MemberUnprivilegedException
     {
-        mockPrivilege.setVoting_right(false);
+        mockPrivilege.setVotingRight(false);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
                 .thenReturn(mockPrivilege);
         privilegeService.assertUnitVotingPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
@@ -103,7 +103,7 @@ public class PrivilegeServiceImplTests
     public void assertUnitVotingPrivilegeShouldNotThrowIfVotingPrivilege()
             throws MemberUnprivilegedException
     {
-        mockPrivilege.setVoting_right(true);
+        mockPrivilege.setVotingRight(true);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
                 .thenReturn(mockPrivilege);
         privilegeService.assertUnitVotingPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);

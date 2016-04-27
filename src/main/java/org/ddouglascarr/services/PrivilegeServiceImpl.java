@@ -34,7 +34,7 @@ public class PrivilegeServiceImpl implements PrivilegeService
     {
         Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
         if (null == privilege) throw new MemberUnprivilegedException();
-        if (privilege.getVoting_right()) return;
+        if (privilege.getVotingRight()) return;
         throw new MemberUnprivilegedException();
     }
 }

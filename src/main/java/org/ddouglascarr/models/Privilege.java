@@ -23,7 +23,7 @@ public class Privilege
     private Boolean area_manager;
     private Boolean member_manager;
     private Boolean initiative_right;
-    private Boolean voting_right;
+    @Column(name = "voting_right") private Boolean votingRight;
     private Boolean polling_right;
 
     // Id Class
@@ -122,14 +122,14 @@ public class Privilege
         this.initiative_right = initiative_right;
     }
 
-    public Boolean getVoting_right()
+    public Boolean getVotingRight()
     {
-        return voting_right;
+        return votingRight;
     }
 
-    public void setVoting_right(Boolean voting_right)
+    public void setVotingRight(Boolean votingRight)
     {
-        this.voting_right = voting_right;
+        this.votingRight = votingRight;
     }
 
     public Boolean getPolling_right()
