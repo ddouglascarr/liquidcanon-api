@@ -1,6 +1,5 @@
 package org.ddouglascarr.services;
 
-import org.ddouglascarr.aop.Foo;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Area;
@@ -34,7 +33,6 @@ public class AreaServiceImpl implements AreaService
     }
 
     @Override
-    @Foo
     public List<Area> findByUnitId(Long memberId, Long unitId)
                 throws MemberUnprivilegedException, ItemNotFoundException
     {

@@ -1,6 +1,5 @@
 package org.ddouglascarr.controllers;
 
-import org.ddouglascarr.aop.Foo;
 import org.ddouglascarr.aop.HandleServiceErrors;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;

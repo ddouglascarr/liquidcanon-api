@@ -1,6 +1,5 @@
 package org.ddouglascarr.services;
 
-import org.ddouglascarr.aop.Foo;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Area;
