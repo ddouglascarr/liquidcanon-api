@@ -1,5 +1,7 @@
 package org.ddouglascarr.controllers;
 
+import org.ddouglascarr.aop.Foo;
+import org.ddouglascarr.aop.HandleServiceErrors;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Area;
@@ -23,21 +25,18 @@ public class AreasController
     @Autowired
     private AreaService areaService;
 
+    @HandleServiceErrors
     @RequestMapping(
             value = "/",
             method = RequestMethod.GET
     )
     public ResponseEntity<List<Area>> getAreas(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                @PathVariable Long unitId)
+            throws MemberUnprivilegedException, ItemNotFoundException
     {
-        try {
-            List<Area> areas = areaService.findByUnitId(userDetails.getId(), unitId);
-            return new ResponseEntity<>(areas, HttpStatus.OK);
-        } catch (MemberUnprivilegedException e) {
-            return new ResponseEntity<List<Area>>(e.getResponseHeaders(), HttpStatus.UNAUTHORIZED);
-        } catch (ItemNotFoundException e) {
-            return new ResponseEntity<>(e.getResponseHeaders(), HttpStatus.NOT_FOUND);
-        }
+        System.out.println("getAreas()");
+        List<Area> areas = areaService.findByUnitId(userDetails.getId(), unitId);
+        return new ResponseEntity<>(areas, HttpStatus.OK);
     }
 
     @RequestMapping(
