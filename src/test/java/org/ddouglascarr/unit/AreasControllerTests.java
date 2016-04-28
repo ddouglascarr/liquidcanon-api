@@ -50,29 +50,6 @@ public class AreasControllerTests
     }
 
     @Test
-    public void getAreasShould401IfUnprivileged() throws Exception
-    {
-        when(areaService.findByUnitId(MEMBER_ID, UNIT_ID))
-                .thenThrow(new MemberUnprivilegedException());
-        ResponseEntity<List<Area>> resp = areasController.getAreas(userDetails, UNIT_ID);
-        assertEquals(resp.getStatusCode(), HttpStatus.UNAUTHORIZED);
-        assertEquals(resp.getHeaders().getFirst("error-code"),
-                ExceptionCodes.UNPRIVILEGED.toString());
-    }
-
-    @Test
-    public void getAreasShouldReturn404IfUnitDoesNotExist() throws Exception
-    {
-        when(areaService.findByUnitId(MEMBER_ID, UNIT_ID))
-                .thenThrow(new ItemNotFoundException());
-        ResponseEntity<List<Area>> resp = areasController.getAreas(userDetails, UNIT_ID);
-        verify(areaService, times(1)).findByUnitId(MEMBER_ID, UNIT_ID);
-        assertEquals(HttpStatus.NOT_FOUND, resp.getStatusCode());
-        assertEquals(resp.getHeaders().getFirst("error-code"),
-                ExceptionCodes.ITEM_NOT_FOUND.toString());
-    }
-
-    @Test
     public void getAreasShouldReturnListOfAreas() throws Exception
     {
         mockAreaList.add(mockArea);
