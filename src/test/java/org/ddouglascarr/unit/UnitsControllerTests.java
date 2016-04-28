@@ -144,48 +144,5 @@ public class UnitsControllerTests
         assertEquals(returnedList.size(), 0);
     }
 
-    @Test
-    public void getAreasShouldReturnListOfAreas() throws ItemNotFoundException
-    {
-        when(unitService.findOne(new Long(2))).thenReturn(mockUnit2);
 
-        ResponseEntity<List<Area>> resp = unitsController.getAreas(new Long(2));
-        assertEquals(resp.getStatusCode(), HttpStatus.OK);
-        List<Area> returnedList = resp.getBody();
-        assertEquals(returnedList, mockAreaList);
-    }
-
-    @Test
-    public void getAreasShouldReturn404IfUnitDoesNotExist() throws ItemNotFoundException
-    {
-        when(unitService.findOne(new Long(6))).thenThrow(new ItemNotFoundException());
-        ResponseEntity<List<Area>> resp = unitsController.getAreas(new Long(6));
-        assertEquals(resp.getStatusCode(), HttpStatus.NOT_FOUND);
-        assertEquals(resp.getHeaders().getFirst("error-code"),
-                ExceptionCodes.ITEM_NOT_FOUND.toString());
-
-    }
-
-    @Test
-    public void getAreaShouldReturn404IfAreaDoesNotExist() throws ItemNotFoundException
-    {
-        when(areaService.findOneByUnitId(new Long(2), new Long(6))).thenThrow(new ItemNotFoundException());
-        ResponseEntity<Area> resp = unitsController.getArea(new Long(2), new Long(6));
-        assertEquals(resp.getStatusCode(), HttpStatus.NOT_FOUND);
-        assertEquals(resp.getHeaders().getFirst("error-code"),
-                ExceptionCodes.ITEM_NOT_FOUND.toString());
-    }
-
-    @Test
-    public void getAreaShouldReturnArea() throws ItemNotFoundException
-    {
-        Area mockArea = new Area();
-        mockArea.setId(new Long(12));
-        mockArea.setUnitId(new Long(2));
-        when(areaService.findOneByUnitId(new Long(2), new Long(12))).thenReturn(mockArea);
-
-        ResponseEntity<Area> resp = unitsController.getArea(new Long(2), new Long(12));
-        assertEquals(resp.getStatusCode(), HttpStatus.OK);
-        assertEquals(mockArea, resp.getBody());
-    }
 }

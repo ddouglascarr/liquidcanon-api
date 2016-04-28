@@ -8,6 +8,7 @@ import org.ddouglascarr.repositories.AreaRepository;
 import org.ddouglascarr.services.AreaService;
 import org.ddouglascarr.services.AreaServiceImpl;
 import org.ddouglascarr.services.PrivilegeService;
+import org.ddouglascarr.services.UnitService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -27,6 +28,9 @@ public class AreaServiceImplTests
 
     @Mock
     PrivilegeService privilegeService;
+
+    @Mock
+    private UnitService unitService;
 
     @InjectMocks
     private AreaService areaService = new AreaServiceImpl();
@@ -106,6 +110,16 @@ public class AreaServiceImplTests
     {
         doThrow(new MemberUnprivilegedException()).when(privilegeService)
                 .assertUnitReadPrivilege(MEMBER_ID, UNIT_ID);
+        areaService.findByUnitId(MEMBER_ID, UNIT_ID);
+    }
+
+    @Test( expected = ItemNotFoundException.class)
+    public void findByUnitIdShould404IfUnitDoesNotExist() throws Exception
+    {
+        List<Area> emptyList = new ArrayList<>();
+        when(areaRepository.findByUnitId(UNIT_ID)).thenReturn(emptyList);
+        when(unitService.findOne(MEMBER_ID, UNIT_ID))
+                .thenThrow(new ItemNotFoundException());
         areaService.findByUnitId(MEMBER_ID, UNIT_ID);
     }
 

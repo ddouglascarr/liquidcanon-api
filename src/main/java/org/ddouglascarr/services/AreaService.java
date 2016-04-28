@@ -29,5 +29,5 @@ public interface AreaService
     }
 
     List<Area> findByUnitId(Long memberId, Long unitId)
-            throws MemberUnprivilegedException;
+            throws ItemNotFoundException, MemberUnprivilegedException;
 }

@@ -12,10 +12,6 @@ public class UnitPermission
     private Long id;
 
     @Column(name = "unit_id")
-    @OneToOne(
-            targetEntity = Unit.class,
-            mappedBy = "id"
-    )
     private Long unitId;
 
     @Column(name = "public_read")

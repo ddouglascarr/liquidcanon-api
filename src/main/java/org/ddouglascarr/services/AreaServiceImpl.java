@@ -3,6 +3,7 @@ package org.ddouglascarr.services;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Area;
+import org.ddouglascarr.models.Unit;
 import org.ddouglascarr.repositories.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class AreaServiceImpl implements AreaService
 {
     @Autowired
     private AreaRepository areaRepository;
+
+    @Autowired
+    private UnitService unitService;
 
     @Autowired
     PrivilegeService privilegeService;
@@ -30,10 +34,14 @@ public class AreaServiceImpl implements AreaService
 
     @Override
     public List<Area> findByUnitId(Long memberId, Long unitId)
-                throws MemberUnprivilegedException
+                throws MemberUnprivilegedException, ItemNotFoundException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
         List<Area> areas = areaRepository.findByUnitId(unitId);
+        if (1 > areas.size()) {
+            Unit unit = unitService.findOne(memberId, unitId);
+            if (null == unit) throw new ItemNotFoundException();
+        }
         return areas;
     }
 
