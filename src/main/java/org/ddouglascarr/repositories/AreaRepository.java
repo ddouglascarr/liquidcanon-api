@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface AreaRepository extends JpaRepository<Area, Long>
+public interface AreaRepository extends JpaRepository<Area, Long>, AreaRepositoryCustom
 {
     Area findOne(Long id);
-    List<Area> findByUnitId(Long unitId);
     Area findOneByUnitIdAndId(Long unitId, Long id);
 }

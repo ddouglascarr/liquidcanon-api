@@ -115,7 +115,7 @@ public class DelegationServiceImplTests
     }
 
     @Test
-    public void findByTrusteeShouldReturnListOfDelegations() throws Exception
+    public void findByTrusteShouldReturnListOfDelegations() throws Exception
     {
         mockDelegationList.add(mockDelegation);
         when(delegationRepository.findByUnitIdAndTrusteeId(UNIT_ID, TRUSTEE_ID))
