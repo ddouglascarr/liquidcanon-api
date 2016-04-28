@@ -26,7 +26,7 @@ public class DelegationsController
 
     @HandleServiceErrors
     @RequestMapping(
-            value = "/",
+            value = "/outgoing",
             method = RequestMethod.GET
     )
     public ResponseEntity<List<Delegation>> getOutgoingDelegations(
@@ -37,6 +37,22 @@ public class DelegationsController
     {
         List<Delegation> delegations = delegationService
                 .findByTrusterId(userDetails.getId(), unitId, memberId);
+        return new ResponseEntity<>(delegations, HttpStatus.OK);
+    }
+
+    @HandleServiceErrors
+    @RequestMapping(
+            value = "/incoming",
+            method = RequestMethod.GET
+    )
+    public ResponseEntity<List<Delegation>> getIncomingDelegations(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long unitId,
+            @PathVariable Long memberId)
+            throws ItemNotFoundException, MemberUnprivilegedException
+    {
+        List<Delegation> delegations = delegationService
+                .findByTrusteeId(userDetails.getId(), unitId, memberId);
         return new ResponseEntity<>(delegations, HttpStatus.OK);
     }
 }

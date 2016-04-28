@@ -1,5 +1,6 @@
 package org.ddouglascarr.unit;
 
+import org.apache.catalina.connector.Response;
 import org.ddouglascarr.controllers.DelegationsController;
 import org.ddouglascarr.models.Delegation;
 import org.ddouglascarr.models.UserDetailsImpl;
@@ -57,6 +58,18 @@ public class DelegationsControllerTests
                 .thenReturn(mockDelegationList);
         ResponseEntity<List<Delegation>> resp = delegationsController
                 .getOutgoingDelegations(userDetails, UNIT_ID, MEMBER_ID);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        List<Delegation> returnedList = resp.getBody();
+        assertEquals(mockDelegationList, returnedList);
+    }
+
+    @Test
+    public void getIncomingDelegationsReturnsTrusteeDelegationsForMember() throws Exception
+    {
+        when(delegationService.findByTrusteeId(USER_DETAILS_ID, UNIT_ID, MEMBER_ID))
+                .thenReturn(mockDelegationList);
+        ResponseEntity<List<Delegation>> resp = delegationsController
+                .getIncomingDelegations(userDetails, UNIT_ID, MEMBER_ID);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         List<Delegation> returnedList = resp.getBody();
         assertEquals(mockDelegationList, returnedList);
