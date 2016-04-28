@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface DelegationRepository extends JpaRepository<Delegation, Long>
+public interface DelegationRepository
 {
     List<Delegation> findByUnitIdAndTrusterId(Long unitId, Long trusterId);
     List<Delegation> findByUnitIdAndTrusteeId(Long unitId, Long trusteeId);
