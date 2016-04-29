@@ -7,7 +7,15 @@ import java.util.List;
 
 public interface DelegationRepository
 {
-    List<Delegation> findByUnitIdAndTrusterId(Long unitId, Long trusterId);
-    List<Delegation> findByUnitIdAndTrusteeId(Long unitId, Long trusteeId);
+    Delegation findOneUnitDelegationByTrusterId(Long unitId, Long trusterId);
     Delegation findOneById(Long unitId, Long id);
+//    Delegation findOneAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId);
+//    Delegation findOneIssueDelegationByTrusterId(Long unitId, Long issueId, Long trusterId);
+
+//    List<Delegation> findAreaDelegationsForUnitByTrusterId(Long unitId, Long trusterId);
+//    List<Delegation> findIssueDelegationsForAreaByTrusterId(Long unitId, Long trusterId);
+    List<Delegation> findAllForUnitByTrusterId(Long unitId, Long trusterId);
+
+
+    List<Delegation> findAllForUnitByTrusteeId(Long unitId, Long trusteeId);
 }

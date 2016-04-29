@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS liquid_canon_tests;
+CREATE DATABASE liquid_canon_tests TEMPLATE liquid_feedback_template;
