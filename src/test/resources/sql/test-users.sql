@@ -1,10 +1,8 @@
 -- NOTE: This file requires that sequence generators have not been used.
 -- (All new rows need to start with id '1'.)
 
-BEGIN;
-
 -- set transaction isolation level to be able to call "check_everything"() function
-SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
 
 INSERT INTO "system_setting" ("member_ttl") VALUES ('31 days');
 
@@ -50,4 +48,3 @@ UPDATE "member" SET "password" = '$1$PcI6b1Bg$2SHjAZH2nMLFp0fxHis.Q0';
 UPDATE "member" SET "password_liquidcanon" = '$2a$10$S14jaCA5zJ3lZ/r7eTQEae5NDV69isO20LCcOnojPf6MeR4hmexd2';
 UPDATE "member" SET admin = TRUE WHERE login = 'admin';
 
-END;

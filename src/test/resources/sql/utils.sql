@@ -1,5 +1,3 @@
-BEGIN;
-
 CREATE FUNCTION "time_warp"(warp_interval INTERVAL) RETURNS VOID
   LANGUAGE 'plpgsql' VOLATILE AS $$
     BEGIN
@@ -13,5 +11,3 @@ CREATE FUNCTION "time_warp"(warp_interval INTERVAL) RETURNS VOID
       RETURN;
     END;
   $$;
-
-END;

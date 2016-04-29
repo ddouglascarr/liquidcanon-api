@@ -1,5 +1,3 @@
-BEGIN;
-SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
 INSERT INTO "policy" (
     "index",
@@ -198,10 +196,5 @@ INSERT INTO "supporter" ("member_id", "initiative_id", "draft_id") VALUES
   (6,  9,  9),
   (6, 10, 10),
   (6, 11, 11);
- 
-SELECT "time_warp"('1 hour 1 minute');
-SELECT "time_warp"('1 hour 1 minute');
-SELECT "time_warp"('1 hour 1 minute');
 
-END;
 
