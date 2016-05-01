@@ -18,9 +18,9 @@ INSERT INTO "contingent" ("polling", "time_frame", "text_entry_limit", "initiati
 ALTER TABLE "member" ADD COLUMN "password_liquidcanon" VARCHAR(60);
 
 INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "name") VALUES
-  (1,  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  1
-  (2,  'now', 'now', TRUE, 'dreamy_almeida',  'Dreamy Almeida'),          -- id  2
-  (3,  'now', 'now', TRUE, 'determined_poitras',  'Determined Poitras'),  -- id  3
+  (1,  'now', 'now', TRUE, 'determined_poitras',  'Determined Poitras'),  -- id  1
+  (2,  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  2
+  (3,  'now', 'now', TRUE, 'dreamy_almeida',  'Dreamy Almeida'),          -- id  3
   (4,  'now', 'now', TRUE, 'thirsty_swirles',  'Thirsty Swirles'),        -- id  4
   (5,  'now', 'now', TRUE, 'goofy_heisenberg',  'Goofy Heisenberg'),      -- id  5
   (6,  'now', 'now', TRUE, 'thirsty_babbage',  'Thirsty Babbage'),        -- id  6
@@ -28,19 +28,19 @@ INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "na
   (8,  'now', 'now', TRUE, 'admiring_sammet',  'Admiring Sammet'),        -- id  8
   (9,  'now', 'now', TRUE, 'compassionate_bose',  'Compassionate Bose'),  -- id  9
   (10, 'now', 'now', TRUE, 'fervent_wright',  'Fervent Wright'),          -- id 10
-  (11, 'now', 'now', TRUE, 'elated_meninsky',  'Elated Meninsky'),        -- id 11
-  (12, 'now', 'now', TRUE, 'focused_bell',  'Focused Bell'),              -- id 12
+  (11, 'now', 'now', TRUE, 'focused_bell',  'Focused Bell'),              -- id 11
+  (12, 'now', 'now', TRUE, 'elated_meninsky',  'Elated Meninsky'),        -- id 12
   (13, 'now', 'now', TRUE, 'romantic_carson',  'Romantic Carson'),        -- id 13
   (14, 'now', 'now', TRUE, 'admiring_bartik',  'Admiring Bartik'),        -- id 14
   (15, 'now', 'now', TRUE, 'evil_austin',  'Evil Austin'),                -- id 15
-  (16, 'now', 'now', TRUE, 'desperate_easley',  'Desperate Easley'),      -- id 16
+  (16, 'now', 'now', TRUE, 'mad_mcnulty',  'Mad Mcnulty'),                -- id 16
   (17, 'now', 'now', TRUE, 'insane_poincare',  'Insane Poincare'),        -- id 17
   (18, 'now', 'now', TRUE, 'jovial_blackwell',  'Jovial Blackwell'),      -- id 18
   (19, 'now', 'now', TRUE, 'goofy_khorana',  'Goofy Khorana'),            -- id 19
   (20, 'now', 'now', TRUE, 'kickass_fermat',  'Kickass Fermat'),          -- id 20
   (21, 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha'),                  -- id 21
   (22, 'now', 'now', TRUE, 'angry_ritchie',  'Angry Ritchie'),            -- id 22
-  (23, 'now', 'now', TRUE, 'mad_mcnulty',  'Mad Mcnulty'),                -- id 23
+  (23, 'now', 'now', TRUE, 'desperate_easley',  'Desperate Easley'),      -- id 23
   (24, 'now', 'now', TRUE, 'admin', 'Admin #1' );                         -- id 24
 
 -- set password to "login"
@@ -205,4 +205,57 @@ INSERT INTO "allowed_policy" ("area_id", "policy_id", "default_policy") VALUES
 -- All Member are voting privileged for Unit 1 (Solar System)
 INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
   SELECT 1 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
-  FROM "member";
+  FROM "member"
+  WHERE "member"."admin" != TRUE;
+
+-- Members 1 - 15 are voting privileged for Unit 2 (Earth Moon Federation)
+INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
+  SELECT 2 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
+  FROM "member"
+  WHERE "member"."id" > 0 AND "member"."id" < 16;
+
+-- Members 1 - 10 are voting privileged for Unit 3 (Earth)
+INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
+  SELECT 3 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
+  FROM "member"
+  WHERE "member"."id" > 0 AND "member"."id" < 11;
+
+-- Members 10 - 15 are voting privileged for Unit 4 (Moon)
+INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
+  SELECT 4 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
+  FROM "member"
+  WHERE "member"."id" > 10 AND "member"."id" < 16;
+
+-- Members 16 - 23 are voting privileged for Unit 5 (Mars)
+INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
+  SELECT 5 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
+  FROM "member"
+  WHERE "member"."id" > 15 AND "member"."id" < 24;
+
+-- Solar System unit delegations
+INSERT INTO "delegation"
+    ("id", "truster_id", "scope", "unit_id", "trustee_id") VALUES
+    ( 1, 2,  'unit', 1, 1),          -- Hugle delegates to Poitras
+    ( 2, 3,  'unit', 1, 1),          -- Almeida delegates to Poitras
+    ( 3, 4,  'unit', 1, 1),          -- Swirles delgates to Poitras
+    ( 4, 5,  'unit', 1, 3),          -- Heisenberg delegates to Almeida
+    ( 5, 6,  'unit', 1, 2),          -- Babbage delegates to Hugle
+    ( 6, 8,  'unit', 1, 7),          -- Sammet delegates to Lamarr
+    ( 7, 11, 'unit', 1, 1),          -- Bell delegates to Poitras
+    ( 8, 12, 'unit', 1, 11),         -- Meminsky delegates to Bell
+    ( 9, 17, 'unit', 1, 16),         -- Poincare delegates to McNulty
+    (10, 18, 'unit', 1, 16);         -- Blackwell delegates to McNulty
+
+-- Earth unit delegations
+INSERT INTO "delegation"
+    ("id", "truster_id", "scope", "unit_id", "trustee_id") VALUES
+    (11, 1, 'unit', 2, 2),          -- Poitras delegates to Hugle
+    (12, 3, 'unit', 2, 2),          -- Almeida delegates to Hugle
+    (13, 5, 'unit', 2, 1);          -- Heisenberg delegates to Poitras
+
+-- Solar System Alien Affairs area delegations
+INSERT INTO "delegation"
+    ("id", "truster_id", "scope", "area_id", "trustee_id") VALUES
+    (14,  3,  'area', 7, 13),       -- Almeida delegates to Carson
+    (15,  9,  'area', 7, 13),       -- Bose delegates to Carson
+    (16,  19, 'area', 7, 5);        -- Khorana delegates to Heisenberg
