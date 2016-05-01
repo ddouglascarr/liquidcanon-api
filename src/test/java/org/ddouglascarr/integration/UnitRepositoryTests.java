@@ -34,8 +34,7 @@ import static org.junit.Assert.*;
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
         scripts = {
                 "classpath:sql/liquid-canon.sql",
-                "classpath:sql/test-users.sql",
-                "classpath:sql/test-scenario-0.sql"
+                "classpath:sql/test-world.sql"
         })
 public class UnitRepositoryTests
 {
