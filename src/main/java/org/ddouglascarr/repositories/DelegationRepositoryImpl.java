@@ -2,6 +2,8 @@ package org.ddouglascarr.repositories;
 
 import org.ddouglascarr.models.Delegation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -27,12 +29,16 @@ public class DelegationRepositoryImpl implements DelegationRepository
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("unitId", unitId);
         namedParameters.addValue("trusterId", trusterId);
-        Delegation delegation = (Delegation) namedParameterJdbcTemplate.queryForObject(
-                sql,
-                namedParameters,
-                new BeanPropertyRowMapper(Delegation.class)
-        );
-        return delegation;
+        try {
+            Delegation delegation = (Delegation) namedParameterJdbcTemplate.queryForObject(
+                    sql,
+                    namedParameters,
+                    new BeanPropertyRowMapper(Delegation.class)
+            );
+            return delegation;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -42,14 +48,25 @@ public class DelegationRepositoryImpl implements DelegationRepository
     }
 
     @Override
-    public List<Delegation> findAllForUnitByTrusterId(Long unitId, Long trusterId)
+    public List<Delegation> findByTrusterId(Long unitId, Long trusterId)
     {
         return null;
     }
 
-    @Override
-    public List<Delegation> findAllForUnitByTrusteeId(Long unitId, Long trusteeId)
+    public List<Delegation> findUnitDelegationsByTrusteeId(Long unitId, Long trusteeId)
     {
-        return null;
+        final String sql = String.join(" ",
+                "SELECT * FROM delegation",
+                "WHERE trustee_id = :trusteeId",
+                "AND unit_id = :unitId");
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("unitId", unitId);
+        namedParameters.addValue("trusteeId", trusteeId);
+        List<Delegation> delegations = namedParameterJdbcTemplate.query(
+                sql,
+                namedParameters,
+                new BeanPropertyRowMapper(Delegation.class)
+        );
+        return delegations;
     }
 }

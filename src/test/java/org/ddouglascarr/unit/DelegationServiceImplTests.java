@@ -86,7 +86,7 @@ public class DelegationServiceImplTests
     @Test
     public void findByUnitIdAndTruserIdShouldReturnEmptyIfNoDelegations() throws Exception
     {
-        when(delegationRepository.findAllForUnitByTrusterId(UNIT_ID, TRUSTER_ID))
+        when(delegationRepository.findByTrusterId(UNIT_ID, TRUSTER_ID))
                 .thenReturn(mockDelegationList);
         List<Delegation> returnedDelegations = delegationService
                 .findByTrusterId(MEMBER_ID, UNIT_ID, TRUSTER_ID);
@@ -98,7 +98,7 @@ public class DelegationServiceImplTests
     public void findByTrusterIdShouldReturnListOfDelegations() throws Exception
     {
         mockDelegationList.add(mockDelegation);
-        when(delegationRepository.findAllForUnitByTrusterId(UNIT_ID, TRUSTER_ID))
+        when(delegationRepository.findByTrusterId(UNIT_ID, TRUSTER_ID))
                 .thenReturn(mockDelegationList);
         List<Delegation> returnedDelegations = delegationService
                 .findByTrusterId(MEMBER_ID, UNIT_ID, TRUSTER_ID);
@@ -118,7 +118,7 @@ public class DelegationServiceImplTests
     public void findByTrusteShouldReturnListOfDelegations() throws Exception
     {
         mockDelegationList.add(mockDelegation);
-        when(delegationRepository.findAllForUnitByTrusteeId(UNIT_ID, TRUSTEE_ID))
+        when(delegationRepository.findUnitDelegationsByTrusteeId(UNIT_ID, TRUSTEE_ID))
                 .thenReturn(mockDelegationList);
         List<Delegation> returnedDelegations = delegationService
                 .findByTrusteeId(MEMBER_ID, UNIT_ID, TRUSTEE_ID);

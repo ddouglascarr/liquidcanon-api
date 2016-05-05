@@ -33,7 +33,7 @@ public class DelegationServiceImpl implements DelegationService
             throws MemberUnprivilegedException, ItemNotFoundException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
-        List<Delegation> delegations = delegationRepository.findAllForUnitByTrusterId(unitId, trusterId);
+        List<Delegation> delegations = delegationRepository.findByTrusterId(unitId, trusterId);
         return delegations;
     }
 
@@ -42,6 +42,6 @@ public class DelegationServiceImpl implements DelegationService
             throws MemberUnprivilegedException, ItemNotFoundException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
-        return delegationRepository.findAllForUnitByTrusteeId(unitId, trusteeId);
+        return delegationRepository.findUnitDelegationsByTrusteeId(unitId, trusteeId);
     }
 }

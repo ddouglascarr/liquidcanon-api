@@ -14,8 +14,8 @@ public interface DelegationRepository
 
 //    List<Delegation> findAreaDelegationsForUnitByTrusterId(Long unitId, Long trusterId);
 //    List<Delegation> findIssueDelegationsForAreaByTrusterId(Long unitId, Long trusterId);
-    List<Delegation> findAllForUnitByTrusterId(Long unitId, Long trusterId);
+    List<Delegation> findByTrusterId(Long unitId, Long trusterId);
 
 
-    List<Delegation> findAllForUnitByTrusteeId(Long unitId, Long trusteeId);
+    List<Delegation> findUnitDelegationsByTrusteeId(Long unitId, Long trusteeId);
 }
