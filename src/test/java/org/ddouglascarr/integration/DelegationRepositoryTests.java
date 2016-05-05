@@ -34,12 +34,15 @@ public class DelegationRepositoryTests
     private DelegationRepository delegationRepository;
 
     private final Long POITRAS_MEMBER_ID = new Long(1);
+    private final Long HUGLE_MEMBER_ID = new Long(2);
+    private final Long ALMEIDA_MEMBER_ID = new Long(3);
     private final Long HEISENBERG_MEMBER_ID = new Long(5);
     private final Long BABBAGE_MEMBER_ID = new Long(6);
     private final Long CARSON_MEMBER_ID = new Long(13);
     private final Long KHORANA_MEMBER_ID = new Long(19);
     private final Long SOLAR_SYSTEM_UNIT_ID = new Long(1);
     private final Long EARTH_UNIT_ID = new Long(2);
+    private final Long MARS_UNIT_ID = new Long(5);
     private final Long ALIEN_AFFAIRS_AREA_ID = new Long(7);
 
     @Test
@@ -128,6 +131,36 @@ public class DelegationRepositoryTests
                         ALIEN_AFFAIRS_AREA_ID,
                         CARSON_MEMBER_ID);
         assertEquals(2, delegations.size());
+    }
+
+    @Test
+    public void findByTrusterIdShouldReturnEmptyListIfTrusterIsNotPrivileged()
+            throws Exception
+    {
+        List<Delegation> delegations = delegationRepository
+                .findByTrusterId(MARS_UNIT_ID, ALMEIDA_MEMBER_ID);
+        assertEquals(0, delegations.size());
+    }
+
+    @Test
+    public void findByTrusterIdShouldReturnListOfDelegations()
+            throws Exception
+    {
+        List<Delegation> delegations = delegationRepository
+                .findByTrusterId(SOLAR_SYSTEM_UNIT_ID, ALMEIDA_MEMBER_ID);
+        assertEquals(3, delegations.size());
+
+        Delegation alienAffairsDelegation = delegations.stream()
+                .filter(d -> d.getAreaId() == ALIEN_AFFAIRS_AREA_ID)
+                .findFirst().get();
+        assertEquals(ALMEIDA_MEMBER_ID, alienAffairsDelegation.getTrusterId());
+        assertEquals(CARSON_MEMBER_ID, alienAffairsDelegation.getTrusteeId());
+
+        Delegation earthUnitDelegation = delegations.stream()
+                .filter(d -> d.getUnitId() == EARTH_UNIT_ID)
+                .findFirst().get();
+        assertEquals(ALMEIDA_MEMBER_ID, earthUnitDelegation.getTrusterId());
+        assertEquals(HUGLE_MEMBER_ID, earthUnitDelegation.getTrusteeId());
     }
 
 }

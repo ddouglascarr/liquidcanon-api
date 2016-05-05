@@ -45,13 +45,14 @@ public class DelegationRepositoryImpl implements DelegationRepository
     public Delegation findAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId)
     {
         final String sql = String.join(" ",
-                "SELECT d.*",
-                "FROM (SELECT * FROM delegation",
-                    "WHERE area_id = :areaId",
-                    "AND truster_id = :trusterId) AS d",
+                "SELECT delegation.* FROM",
+                "area_delegation AS ad",
                 "JOIN",
-                "(SELECT area.* FROM area WHERE id = :areaId AND unit_id = :unitId) AS a",
-                "ON area_id = d.area_id");
+                "delegation ON delegation.id = ad.id",
+                "WHERE ad.unit_id = :unitId",
+                    "AND ad.area_id = :areaId",
+                    "AND ad.truster_id = :trusterId",
+                    "AND ad.scope = 'area'");
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("unitId", unitId);
         namedParameters.addValue("areaId", areaId);

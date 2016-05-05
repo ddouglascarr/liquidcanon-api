@@ -7,6 +7,7 @@ CREATE TABLE "unit_permissions" (
         "public_read"   BOOLEAN         NOT NULL);
 COMMENT ON COLUMN "unit_permissions"."public_read" IS 'Set to TRUE if only members can read data from unit';
 
+-- Add unit_id column
 DROP VIEW area_delegation;
 CREATE OR REPLACE VIEW area_delegation AS
  SELECT DISTINCT ON (area.id, delegation.truster_id) area.id AS area_id,
