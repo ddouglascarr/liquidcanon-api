@@ -8,9 +8,9 @@ import java.util.List;
 public interface DelegationRepository
 {
     Delegation findOneUnitDelegationByTrusterId(Long unitId, Long trusterId);
-    Delegation findOneById(Long unitId, Long id);
 //    Delegation findOneAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId);
 //    Delegation findOneIssueDelegationByTrusterId(Long unitId, Long issueId, Long trusterId);
+    Delegation findOneById(Long unitId, Long id);
 
 //    List<Delegation> findAreaDelegationsForUnitByTrusterId(Long unitId, Long trusterId);
 //    List<Delegation> findIssueDelegationsForAreaByTrusterId(Long unitId, Long trusterId);
