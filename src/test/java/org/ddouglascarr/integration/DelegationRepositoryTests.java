@@ -36,15 +36,18 @@ public class DelegationRepositoryTests
     private final Long POITRAS_MEMBER_ID = new Long(1);
     private final Long HEISENBERG_MEMBER_ID = new Long(5);
     private final Long BABBAGE_MEMBER_ID = new Long(6);
+    private final Long CARSON_MEMBER_ID = new Long(13);
+    private final Long KHORANA_MEMBER_ID = new Long(19);
     private final Long SOLAR_SYSTEM_UNIT_ID = new Long(1);
     private final Long EARTH_UNIT_ID = new Long(2);
+    private final Long ALIEN_AFFAIRS_AREA_ID = new Long(7);
 
     @Test
     public void findOneUnitDelegationByTrusterIdShouldReturnDelegation()
             throws Exception
     {
         Delegation delegation = delegationRepository
-                .findOneUnitDelegationByTrusterId(EARTH_UNIT_ID, HEISENBERG_MEMBER_ID);
+                .findUnitDelegationByTrusterId(EARTH_UNIT_ID, HEISENBERG_MEMBER_ID);
         assertEquals(POITRAS_MEMBER_ID, delegation.getTrusteeId());
         assertEquals(new Long(13), delegation.getId());
     }
@@ -54,7 +57,7 @@ public class DelegationRepositoryTests
             throws Exception
     {
         Delegation delegation = delegationRepository
-                .findOneUnitDelegationByTrusterId(EARTH_UNIT_ID, BABBAGE_MEMBER_ID);
+                .findUnitDelegationByTrusterId(EARTH_UNIT_ID, BABBAGE_MEMBER_ID);
         assertNull(delegation);
     }
 
@@ -67,5 +70,64 @@ public class DelegationRepositoryTests
         assertEquals(4, delegations.size());
     }
 
+    @Test
+    public void findAreaDelegationByTrusterId()
+            throws Exception
+    {
+        Delegation delegation = delegationRepository
+                .findAreaDelegationByTrusterId(SOLAR_SYSTEM_UNIT_ID,
+                        ALIEN_AFFAIRS_AREA_ID,
+                        KHORANA_MEMBER_ID);
+        assertEquals(new Long(16), delegation.getId());
+        assertEquals(HEISENBERG_MEMBER_ID, delegation.getTrusteeId());
+    }
+
+    @Test
+    public void findAreaDelegationByTrusterIdShouldReturnNullIfNoDelegation()
+            throws Exception
+    {
+        Delegation delegation = delegationRepository
+                .findAreaDelegationByTrusterId(
+                        SOLAR_SYSTEM_UNIT_ID,
+                        ALIEN_AFFAIRS_AREA_ID,
+                        HEISENBERG_MEMBER_ID);
+        assertNull(delegation);
+    }
+
+    @Test
+    public void findAreaDelegationByTrusterIdShouldReturnNullIfWrongUnitIdForArea()
+            throws Exception
+    {
+        Delegation delegation = delegationRepository
+                .findAreaDelegationByTrusterId(
+                        EARTH_UNIT_ID,
+                        ALIEN_AFFAIRS_AREA_ID,
+                        KHORANA_MEMBER_ID);
+        assertNull(delegation);
+    }
+
+    @Test
+    public void findAreaDelegationsByTrusteeIdShouldReturnEmptyListIfWrongUnitForArea()
+            throws Exception
+    {
+        List<Delegation> delegations = delegationRepository
+                .findAreaDelegationsByTrusteeId(
+                        EARTH_UNIT_ID,
+                        ALIEN_AFFAIRS_AREA_ID,
+                        CARSON_MEMBER_ID);
+        assertEquals(0, delegations.size());
+    }
+
+    @Test
+    public void findAreaDelegationsByTrusteeIdShouldReturnListOfDelegations()
+            throws Exception
+    {
+        List<Delegation> delegations = delegationRepository
+                .findAreaDelegationsByTrusteeId(
+                        SOLAR_SYSTEM_UNIT_ID,
+                        ALIEN_AFFAIRS_AREA_ID,
+                        CARSON_MEMBER_ID);
+        assertEquals(2, delegations.size());
+    }
 
 }

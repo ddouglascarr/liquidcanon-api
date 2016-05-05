@@ -20,7 +20,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Delegation findOneUnitDelegationByTrusterId(Long unitId, Long trusterId)
+    public Delegation findUnitDelegationByTrusterId(Long unitId, Long trusterId)
     {
         final String sql = String.join(" ",
                 "SELECT * FROM delegation",
@@ -42,6 +42,32 @@ public class DelegationRepositoryImpl implements DelegationRepository
     }
 
     @Override
+    public Delegation findAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId)
+    {
+        final String sql = String.join(" ",
+                "SELECT d.*",
+                "FROM (SELECT * FROM delegation",
+                    "WHERE area_id = :areaId",
+                    "AND truster_id = :trusterId) AS d",
+                "JOIN",
+                "(SELECT area.* FROM area WHERE id = :areaId AND unit_id = :unitId) AS a",
+                "ON area_id = d.area_id");
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("unitId", unitId);
+        namedParameters.addValue("areaId", areaId);
+        namedParameters.addValue("trusterId", trusterId);
+        try {
+            Delegation delegation = (Delegation) namedParameterJdbcTemplate.queryForObject(
+                    sql,
+                    namedParameters,
+                    new BeanPropertyRowMapper(Delegation.class));
+            return delegation;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Delegation findOneById(Long unitId, Long id)
     {
         return null;
@@ -53,6 +79,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
         return null;
     }
 
+    @Override
     public List<Delegation> findUnitDelegationsByTrusteeId(Long unitId, Long trusteeId)
     {
         final String sql = String.join(" ",
@@ -67,6 +94,28 @@ public class DelegationRepositoryImpl implements DelegationRepository
                 namedParameters,
                 new BeanPropertyRowMapper(Delegation.class)
         );
+        return delegations;
+    }
+
+    @Override
+    public List<Delegation> findAreaDelegationsByTrusteeId(Long unitId, Long areaId, Long trusteeId)
+    {
+        final String sql = String.join(" ",
+                "SELECT d.*",
+                "FROM (SELECT * FROM delegation",
+                "WHERE area_id = :areaId",
+                "AND trustee_id = :trusteeId) AS d",
+                "JOIN",
+                "(SELECT area.* FROM area WHERE id = :areaId AND unit_id = :unitId) AS a",
+                "ON area_id = d.area_id");
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("unitId", unitId);
+        namedParameters.addValue("areaId", areaId);
+        namedParameters.addValue("trusteeId", trusteeId);
+        List<Delegation> delegations = namedParameterJdbcTemplate.query(
+                sql,
+                namedParameters,
+                new BeanPropertyRowMapper(Delegation.class));
         return delegations;
     }
 }

@@ -259,3 +259,6 @@ INSERT INTO "delegation"
     (14,  3,  'area', 7, 13),       -- Almeida delegates to Carson
     (15,  9,  'area', 7, 13),       -- Bose delegates to Carson
     (16,  19, 'area', 7, 5);        -- Khorana delegates to Heisenberg
+
+
+

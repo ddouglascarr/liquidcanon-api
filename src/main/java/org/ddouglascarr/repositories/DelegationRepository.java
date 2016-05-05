@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DelegationRepository
 {
-    Delegation findOneUnitDelegationByTrusterId(Long unitId, Long trusterId);
-//    Delegation findOneAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId);
-//    Delegation findOneIssueDelegationByTrusterId(Long unitId, Long issueId, Long trusterId);
+    Delegation findUnitDelegationByTrusterId(Long unitId, Long trusterId);
+    Delegation findAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId);
+//    Delegation findIssueDelegationByTrusterId(Long unitId, Long issueId, Long trusterId);
     Delegation findOneById(Long unitId, Long id);
 
 //    List<Delegation> findAreaDelegationsForUnitByTrusterId(Long unitId, Long trusterId);
@@ -18,4 +18,6 @@ public interface DelegationRepository
 
 
     List<Delegation> findUnitDelegationsByTrusteeId(Long unitId, Long trusteeId);
+    List<Delegation> findAreaDelegationsByTrusteeId(Long unitId, Long areaId, Long trusteeId);
+
 }
