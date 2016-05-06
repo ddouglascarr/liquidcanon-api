@@ -69,6 +69,25 @@ public class DelegationRepositoryImpl implements DelegationRepository
     }
 
     @Override
+    public List<Delegation> findAreaDelegationsByUnitIdAndTrusterId(Long unitId, Long trusterId)
+    {
+        String sql = String.join(" ",
+                "SELECT delegation.* FROM delegation",
+                "JOIN",
+                "area_delegation AS ad ON ad.id = delegation.id",
+                "WHERE ad.truster_id = :trusterId AND ad.unit_id = :unitId",
+                    "AND ad.scope = 'area'");
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("unitId", unitId);
+        namedParameters.addValue("trusterId", trusterId);
+        List<Delegation> delegations = namedParameterJdbcTemplate.query(
+                sql,
+                namedParameters,
+                new BeanPropertyRowMapper(Delegation.class));
+        return delegations;
+    }
+
+    @Override
     public Delegation findOneById(Long unitId, Long id)
     {
         return null;
@@ -77,7 +96,11 @@ public class DelegationRepositoryImpl implements DelegationRepository
     @Override
     public List<Delegation> findByTrusterId(Long unitId, Long trusterId)
     {
-        return null;
+        Delegation unitDelegation = this.findUnitDelegationByTrusterId(unitId, trusterId);
+        List<Delegation> delegations = this
+                .findAreaDelegationsByUnitIdAndTrusterId(unitId, trusterId);
+        if (null != unitDelegation) delegations.add(unitDelegation);
+        return delegations;
     }
 
     @Override

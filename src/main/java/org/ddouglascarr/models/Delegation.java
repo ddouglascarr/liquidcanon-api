@@ -1,6 +1,6 @@
 package org.ddouglascarr.models;
 
-import org.ddouglascarr.enums.DelegationScopes;
+import org.ddouglascarr.enums.DelegationScope;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +18,7 @@ public class Delegation
 
     @Column(name = "truster_id") private Long trusterId;
     @Column(name = "trustee_id") private Long trusteeId;
-    @Column(name = "scope") private DelegationScopes scopes;
+    @Column(name = "scope") private DelegationScope scope;
     @Column(name = "unit_id") private Long unitId;
     @Column(name = "area_id") private Long areaId;
     @Column(name = "issue_id") private Long issueId;
@@ -56,14 +56,14 @@ public class Delegation
         this.trusteeId = trusteeId;
     }
 
-    public DelegationScopes getScopes()
+    public DelegationScope getScope()
     {
-        return scopes;
+        return scope;
     }
 
-    public void setScopes(DelegationScopes scopes)
+    public void setScope(DelegationScope scope)
     {
-        this.scopes = scopes;
+        this.scope = scope;
     }
 
     public Long getUnitId()

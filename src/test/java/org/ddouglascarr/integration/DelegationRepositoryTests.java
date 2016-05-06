@@ -1,12 +1,14 @@
 package org.ddouglascarr.integration;
 
 import org.ddouglascarr.LiquidcanonApplication;
+import org.ddouglascarr.enums.DelegationScope;
 import org.ddouglascarr.models.Delegation;
 import org.ddouglascarr.repositories.DelegationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -131,6 +133,20 @@ public class DelegationRepositoryTests
                         ALIEN_AFFAIRS_AREA_ID,
                         CARSON_MEMBER_ID);
         assertEquals(2, delegations.size());
+
+        Delegation almeidaDelegation = delegations.stream()
+                .filter(d -> ALMEIDA_MEMBER_ID.equals(d.getTrusterId()))
+                .findFirst().get();
+        assertEquals(new Long(14), almeidaDelegation.getId());
+    }
+
+    @Test
+    public void findAreaDelegationsByUnitIdAndTrusterIdShouldReturnListOfDelegations()
+            throws Exception
+    {
+        List<Delegation> delegations = delegationRepository
+                .findAreaDelegationsByUnitIdAndTrusterId(SOLAR_SYSTEM_UNIT_ID, ALMEIDA_MEMBER_ID);
+        assertEquals(2, delegations.size());
     }
 
     @Test
@@ -150,17 +166,19 @@ public class DelegationRepositoryTests
                 .findByTrusterId(SOLAR_SYSTEM_UNIT_ID, ALMEIDA_MEMBER_ID);
         assertEquals(3, delegations.size());
 
+        Delegation solarSystemDelegation = delegations.stream()
+                .filter(d -> DelegationScope.unit.equals(d.getScope()))
+                .findFirst().get();
+        assertEquals(ALMEIDA_MEMBER_ID, solarSystemDelegation.getTrusterId());
+        assertEquals(POITRAS_MEMBER_ID, solarSystemDelegation.getTrusteeId());
+
         Delegation alienAffairsDelegation = delegations.stream()
-                .filter(d -> d.getAreaId() == ALIEN_AFFAIRS_AREA_ID)
+                .filter(d -> d.getAreaId().equals(ALIEN_AFFAIRS_AREA_ID))
                 .findFirst().get();
         assertEquals(ALMEIDA_MEMBER_ID, alienAffairsDelegation.getTrusterId());
         assertEquals(CARSON_MEMBER_ID, alienAffairsDelegation.getTrusteeId());
 
-        Delegation earthUnitDelegation = delegations.stream()
-                .filter(d -> d.getUnitId() == EARTH_UNIT_ID)
-                .findFirst().get();
-        assertEquals(ALMEIDA_MEMBER_ID, earthUnitDelegation.getTrusterId());
-        assertEquals(HUGLE_MEMBER_ID, earthUnitDelegation.getTrusteeId());
     }
+
 
 }

@@ -260,5 +260,9 @@ INSERT INTO "delegation"
     (15,  9,  'area', 7, 13),       -- Bose delegates to Carson
     (16,  19, 'area', 7, 5);        -- Khorana delegates to Heisenberg
 
+-- Solar System Comet Defence area delegations
+INSERT INTO "delegation"
+    ("id", "truster_id", "scope", "area_id", "trustee_id") VALUES
+    (17,  3,  'area', 6, 2);        -- Almeida delegates to Hugle
 
 
