@@ -30,6 +30,9 @@ public class DelegationServiceImplTests
     @Mock
     private Delegation mockDelegation;
 
+    @Mock
+    private List<Delegation> mockDelegationList;
+
     @InjectMocks
     private DelegationService delegationService = new DelegationServiceImpl();
 
@@ -89,13 +92,61 @@ public class DelegationServiceImplTests
     public void findIncomingUnitDelegationForTrusteeShouldReturnListOfDelegations()
             throws Exception
     {
-        List<Delegation> mockList = new ArrayList<>();
         when(delegationRepository.findUnitDelegationsByTrusteeId(UNIT_ID, TRUSTEE_ID))
-                .thenReturn(mockList);
+                .thenReturn(mockDelegationList);
         List<Delegation> returnedList = delegationService
                 .findIncomingUnitDelegationForTrustee(MEMBER_ID, UNIT_ID, TRUSTEE_ID);
-        assertEquals(mockList, returnedList);
+        assertEquals(mockDelegationList, returnedList);
     }
 
+    @Test(expected = MemberUnprivilegedException.class)
+    public void findAreaDelegationForTrusterShouldThrowIfNotReadPrivileged()
+            throws Exception
+    {
+        doThrow(new MemberUnprivilegedException()).when(privilegeService)
+                .assertUnitReadPrivilege(MEMBER_ID, UNIT_ID);
+        delegationService.findAreaDelegationForTruster(MEMBER_ID, UNIT_ID, AREA_ID, TRUSTER_ID);
+    }
+
+    @Test(expected = ItemNotFoundException.class)
+    public void findAreaDelegationForTrusterShouldThrowIfNoDelegation()
+            throws Exception
+    {
+        when(delegationRepository.findAreaDelegationByTrusterId(UNIT_ID, AREA_ID, TRUSTER_ID))
+                .thenReturn(null);
+        delegationService.findAreaDelegationForTruster(MEMBER_ID, UNIT_ID, AREA_ID, TRUSTER_ID);
+    }
+
+    @Test
+    public void findAreaDelegationForTrusterShouldReturnDelegation()
+            throws Exception
+    {
+        when(delegationRepository.findAreaDelegationByTrusterId(UNIT_ID, AREA_ID, TRUSTER_ID))
+                .thenReturn(mockDelegation);
+        Delegation returnedDelegation = delegationService
+                .findAreaDelegationForTruster(MEMBER_ID, UNIT_ID, AREA_ID, TRUSTER_ID);
+        assertEquals(mockDelegation, returnedDelegation);
+    }
+
+    @Test(expected = MemberUnprivilegedException.class)
+    public void findIncomingAreaDelegationsForTrusteeShouldThrowIfMemberUnprivileged()
+            throws Exception
+    {
+        doThrow(new MemberUnprivilegedException()).when(privilegeService)
+                .assertUnitReadPrivilege(MEMBER_ID, UNIT_ID);
+        delegationService.findIncomingAreaDelegationsForTrustee(
+                MEMBER_ID, UNIT_ID, AREA_ID, TRUSTEE_ID);
+    }
+
+    @Test
+    public void findIncomingAreaDelegationsForTrusteeShouldReturnListOfDelegations()
+            throws Exception
+    {
+        when(delegationRepository.findAreaDelegationsByTrusteeId(UNIT_ID, AREA_ID, TRUSTEE_ID))
+                .thenReturn(mockDelegationList);
+        List<Delegation> returnedList = delegationService
+                .findIncomingAreaDelegationsForTrustee(MEMBER_ID, UNIT_ID, AREA_ID, TRUSTEE_ID);
+        assertEquals(mockDelegationList, returnedList);
+    }
 
 }

@@ -28,7 +28,9 @@ public class DelegationServiceImpl implements DelegationService
     }
 
     @Override
-    public List<Delegation> findIncomingUnitDelegationForTrustee(Long memberId, Long unitId, Long trusteeId) throws ItemNotFoundException, MemberUnprivilegedException
+    public List<Delegation> findIncomingUnitDelegationForTrustee(
+            Long memberId, Long unitId, Long trusteeId)
+            throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
         List<Delegation> delegations = delegationRepository
@@ -37,14 +39,25 @@ public class DelegationServiceImpl implements DelegationService
     }
 
     @Override
-    public Delegation findAreaDelegationForTruster(Long memberId, Long unitId, Long areaId, Long trusteeId) throws ItemNotFoundException, MemberUnprivilegedException
+    public Delegation findAreaDelegationForTruster(
+            Long memberId, Long unitId, Long areaId, Long trusterId)
+            throws ItemNotFoundException, MemberUnprivilegedException
     {
-        return null;
+        privilegeService.assertUnitReadPrivilege(memberId, unitId);
+        Delegation delegation = delegationRepository
+                .findAreaDelegationByTrusterId(unitId, areaId, trusterId);
+        if (null == delegation) throw new ItemNotFoundException();
+        return delegation;
     }
 
     @Override
-    public List<Delegation> findIncomingAreaDelegationsForTrustee(Long memberId, Long unitId, Long areaId, Long trusteeId) throws ItemNotFoundException, MemberUnprivilegedException
+    public List<Delegation> findIncomingAreaDelegationsForTrustee(
+            Long memberId, Long unitId, Long areaId, Long trusteeId)
+            throws ItemNotFoundException, MemberUnprivilegedException
     {
-        return null;
+        privilegeService.assertUnitReadPrivilege(memberId, unitId);
+        List<Delegation> delegations = delegationRepository
+                .findAreaDelegationsByTrusteeId(unitId, areaId, trusteeId);
+        return delegations;
     }
 }
