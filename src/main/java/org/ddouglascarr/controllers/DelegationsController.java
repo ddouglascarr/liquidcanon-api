@@ -75,7 +75,7 @@ public class DelegationsController
 
     @HandleServiceErrors
     @RequestMapping(
-            value = "/areas/{areaId}/members/{trusteeId}/incoming-delegation",
+            value = "/areas/{areaId}/members/{trusteeId}/incoming-delegations",
             method = RequestMethod.GET)
     public ResponseEntity<List<Delegation>> getIncomingAreaDelegations(
             @AuthenticationPrincipal UserDetailsImpl userDetails,

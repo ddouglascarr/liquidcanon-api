@@ -5,9 +5,11 @@ import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Delegation;
 import org.ddouglascarr.repositories.DelegationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DelegationServiceImpl implements DelegationService
 {
     @Autowired
