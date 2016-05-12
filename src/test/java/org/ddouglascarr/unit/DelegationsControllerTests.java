@@ -1,6 +1,6 @@
 package org.ddouglascarr.unit;
 
-import org.apache.catalina.connector.Response;
+
 import org.ddouglascarr.controllers.DelegationsController;
 import org.ddouglascarr.models.Delegation;
 import org.ddouglascarr.models.UserDetailsImpl;
@@ -16,62 +16,87 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class DelegationsControllerTests
 {
     @Mock
-    private DelegationService delegationService;
+    DelegationService delegationService;
+
+    @Mock
+    private UserDetailsImpl userDetails;
+
+    @Mock
+    private Delegation mockDelegation;
 
     @InjectMocks
-    private DelegationsController delegationsController;
+    DelegationsController delegationsController;
 
-    // NOTE: If a user is looking up another member's delegation, their id is USER_DETAILS_ID
-    private static Long MEMBER_ID = new Long(1);
-    private static Long USER_DETAILS_ID = new Long(6);
     private static Long UNIT_ID = new Long(2);
-    private static Long DELEGATION_ID = new Long(3);
-    private static Long TRUSTER_ID = new Long(4);
-    private static Long TRUSTEE_ID = new Long(5);
-
-    @Mock
-    Delegation mockDelegation;
-    @Mock
-    UserDetailsImpl userDetails;
-
-    List<Delegation> mockDelegationList;
+    private static Long AREA_ID = new Long(3);
+    private static Long MEMBER_ID = new Long(4);
+    private static Long DELEGATION_ID = new Long(5);
+    private static Long TRUSTER_ID = new Long(6);
+    private static Long TRUSTEE_ID = new Long(7);
 
     @Before
     public void setup()
     {
         MockitoAnnotations.initMocks(this);
-        when(userDetails.getId()).thenReturn(USER_DETAILS_ID);
+
+        when(userDetails.getId()).thenReturn(MEMBER_ID);
         when(mockDelegation.getId()).thenReturn(DELEGATION_ID);
-        mockDelegationList = new ArrayList<Delegation>();
     }
 
     @Test
-    public void getOutgoingDelegationsReturnsTrusterDelegationsForMember() throws Exception
+    public void getUnitDelegationShouldReturnDelegation() throws Exception
     {
-        when(delegationService.findByTrusterId(USER_DETAILS_ID, UNIT_ID, MEMBER_ID))
-                .thenReturn(mockDelegationList);
-        ResponseEntity<List<Delegation>> resp = delegationsController
-                .getOutgoingDelegations(userDetails, UNIT_ID, MEMBER_ID);
+        when(delegationService.findUnitDelegationForTruster(MEMBER_ID, UNIT_ID, TRUSTER_ID))
+                .thenReturn(mockDelegation);
+        ResponseEntity<Delegation> resp = delegationsController.getOutgoingUnitDelegation(
+                userDetails, UNIT_ID, TRUSTER_ID);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
-        List<Delegation> returnedList = resp.getBody();
-        assertEquals(mockDelegationList, returnedList);
+        Delegation returnedDelegation = resp.getBody();
+        assertEquals(mockDelegation, returnedDelegation);
     }
 
     @Test
-    public void getIncomingDelegationsReturnsTrusteeDelegationsForMember() throws Exception
+    public void getIncomingUnitDelegationsShouldReturnListOfDelegations() throws Exception
     {
-        when(delegationService.findByTrusteeId(USER_DETAILS_ID, UNIT_ID, MEMBER_ID))
-                .thenReturn(mockDelegationList);
-        ResponseEntity<List<Delegation>> resp = delegationsController
-                .getIncomingDelegations(userDetails, UNIT_ID, MEMBER_ID);
+        List<Delegation> mockList = new ArrayList<>();
+        mockList.add(mockDelegation);
+        when(delegationService.findIncomingUnitDelegationForTrustee(MEMBER_ID, UNIT_ID, TRUSTEE_ID))
+                .thenReturn(mockList);
+        ResponseEntity<List<Delegation>> resp = delegationsController.getIncomingUnitDelegations(
+                userDetails, UNIT_ID, TRUSTEE_ID);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
-        List<Delegation> returnedList = resp.getBody();
-        assertEquals(mockDelegationList, returnedList);
+        assertEquals(mockList, resp.getBody());
+    }
+
+    @Test
+    public void getOutgoingAreaDelegationShouldReturnDelegation() throws Exception
+    {
+        when(delegationService.findAreaDelegationForTruster(
+                MEMBER_ID, UNIT_ID, AREA_ID, TRUSTER_ID))
+                .thenReturn(mockDelegation);
+        ResponseEntity<Delegation> resp = delegationsController
+                .getOutgoingAreaDelegation(userDetails, UNIT_ID, AREA_ID, TRUSTER_ID);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        assertEquals(mockDelegation, resp.getBody());
+    }
+
+    @Test
+    public void getIncomingAreaDelegationsShouldReturnListOfDelegations() throws Exception
+    {
+        List<Delegation> mockList = new ArrayList<>();
+        mockList.add(mockDelegation);
+        when(delegationService.findIncomingAreaDelegationsForTrustee(
+                MEMBER_ID, UNIT_ID, AREA_ID, TRUSTEE_ID))
+                .thenReturn(mockList);
+        ResponseEntity<List<Delegation>> resp = delegationsController
+                .getIncomingAreaDelegations(userDetails, UNIT_ID, AREA_ID, TRUSTEE_ID);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        assertEquals(mockList, resp.getBody());
     }
 }

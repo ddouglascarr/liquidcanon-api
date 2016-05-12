@@ -8,13 +8,20 @@ import java.util.List;
 
 public interface DelegationService
 {
-    Delegation findOneById(Long memberId, Long unitId, Long id)
-            throws MemberUnprivilegedException, ItemNotFoundException;
+    Delegation findUnitDelegationForTruster(Long memberId, Long unitId, Long trusterId)
+            throws ItemNotFoundException, MemberUnprivilegedException;
 
-    List<Delegation> findByTrusterId(Long memberId, Long unitId, Long trusterId)
-            throws MemberUnprivilegedException, ItemNotFoundException;
+    List<Delegation> findIncomingUnitDelegationForTrustee(
+            Long memberId, Long unitId, Long trusteeId)
+            throws ItemNotFoundException, MemberUnprivilegedException;
 
-    List<Delegation> findByTrusteeId(Long memberId, Long unitId, Long trusteeId)
-            throws MemberUnprivilegedException, ItemNotFoundException;
+    Delegation findAreaDelegationForTruster(
+            Long memberId, Long unitId, Long areaId, Long trusteeId)
+            throws ItemNotFoundException, MemberUnprivilegedException;
+
+    List<Delegation> findIncomingAreaDelegationsForTrustee(
+            Long memberId, Long unitId, Long areaId, Long trusteeId)
+            throws ItemNotFoundException, MemberUnprivilegedException;
 
 }
+
