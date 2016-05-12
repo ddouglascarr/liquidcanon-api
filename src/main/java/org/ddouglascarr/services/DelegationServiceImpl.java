@@ -30,7 +30,10 @@ public class DelegationServiceImpl implements DelegationService
     @Override
     public List<Delegation> findIncomingUnitDelegationForTrustee(Long memberId, Long unitId, Long trusteeId) throws ItemNotFoundException, MemberUnprivilegedException
     {
-        return null;
+        privilegeService.assertUnitReadPrivilege(memberId, unitId);
+        List<Delegation> delegations = delegationRepository
+                .findUnitDelegationsByTrusteeId(unitId, trusteeId);
+        return delegations;
     }
 
     @Override

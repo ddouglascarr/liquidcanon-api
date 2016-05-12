@@ -13,6 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -72,4 +75,27 @@ public class DelegationServiceImplTests
                 .findUnitDelegationForTruster(MEMBER_ID, UNIT_ID, TRUSTER_ID);
         assertEquals(mockDelegation, returnedDelegation);
     }
+
+    @Test(expected = MemberUnprivilegedException.class)
+    public void findIncomingUnitDelegationForTrusteeShouldThrowIfNotUnitReadPrivileged()
+            throws Exception
+    {
+        doThrow(new MemberUnprivilegedException()).when(privilegeService)
+                .assertUnitReadPrivilege(MEMBER_ID, UNIT_ID);
+        delegationService.findIncomingUnitDelegationForTrustee(MEMBER_ID, UNIT_ID, TRUSTEE_ID);
+    }
+
+    @Test
+    public void findIncomingUnitDelegationForTrusteeShouldReturnListOfDelegations()
+            throws Exception
+    {
+        List<Delegation> mockList = new ArrayList<>();
+        when(delegationRepository.findUnitDelegationsByTrusteeId(UNIT_ID, TRUSTEE_ID))
+                .thenReturn(mockList);
+        List<Delegation> returnedList = delegationService
+                .findIncomingUnitDelegationForTrustee(MEMBER_ID, UNIT_ID, TRUSTEE_ID);
+        assertEquals(mockList, returnedList);
+    }
+
+
 }
