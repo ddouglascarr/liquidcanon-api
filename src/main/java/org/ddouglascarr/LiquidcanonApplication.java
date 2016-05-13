@@ -13,6 +13,7 @@ public class LiquidcanonApplication
 {
 
 	public static void main(String[] args) {
+		System.out.println("Running main");
 		SpringApplication.run(LiquidcanonApplication.class, args);
 	}
 
