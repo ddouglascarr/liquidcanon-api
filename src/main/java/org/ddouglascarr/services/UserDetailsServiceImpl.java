@@ -1,5 +1,6 @@
 package org.ddouglascarr.services;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.models.UserDetailsImpl;
 import org.ddouglascarr.repositories.MemberRepository;
@@ -30,18 +31,20 @@ public class UserDetailsServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException
     {
-        Member member = memberRepository.findOneByLogin(login);
-        List<String> memberRoles = new ArrayList<>();
-        if (null == member) {
+        Member member;
+        try {
+            member = memberRepository.findOneByLogin(login);
+        } catch (ItemNotFoundException e) {
             throw new UsernameNotFoundException("No member present with login: " + login);
-        } else {
-            Boolean isAdmin = member.getAdmin();
-            if (isAdmin) {
-                memberRoles.add("ROLE_ADMIN");
-            } else {
-                memberRoles.add("ROLE_USER");
-            }
-            return new UserDetailsImpl(member, memberRoles);
         }
+
+        List<String> memberRoles = new ArrayList<>();
+        Boolean isAdmin = member.getAdmin();
+        if (isAdmin) {
+            memberRoles.add("ROLE_ADMIN");
+        } else {
+            memberRoles.add("ROLE_USER");
+        }
+        return new UserDetailsImpl(member, memberRoles);
     }
 }

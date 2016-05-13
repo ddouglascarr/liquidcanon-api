@@ -13,6 +13,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,6 +52,41 @@ public class AreaRepositoryTests
     {
         Area area = areaRepository.findOne(MARS_STATUTES_AREA_ID);
         assertEquals(MARS_STATUTES_AREA_ID, area.getId());
+    }
+
+    @Test
+    public void findByUnitIdShouldReturnListOfAreasForEarth() throws Exception
+    {
+        List<Area> areas = areaRepository.findByUnitId(EARTH_UNIT_ID);
+        assertEquals(3, areas.size());
+
+        Area statutesArea = areas.stream()
+                .filter(a -> EARTH_STATUTES_AREA_ID.equals(a.getId()))
+                .findFirst().get();
+        assertNotNull(statutesArea);
+        assertEquals(EARTH_STATUTES_AREA_ID, statutesArea.getId());
+
+        Area spaceVehiclesArea = areas.stream()
+                .filter(a -> EARTH_SPACE_VEHICLES_AREA_ID.equals(a.getId()))
+                .findFirst().get();
+        assertNotNull(spaceVehiclesArea);
+    }
+
+    @Test
+    public void findByUnitIdShouldReturnListOfAreasForMars() throws Exception
+    {
+        List<Area> areas = areaRepository.findByUnitId(MARS_UNIT_ID);
+        assertEquals(4, areas.size());
+
+        Area mineralResourcesArea = areas.stream()
+                .filter(a -> MARS_MINERAL_RESOURCES_AREA_ID.equals(a.getId()))
+                .findFirst().get();
+        assertNotNull(mineralResourcesArea);
+
+        Area statutesArea = areas.stream()
+                .filter(a -> MARS_STATUTES_AREA_ID.equals(a.getId()))
+                .findFirst().get();
+        assertNotNull(statutesArea);
     }
 
 
