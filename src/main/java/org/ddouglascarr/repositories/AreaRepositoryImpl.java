@@ -38,7 +38,19 @@ public class AreaRepositoryImpl implements AreaRepository
     @Override
     public Area findOneByUnitIdAndId(Long unitId, Long id) throws ItemNotFoundException
     {
-        return null;
+        final String sql = String.join(" ",
+                "SELECT * FROM area",
+                "WHERE unit_id = :unitId AND id = :id");
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("unitId", unitId);
+        mapSqlParameterSource.addValue("id", id);
+        try {
+            Area area = namedParameterJdbcTemplate.queryForObject(
+                    sql, mapSqlParameterSource, new BeanPropertyRowMapper<>(Area.class));
+            return area;
+        } catch (EmptyResultDataAccessException e) {
+            throw new ItemNotFoundException();
+        }
     }
 
     @Override
