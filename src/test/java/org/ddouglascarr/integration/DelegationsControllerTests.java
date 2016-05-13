@@ -15,23 +15,23 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-
-import static com.jayway.restassured.RestAssured.*;
-import static com.jayway.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(LiquidcanonApplication.class)
 @WebAppConfiguration
-@IntegrationTest
+@ContextConfiguration(classes = {LiquidcanonApplication.class})
 @TestPropertySource(locations = "classpath:test.properties")
 @Transactional
 @Sql(
@@ -44,26 +44,22 @@ import static org.hamcrest.Matchers.*;
 public class DelegationsControllerTests
 {
 
-    @Value("${server.port}")
-    int serverPort;
+    protected MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     @Before
     public void setup() throws Exception
     {
-        System.out.println("Server Port: " + serverPort);
-        RestAssured.port = serverPort;
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
     public void testTest() throws Exception
     {
-        System.out.println("running test");
-        given()
-                .auth().basic("tender_hugle", "login")
-        .when()
-                .get("/units/1")
-        .then()
-                .statusCode(HttpStatus.SC_OK);
+        mockMvc.perform(get("/units/1"))
+                .andExpect(status().isOk());
     }
 
 }
