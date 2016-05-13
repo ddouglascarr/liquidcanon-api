@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableTransactionManagement
-public class LiquidcanonApplication extends WebMvcConfigurerAdapter
+public class LiquidcanonApplication
 {
 
 	public static void main(String[] args) {
