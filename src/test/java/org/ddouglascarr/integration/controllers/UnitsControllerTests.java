@@ -77,7 +77,8 @@ public class UnitsControllerTests
     {
         mockMvc.perform(get("/units/" + MOON_UNIT_ID.toString())
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(7)));
     }
 
     @Test
@@ -88,11 +89,11 @@ public class UnitsControllerTests
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
-                .andExpect(jsonPath("$.parentId", is(SOLAR_SYSTEM_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.parent_id", is(SOLAR_SYSTEM_UNIT_ID.intValue())))
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.name", is(EARTH_MOON_FEDERATION_UNIT_NAME)))
                 .andExpect(jsonPath("$.description", isEmptyOrNullString()))
-                .andExpect(jsonPath("$.memberCount", isEmptyOrNullString()))    // TODO
+                .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
                 .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
                 .andExpect(jsonPath("$.*", hasSize(7)));
     }
