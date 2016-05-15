@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentation;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -19,8 +20,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
@@ -104,7 +105,16 @@ public class UnitsControllerTests
                 .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
                 .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
                 .andExpect(jsonPath("$.*", hasSize(7)))
-                .andDo(document("units"));
+                .andDo(document("units", responseFields(
+                        fieldWithPath("id")
+                                .type(JsonFieldType.STRING)
+                                .description("Unit Id"),
+                        fieldWithPath("parent_id")
+                                .type(JsonFieldType.STRING)
+                                .description("Parent Unit Id"),
+                        fieldWithPath("active")
+                                .type(JsonFieldType.BOOLEAN)
+                                .description("Whether the unit is active"))));
     }
 
 }
