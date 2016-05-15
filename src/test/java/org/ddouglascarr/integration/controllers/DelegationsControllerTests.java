@@ -1,4 +1,4 @@
-package org.ddouglascarr.integration;
+package org.ddouglascarr.integration.controllers;
 
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.config.WebSecurityConfig;

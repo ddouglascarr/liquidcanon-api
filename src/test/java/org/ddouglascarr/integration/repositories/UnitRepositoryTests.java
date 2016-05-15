@@ -1,4 +1,4 @@
-package org.ddouglascarr.integration;
+package org.ddouglascarr.integration.repositories;
 
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.models.Unit;
