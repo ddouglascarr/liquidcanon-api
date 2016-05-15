@@ -63,7 +63,7 @@ public class MemberRepositoryTests
     @Test
     public void findByUnitIdShouldReturnListOfMember()
     {
-        List<Member> returnedMembers = memberRepository.findByUnitId(EARTH_UNIT_ID);
+        List<Member> returnedMembers = memberRepository.findByUnitId(EARTH_MOON_FEDERATION_UNIT_ID);
         assertEquals(15, returnedMembers.size());
 
         Member poitras = returnedMembers.stream()

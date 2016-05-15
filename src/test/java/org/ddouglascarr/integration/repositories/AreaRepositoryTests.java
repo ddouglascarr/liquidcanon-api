@@ -50,7 +50,7 @@ public class AreaRepositoryTests
     @Test
     public void findByUnitIdShouldReturnListOfAreasForEarth() throws Exception
     {
-        List<Area> areas = areaRepository.findByUnitId(EARTH_UNIT_ID);
+        List<Area> areas = areaRepository.findByUnitId(EARTH_MOON_FEDERATION_UNIT_ID);
         assertEquals(3, areas.size());
 
         Area statutesArea = areas.stream()
@@ -85,19 +85,19 @@ public class AreaRepositoryTests
     @Test(expected = ItemNotFoundException.class)
     public void findOneByUnitIdAndIdShouldThrowIfNotPartOfUnit() throws Exception
     {
-        areaRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, MARS_STATUTES_AREA_ID);
+        areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, MARS_STATUTES_AREA_ID);
     }
 
     @Test(expected = ItemNotFoundException.class)
     public void findOneByUnitIdAndIDSHouldThrowIfDoesNotExist() throws Exception
     {
-        areaRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, NON_EXISTANT_AREA_ID);
+        areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, NON_EXISTANT_AREA_ID);
     }
 
     @Test
     public void findOneByUnitIdAndIDShouldReturnArea() throws Exception
     {
-        Area area = areaRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, EARTH_STATUTES_AREA_ID);
+        Area area = areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, EARTH_STATUTES_AREA_ID);
         assertNotNull(area);
         assertEquals(EARTH_STATUTES_AREA_ID, area.getId());
     }

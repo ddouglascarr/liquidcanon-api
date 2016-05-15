@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -41,7 +40,7 @@ public class DelegationRepositoryTests
             throws Exception
     {
         Delegation delegation = delegationRepository
-                .findUnitDelegationByTrusterId(EARTH_UNIT_ID, HEISENBERG_MEMBER_ID);
+                .findUnitDelegationByTrusterId(EARTH_MOON_FEDERATION_UNIT_ID, HEISENBERG_MEMBER_ID);
         assertEquals(POITRAS_MEMBER_ID, delegation.getTrusteeId());
         assertEquals(new Long(13), delegation.getId());
     }
@@ -51,7 +50,7 @@ public class DelegationRepositoryTests
             throws Exception
     {
         Delegation delegation = delegationRepository
-                .findUnitDelegationByTrusterId(EARTH_UNIT_ID, BABBAGE_MEMBER_ID);
+                .findUnitDelegationByTrusterId(EARTH_MOON_FEDERATION_UNIT_ID, BABBAGE_MEMBER_ID);
         assertNull(delegation);
     }
 
@@ -94,7 +93,7 @@ public class DelegationRepositoryTests
     {
         Delegation delegation = delegationRepository
                 .findAreaDelegationByTrusterId(
-                        EARTH_UNIT_ID,
+                        EARTH_MOON_FEDERATION_UNIT_ID,
                         ALIEN_AFFAIRS_AREA_ID,
                         KHORANA_MEMBER_ID);
         assertNull(delegation);
@@ -106,7 +105,7 @@ public class DelegationRepositoryTests
     {
         List<Delegation> delegations = delegationRepository
                 .findAreaDelegationsByTrusteeId(
-                        EARTH_UNIT_ID,
+                        EARTH_MOON_FEDERATION_UNIT_ID,
                         ALIEN_AFFAIRS_AREA_ID,
                         CARSON_MEMBER_ID);
         assertEquals(0, delegations.size());

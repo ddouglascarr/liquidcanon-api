@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 import static org.hamcrest.Matchers.*;
-
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,7 +37,7 @@ import static org.hamcrest.Matchers.*;
                 "classpath:sql/test-world.sql"
         }
 )
-public class DelegationsControllerTests
+public class UnitsControllerTests
 {
 
     protected MockMvc mockMvc;
@@ -55,12 +55,46 @@ public class DelegationsControllerTests
     }
 
     @Test
-    public void testTest() throws Exception
+    public void getUnitShould4xxIfUnitDoesNotExist() throws Exception
     {
-        mockMvc.perform(get("/units/1").with(httpBasic("tender_hugle", "login")))
+        mockMvc.perform(get("/units/" + NON_EXISTENT_UNIT_ID.toString())
+                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void getUnitShould401IfMemberDoesNotHaveUnitReadPrivilegeAndUnitIsPrivate()
+            throws Exception
+    {
+        mockMvc.perform(get("/units/" + MARS_UNIT_ID.toString())
+                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void getUnitShouldSucceedIfMemberDoesNotHaveUnitPrivilegeAndUnitIsPublic()
+            throws Exception
+    {
+        mockMvc.perform(get("/units/" + MOON_UNIT_ID.toString())
+                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getUnitShouldReturnUnit() throws Exception
+    {
+        mockMvc.perform(get("/units/" + EARTH_MOON_FEDERATION_UNIT_ID.toString())
+                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(1)));
+                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.parentId", is(SOLAR_SYSTEM_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.active", is(true)))
+                .andExpect(jsonPath("$.name", is(EARTH_MOON_FEDERATION_UNIT_NAME)))
+                .andExpect(jsonPath("$.description", isEmptyOrNullString()))
+                .andExpect(jsonPath("$.memberCount", isEmptyOrNullString()))    // TODO
+                .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
+                .andExpect(jsonPath("$.*", hasSize(7)));
     }
 
 }
