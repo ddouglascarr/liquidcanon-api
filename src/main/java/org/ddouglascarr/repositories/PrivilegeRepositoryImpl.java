@@ -1,6 +1,7 @@
 package org.ddouglascarr.repositories;
 
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,6 +18,7 @@ public class PrivilegeRepositoryImpl implements PrivilegeRepository
 
     @Override
     public Privilege findOneByMemberIdAndUnitId(Long memberId, Long unitId)
+            throws ItemNotFoundException
     {
         String sql = String.join(" ",
                 "SELECT * FROM privilege",
@@ -29,7 +31,7 @@ public class PrivilegeRepositoryImpl implements PrivilegeRepository
                     sql, namedParameters, new BeanPropertyRowMapper<Privilege>(Privilege.class));
             return privilege;
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new ItemNotFoundException();
         }
     }
 }

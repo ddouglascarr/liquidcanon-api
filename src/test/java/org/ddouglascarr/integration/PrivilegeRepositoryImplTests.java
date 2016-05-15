@@ -1,6 +1,7 @@
 package org.ddouglascarr.integration;
 
 import org.ddouglascarr.LiquidcanonApplication;
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Privilege;
 import org.ddouglascarr.repositories.PrivilegeRepository;
 import org.ddouglascarr.repositories.PrivilegeRepositoryImpl;
@@ -35,13 +36,11 @@ public class PrivilegeRepositoryImplTests
     private final Long POITRAS_MEMBER_ID = new Long(1);
     private final Long KHORANA_MEMBER_ID = new Long(19);
 
-    @Test
-    public void findOneByMemberIdAndUnitIdShouldReturnNullIfDoesNotExist()
+    @Test(expected = ItemNotFoundException.class)
+    public void findOneByMemberIdAndUnitIdShouldThrowIfDoesNotExist()
             throws Exception
     {
-        Privilege privilege = privilegeRepository
-                .findOneByMemberIdAndUnitId(POITRAS_MEMBER_ID, MARS_UNIT_ID);
-        assertNull(privilege);
+        privilegeRepository.findOneByMemberIdAndUnitId(POITRAS_MEMBER_ID, MARS_UNIT_ID);
     }
 
     @Test

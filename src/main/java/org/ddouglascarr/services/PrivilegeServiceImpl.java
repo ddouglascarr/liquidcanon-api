@@ -22,13 +22,20 @@ public class PrivilegeServiceImpl implements PrivilegeService
     public void assertUnitReadPrivilege(Long memberId, Long unitId)
             throws MemberUnprivilegedException
     {
+        UnitPermission unitPermission;
+        Boolean hasUnitReadPermission = false;
         try {
-            UnitPermission unitPermission = unitPermissionRepository.findOneByUnitId(unitId);
+            unitPermission = unitPermissionRepository.findOneByUnitId(unitId);
             if (unitPermission.getPublicRead()) return;
-            Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
-            if (null != privilege) return;
-            throw new MemberUnprivilegedException();
         } catch (ItemNotFoundException e) {
+            hasUnitReadPermission = false;
+        }
+
+        try {
+            Privilege privilege = privilegeRepository
+                    .findOneByMemberIdAndUnitId(memberId, unitId);
+            return;
+        } catch (Exception e) {
             throw new MemberUnprivilegedException();
         }
     }
@@ -37,9 +44,12 @@ public class PrivilegeServiceImpl implements PrivilegeService
     public void assertUnitVotingPrivilege(Long memberId, Long unitId)
             throws MemberUnprivilegedException
     {
-        Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
-        if (null == privilege) throw new MemberUnprivilegedException();
-        if (privilege.getVotingRight()) return;
-        throw new MemberUnprivilegedException();
+        try {
+            Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
+            if (privilege.getVotingRight()) return;
+            throw new MemberUnprivilegedException();
+        } catch (ItemNotFoundException e) {
+            throw new MemberUnprivilegedException();
+        }
     }
 }

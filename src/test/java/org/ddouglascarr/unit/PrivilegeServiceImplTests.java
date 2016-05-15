@@ -1,5 +1,6 @@
 package org.ddouglascarr.unit;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.models.Privilege;
@@ -14,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 public class PrivilegeServiceImplTests
@@ -53,8 +55,8 @@ public class PrivilegeServiceImplTests
     {
         mockUnitPermission.setPublicRead(false);
         when(unitPermissionRepository.findOneByUnitId(new Long(51))).thenReturn(mockUnitPermission);
-        when(privilegeRepository.findOneByMemberIdAndUnitId(new Long(12), new Long(51)))
-                .thenReturn(null);
+        doThrow(new ItemNotFoundException()).when(privilegeRepository)
+                .findOneByMemberIdAndUnitId(new Long(12), new Long(51));
         privilegeService.assertUnitReadPrivilege(new Long(12), new Long(51));
     }
 
@@ -62,9 +64,10 @@ public class PrivilegeServiceImplTests
     public void assertUnitReadPrivilegeShouldThrowIfUnitPermissionMissingAndNoPrivilege()
             throws Exception
     {
-        when(unitPermissionRepository.findOneByUnitId(MOCK_UNIT_ID)).thenReturn(null);
-        when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
-                .thenReturn(null);
+        doThrow(new ItemNotFoundException()).when(unitPermissionRepository)
+                .findOneByUnitId(MOCK_UNIT_ID);
+        doThrow(new ItemNotFoundException()).when(privilegeRepository)
+                .findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
     }
 
@@ -72,7 +75,8 @@ public class PrivilegeServiceImplTests
     public void assertUnitReadPrivilegeShouldNotThrowIfUnitPermisionMissingButPrivilegeExists()
             throws Exception
     {
-        when(unitPermissionRepository.findOneByUnitId(MOCK_UNIT_ID)).thenReturn(null);
+        doThrow(new ItemNotFoundException()).when(unitPermissionRepository)
+                .findOneByUnitId(MOCK_UNIT_ID);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
                 .thenReturn(mockPrivilege);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
@@ -104,14 +108,14 @@ public class PrivilegeServiceImplTests
     public void assertUnitVotingPrivilegeShouldThrowIfNoPrivileges()
             throws Exception
     {
-        when(privilegeRepository.findOneByMemberIdAndUnitId(new Long(12), new Long(51)))
-                .thenReturn(null);
+        doThrow(new ItemNotFoundException()).when(privilegeRepository)
+                .findOneByMemberIdAndUnitId(new Long(12), new Long(51));
         privilegeService.assertUnitVotingPrivilege(new Long(12), new Long(51));
     }
 
     @Test(expected = MemberUnprivilegedException.class)
     public void assertUnitVotingPrivilegeShouldThrowIfNoVotingPrivilege()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         mockPrivilege.setVotingRight(false);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
@@ -121,7 +125,7 @@ public class PrivilegeServiceImplTests
 
     @Test
     public void assertUnitVotingPrivilegeShouldNotThrowIfVotingPrivilege()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         mockPrivilege.setVotingRight(true);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
