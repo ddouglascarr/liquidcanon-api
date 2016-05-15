@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
         scripts = {
-                "classpath:sql/liquid-canon.sql",
+                // "classpath:sql/liquid-canon.sql",
                 "classpath:sql/test-world.sql"
         }
 )
