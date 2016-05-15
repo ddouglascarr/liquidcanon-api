@@ -2,30 +2,17 @@ package org.ddouglascarr.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="member")
 public class Member
 {
     @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(name="password_liquidcanon")
     @JsonIgnore
     private String password;
     private String login;
@@ -37,12 +24,6 @@ public class Member
     private Date lastActivity;
 
     @ReadOnlyProperty
-    @ManyToMany
-    @JoinTable(
-            name = "privilege",
-            joinColumns = @JoinColumn(name = "member_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    )
     private List<Unit> units;
 
     public Member()

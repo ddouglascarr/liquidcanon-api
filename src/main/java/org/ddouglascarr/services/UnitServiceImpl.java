@@ -21,7 +21,7 @@ public class UnitServiceImpl implements UnitService
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, id);
-        Unit unit = unitRepository.findOne(id);
+        Unit unit = unitRepository.findOneById(id);
         if (null == unit) throw new ItemNotFoundException();
         return unit;
     }

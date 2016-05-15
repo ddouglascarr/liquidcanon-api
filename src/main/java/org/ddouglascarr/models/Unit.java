@@ -1,36 +1,25 @@
 package org.ddouglascarr.models;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
-import java.math.BigInteger;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-@Entity
 public class Unit
 {
     @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(name = "parent_id")
     private Long parentId;
 
     private Boolean active;
     private String name;
     private String description;
 
-    @Column(name = "member_count")
     private Long memberCount;
 
     @ReadOnlyProperty
-    @OneToMany(mappedBy = "unitId")
     private List<Area> areas;
 
     // Getters and Setters

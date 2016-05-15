@@ -3,7 +3,6 @@ package org.ddouglascarr.repositories;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Area;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,7 +16,7 @@ import java.util.List;
 public class AreaRepositoryImpl implements AreaRepository
 {
     @Autowired
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public Area findOne(Long id) throws ItemNotFoundException

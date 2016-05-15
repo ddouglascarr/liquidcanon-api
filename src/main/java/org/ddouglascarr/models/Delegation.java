@@ -1,27 +1,19 @@
 package org.ddouglascarr.models;
 
 import org.ddouglascarr.enums.DelegationScope;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "delegation")
 public class Delegation
 {
     @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(name = "truster_id") private Long trusterId;
-    @Column(name = "trustee_id") private Long trusteeId;
-    @Column(name = "scope") private DelegationScope scope;
-    @Column(name = "unit_id") private Long unitId;
-    @Column(name = "area_id") private Long areaId;
-    @Column(name = "issue_id") private Long issueId;
+    private Long trusterId;
+    private Long trusteeId;
+    private DelegationScope scope;
+    private Long unitId;
+    private Long areaId;
+    private Long issueId;
 
     // Getters and Setters
 

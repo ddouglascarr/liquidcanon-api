@@ -1,22 +1,13 @@
 package org.ddouglascarr.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Table(name = "unit_permissions")
 public class UnitPermission
 {
     @Id
     private Long id;
 
-    @Column(name = "unit_id")
     private Long unitId;
-
-    @Column(name = "public_read")
     private Boolean publicRead;
 
 
