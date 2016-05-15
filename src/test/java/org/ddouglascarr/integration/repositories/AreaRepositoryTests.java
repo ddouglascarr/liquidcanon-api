@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(LiquidcanonApplication.class)
@@ -32,14 +33,6 @@ public class AreaRepositoryTests
 {
     @Autowired
     private AreaRepository areaRepository;
-
-    private final Long EARTH_UNIT_ID = new Long(2);
-    private final Long MARS_UNIT_ID = new Long(5);
-    private final Long NON_EXISTANT_AREA_ID = new Long(9999);
-    private final Long MARS_STATUTES_AREA_ID = new Long(3);
-    private final Long MARS_MINERAL_RESOURCES_AREA_ID = new Long(17);
-    private final Long EARTH_STATUTES_AREA_ID = new Long(2);
-    private final Long EARTH_SPACE_VEHICLES_AREA_ID = new Long(13);
 
     @Test(expected = ItemNotFoundException.class)
     public void findOneShouldThrowIfDoesNotExist() throws Exception

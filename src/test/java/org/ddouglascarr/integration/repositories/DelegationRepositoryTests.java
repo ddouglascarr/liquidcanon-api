@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(LiquidcanonApplication.class)
@@ -34,18 +35,6 @@ public class DelegationRepositoryTests
 {
     @Autowired
     private DelegationRepository delegationRepository;
-
-    private final Long POITRAS_MEMBER_ID = new Long(1);
-    private final Long HUGLE_MEMBER_ID = new Long(2);
-    private final Long ALMEIDA_MEMBER_ID = new Long(3);
-    private final Long HEISENBERG_MEMBER_ID = new Long(5);
-    private final Long BABBAGE_MEMBER_ID = new Long(6);
-    private final Long CARSON_MEMBER_ID = new Long(13);
-    private final Long KHORANA_MEMBER_ID = new Long(19);
-    private final Long SOLAR_SYSTEM_UNIT_ID = new Long(1);
-    private final Long EARTH_UNIT_ID = new Long(2);
-    private final Long MARS_UNIT_ID = new Long(5);
-    private final Long ALIEN_AFFAIRS_AREA_ID = new Long(7);
 
     @Test
     public void findOneUnitDelegationByTrusterIdShouldReturnDelegation()
