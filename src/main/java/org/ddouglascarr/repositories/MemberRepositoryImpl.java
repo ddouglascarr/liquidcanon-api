@@ -3,7 +3,6 @@ package org.ddouglascarr.repositories;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -21,11 +20,15 @@ public class MemberRepositoryImpl implements MemberRepository
     private BeanPropertyRowMapper<Member> beanPropertyRowMapper =
             new BeanPropertyRowMapper<>(Member.class);
 
+    private static String SELECT_LIST = String.join(" ",
+            "m.id, m.password_liquidcanon AS password, m.login,",
+            "m.name, m.admin, m.notify_email, m.active, m.last_activity" );
+
     @Override
     public Member findOneById(Long id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
-                "SELECT * FROM member WHERE id = :id");
+                "SELECT", SELECT_LIST, "FROM member AS m WHERE id = :id");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("id", id);
         try {
@@ -41,7 +44,7 @@ public class MemberRepositoryImpl implements MemberRepository
     public Member findOneByLogin(String login) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
-                "SELECT * FROM member WHERE login = :login");
+                "SELECT", SELECT_LIST, "FROM member AS m WHERE login = :login");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("login", login);
         try {
@@ -57,8 +60,8 @@ public class MemberRepositoryImpl implements MemberRepository
     public List<Member> findByUnitId(Long unitId)
     {
         String sql = String.join(" ",
-                "SELECT m.* FROM",
-                    "(SELECT * FROM unit WHERE unit.id = :unitId) AS u",
+                "SELECT", SELECT_LIST, "FROM",
+                "(SELECT * FROM unit WHERE unit.id = :unitId) AS u",
                 "JOIN privilege AS p on u.id = p.unit_id",
                 "JOIN member AS m ON m.id = p.member_id");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();

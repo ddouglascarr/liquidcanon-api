@@ -32,9 +32,9 @@ public class Member
 
     private String name;
     private Boolean admin;
-    private String notify_email;
+    private String notifyEmail;
     private Boolean active;
-    private Date last_activity;
+    private Date lastActivity;
 
     @ReadOnlyProperty
     @ManyToMany
@@ -54,7 +54,7 @@ public class Member
         this.login = member.login;
         this.name = member.name;
         this.admin = member.admin;
-        this.last_activity = member.last_activity;
+        this.lastActivity = member.lastActivity;
         this.active = member.active;
         this.password = member.password;
     }
@@ -111,16 +111,6 @@ public class Member
         this.admin = admin;
     }
 
-    public String getNotify_email()
-    {
-        return notify_email;
-    }
-
-    public void setNotify_email(String notify_email)
-    {
-        this.notify_email = notify_email;
-    }
-
     public Boolean getActive()
     {
         return active;
@@ -131,16 +121,6 @@ public class Member
         this.active = active;
     }
 
-    public Date getLast_activity()
-    {
-        return last_activity;
-    }
-
-    public void setLast_activity(Date last_activity)
-    {
-        this.last_activity = last_activity;
-    }
-
     public List<Unit> getUnits()
     {
         return units;
@@ -149,5 +129,25 @@ public class Member
     public void setUnits(List<Unit> units)
     {
         this.units = units;
+    }
+
+    public Date getLastActivity()
+    {
+        return lastActivity;
+    }
+
+    public void setLastActivity(Date lastActivity)
+    {
+        this.lastActivity = lastActivity;
+    }
+
+    public String getNotifyEmail()
+    {
+        return notifyEmail;
+    }
+
+    public void setNotifyEmail(String notifyEmail)
+    {
+        this.notifyEmail = notifyEmail;
     }
 }

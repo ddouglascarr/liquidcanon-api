@@ -35,6 +35,12 @@ public class UserDetailsImpl extends Member implements UserDetails
     }
 
     @Override
+    public String getPassword()
+    {
+        return super.getPassword();
+    }
+
+    @Override
     public boolean isAccountNonExpired()
     {
         return true;

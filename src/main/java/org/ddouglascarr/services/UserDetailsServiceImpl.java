@@ -45,6 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
         } else {
             memberRoles.add("ROLE_USER");
         }
-        return new UserDetailsImpl(member, memberRoles);
+        UserDetailsImpl userDetails =  new UserDetailsImpl(member, memberRoles);
+        return userDetails;
     }
 }
