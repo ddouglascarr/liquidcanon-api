@@ -1,4 +1,4 @@
-package org.ddouglascarr.unit;
+package org.ddouglascarr.unit.controllers;
 
 import org.ddouglascarr.controllers.AreasController;
 import org.ddouglascarr.enums.ExceptionCodes;

@@ -1,4 +1,4 @@
-package org.ddouglascarr.unit;
+package org.ddouglascarr.unit.controllers;
 
 import org.ddouglascarr.controllers.MembersController;
 import org.ddouglascarr.enums.ExceptionCodes;
