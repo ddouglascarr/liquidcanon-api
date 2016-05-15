@@ -1,10 +1,9 @@
 package org.ddouglascarr.repositories;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Unit;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UnitRepository extends JpaRepository<Unit, Long>
+public interface UnitRepository
 {
-    Unit findOneById(Long id);
-    Unit findOneByName(String name);
+    Unit findOneById(Long id) throws ItemNotFoundException;
 }

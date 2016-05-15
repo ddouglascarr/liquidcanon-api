@@ -1,26 +1,19 @@
 package org.ddouglascarr.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+import org.springframework.data.annotation.Id;
+
 public class Area
 {
     @Id
-    @GeneratedValue
     private Long id;
-
-    @Column(name = "unit_id")
     private Long unitId;
-
     private Boolean active;
     private String name;
     private String description;
-    private String external_reference;
-    private Long direct_member_count;
-    private Long member_weight;
+    private String externalReference;
+    private Long directMemberCount;
+    private Long memberWeight;
 
 
     // Getters and Setters
@@ -75,33 +68,33 @@ public class Area
         this.description = description;
     }
 
-    public String getExternal_reference()
+    public String getExternalReference()
     {
-        return external_reference;
+        return externalReference;
     }
 
-    public void setExternal_reference(String external_reference)
+    public void setExternalReference(String externalReference)
     {
-        this.external_reference = external_reference;
+        this.externalReference = externalReference;
     }
 
-    public Long getDirect_member_count()
+    public Long getDirectMemberCount()
     {
-        return direct_member_count;
+        return directMemberCount;
     }
 
-    public void setDirect_member_count(Long direct_member_count)
+    public void setDirectMemberCount(Long directMemberCount)
     {
-        this.direct_member_count = direct_member_count;
+        this.directMemberCount = directMemberCount;
     }
 
-    public Long getMember_weight()
+    public Long getMemberWeight()
     {
-        return member_weight;
+        return memberWeight;
     }
 
-    public void setMember_weight(Long member_weight)
+    public void setMemberWeight(Long memberWeight)
     {
-        this.member_weight = member_weight;
+        this.memberWeight = memberWeight;
     }
 }

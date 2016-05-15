@@ -1,10 +1,10 @@
 package org.ddouglascarr.repositories;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.UnitPermission;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UnitPermissionRepository extends JpaRepository<UnitPermission, Long>
+public interface UnitPermissionRepository
 {
-    UnitPermission findOne(Long id);
-    UnitPermission findOneByUnitId(Long unitId);
+    UnitPermission findOne(Long id) throws ItemNotFoundException;
+    UnitPermission findOneByUnitId(Long unitId) throws ItemNotFoundException;
 }
