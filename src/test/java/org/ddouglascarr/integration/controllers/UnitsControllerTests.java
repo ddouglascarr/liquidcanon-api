@@ -3,10 +3,12 @@ package org.ddouglascarr.integration.controllers;
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.config.WebSecurityConfig;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -17,6 +19,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
@@ -39,6 +43,9 @@ import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 )
 public class UnitsControllerTests
 {
+    @Rule
+    public RestDocumentation restDocumentation =
+            new RestDocumentation("target/generated-snippets");
 
     protected MockMvc mockMvc;
 
@@ -51,6 +58,7 @@ public class UnitsControllerTests
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
+                .apply(documentationConfiguration(this.restDocumentation))
                 .build();
     }
 
@@ -95,7 +103,8 @@ public class UnitsControllerTests
                 .andExpect(jsonPath("$.description", isEmptyOrNullString()))
                 .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
                 .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
-                .andExpect(jsonPath("$.*", hasSize(7)));
+                .andExpect(jsonPath("$.*", hasSize(7)))
+                .andDo(document("units"));
     }
 
 }
