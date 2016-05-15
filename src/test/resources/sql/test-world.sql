@@ -130,6 +130,13 @@ INSERT INTO "unit" ("id", "parent_id", "name") VALUES
   ( 4, 2   , 'Moon'),                   -- id 4
   ( 5, 1   , 'Mars');                   -- id 5
 
+INSERT INTO "unit_permissions" ("id", "unit_id", "public_read") VALUES
+  ( 1, 1, TRUE ),
+  ( 2, 2, TRUE ),
+  ( 3, 3, TRUE ),
+  ( 4, 4, TRUE ),
+  ( 5, 5, FALSE );
+
 INSERT INTO "area" ("id", "unit_id", "name") VALUES
   ( 1, 1, 'Statutes of the United Solar System'),       -- id  1
   ( 2, 2, 'Statutes of the Earth Moon Federation'),     -- id  2

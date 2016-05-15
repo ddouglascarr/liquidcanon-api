@@ -49,7 +49,7 @@ public class PrivilegeServiceImplTests
 
     @Test(expected = MemberUnprivilegedException.class)
     public void assertUnitReadPrivilegeShouldThrowIfNoPublicReadOrPrivilege()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         mockUnitPermission.setPublicRead(false);
         when(unitPermissionRepository.findOneByUnitId(new Long(51))).thenReturn(mockUnitPermission);
@@ -60,7 +60,7 @@ public class PrivilegeServiceImplTests
 
     @Test(expected = MemberUnprivilegedException.class)
     public void assertUnitReadPrivilegeShouldThrowIfUnitPermissionMissingAndNoPrivilege()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         when(unitPermissionRepository.findOneByUnitId(MOCK_UNIT_ID)).thenReturn(null);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
@@ -70,7 +70,7 @@ public class PrivilegeServiceImplTests
 
     @Test
     public void assertUnitReadPrivilegeShouldNotThrowIfUnitPermisionMissingButPrivilegeExists()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         when(unitPermissionRepository.findOneByUnitId(MOCK_UNIT_ID)).thenReturn(null);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
@@ -80,7 +80,7 @@ public class PrivilegeServiceImplTests
 
     @Test
     public void assertUnitReadPrivilegeShouldNotThrowOnPrivilegeWithoutPublicRead()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         mockUnitPermission.setPublicRead(false);
         when(unitPermissionRepository.findOneByUnitId(new Long(51))).thenReturn(mockUnitPermission);
@@ -91,7 +91,7 @@ public class PrivilegeServiceImplTests
 
     @Test
     public void assertUnitReadPrivilegeShouldNotThrowOnPublicRead()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         mockUnitPermission.setPublicRead(true);
         when(unitPermissionRepository.findOneByUnitId(new Long(51))).thenReturn(mockUnitPermission);
@@ -102,7 +102,7 @@ public class PrivilegeServiceImplTests
 
     @Test(expected = MemberUnprivilegedException.class)
     public void assertUnitVotingPrivilegeShouldThrowIfNoPrivileges()
-            throws MemberUnprivilegedException
+            throws Exception
     {
         when(privilegeRepository.findOneByMemberIdAndUnitId(new Long(12), new Long(51)))
                 .thenReturn(null);

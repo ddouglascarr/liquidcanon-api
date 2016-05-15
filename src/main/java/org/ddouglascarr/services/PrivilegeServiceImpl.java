@@ -1,5 +1,6 @@
 package org.ddouglascarr.services;
 
+import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Privilege;
 import org.ddouglascarr.models.UnitPermission;
@@ -21,11 +22,15 @@ public class PrivilegeServiceImpl implements PrivilegeService
     public void assertUnitReadPrivilege(Long memberId, Long unitId)
             throws MemberUnprivilegedException
     {
-        UnitPermission unitPermission = unitPermissionRepository.findOneByUnitId(unitId);
-        if (null != unitPermission && unitPermission.getPublicRead()) return;
-        Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
-        if (null != privilege) return;
-        throw new MemberUnprivilegedException();
+        try {
+            UnitPermission unitPermission = unitPermissionRepository.findOneByUnitId(unitId);
+            if (unitPermission.getPublicRead()) return;
+            Privilege privilege = privilegeRepository.findOneByMemberIdAndUnitId(memberId, unitId);
+            if (null != privilege) return;
+            throw new MemberUnprivilegedException();
+        } catch (ItemNotFoundException e) {
+            throw new MemberUnprivilegedException();
+        }
     }
 
     @Override
