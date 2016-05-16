@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentation;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -21,13 +22,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 import static org.hamcrest.Matchers.*;
 import static org.ddouglascarr.utils.IntegrationTestConsts.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -56,6 +62,7 @@ public class UnitsControllerTests
     @Before
     public void setup() throws Exception
     {
+
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
@@ -77,7 +84,8 @@ public class UnitsControllerTests
     {
         mockMvc.perform(get("/units/" + MARS_UNIT_ID.toString())
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andDo(document("units/get"));
     }
 
     @Test
@@ -93,7 +101,7 @@ public class UnitsControllerTests
     @Test
     public void getUnitShouldReturnUnit() throws Exception
     {
-        mockMvc.perform(get("/units/" + EARTH_MOON_FEDERATION_UNIT_ID.toString())
+        mockMvc.perform(get("/units/{unitId}", EARTH_MOON_FEDERATION_UNIT_ID.toString())
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -105,16 +113,30 @@ public class UnitsControllerTests
                 .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
                 .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
                 .andExpect(jsonPath("$.*", hasSize(7)))
-                .andDo(document("units", responseFields(
+                .andDo(document("units/get", responseFields(
                         fieldWithPath("id")
                                 .type(JsonFieldType.STRING)
-                                .description("Unit Id"),
+                                .description("Primary key"),
                         fieldWithPath("parent_id")
                                 .type(JsonFieldType.STRING)
-                                .description("Parent Unit Id"),
+                                .description("Referencing the parent unit (unset/null if unit is in root level)"),
                         fieldWithPath("active")
                                 .type(JsonFieldType.BOOLEAN)
-                                .description("Whether the unit is active"))));
+                                .description("New issues can be created in the unit"),
+                        fieldWithPath("name")
+                                .type(JsonFieldType.STRING)
+                                .description("Name of the unit"),
+                        fieldWithPath("description")
+                                .type(JsonFieldType.STRING)
+                                .description("Description of the unit"),
+                        fieldWithPath("member_count")
+                                .type(JsonFieldType.NUMBER)
+                                .description("Count of currently active members with voting right for this unit."),
+                        fieldWithPath("areas")
+                                .type(JsonFieldType.ARRAY)
+                                .description("Areas which belong to this unit"))))
+                .andDo(document("units/get", pathParameters(
+                        parameterWithName("unitId").description("The unit id"))));
     }
 
 }
