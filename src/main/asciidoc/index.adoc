@@ -1,5 +1,3 @@
 = Liquid Canon HTTP API Reference
 
-include::{snippets}/units/get/path-parameters.adoc[]
-
-include::{snippets}/units/get/response-fields.adoc[]
+include::method.adoc[]

@@ -1,0 +1,9 @@
+
+== GET /units/:id
+
+=== Path Parameters
+include::{snippets}/units/get/path-parameters.adoc[]
+
+=== Response Fields
+include::{snippets}/units/get/response-fields.adoc[]
+
