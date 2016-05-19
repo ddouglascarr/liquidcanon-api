@@ -14,15 +14,15 @@ public class Member
     @Id
     private Long id;
 
-    @JsonIgnore
-    private String password;
-    private String login;
+    @JsonIgnore private String password;
+    @JsonIgnore private String login;
 
     private String name;
     private Boolean admin;
-    private String notifyEmail;
+    @JsonIgnore private String notifyEmail;
     private Boolean active;
     private Date activated;
+    private String identification;
     private Date lastActivity;
     private Date lastLogin;
     private Boolean locked;
@@ -40,9 +40,6 @@ public class Member
     private String externalPosts;
     private String formattingEngine;
     private String statement;
-
-    @ReadOnlyProperty
-    private List<Unit> units;
 
     public Member()
     {}
@@ -131,14 +128,14 @@ public class Member
         this.activated = activated;
     }
 
-    public List<Unit> getUnits()
+    public String getIdentification()
     {
-        return units;
+        return identification;
     }
 
-    public void setUnits(List<Unit> units)
+    public void setIdentification(String identification)
     {
-        this.units = units;
+        this.identification = identification;
     }
 
     public Date getLastActivity()

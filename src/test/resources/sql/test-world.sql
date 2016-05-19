@@ -51,7 +51,7 @@ UPDATE "member" SET admin = TRUE WHERE login = 'admin';
 -- extra details for integration test
 UPDATE "member" SET "locked" = FALSE, "last_login" = 'now', "organizational_unit" = 'Silicon Valley',
     "internal_posts" = 'Chief Scientist', "realname" = 'Frances Hugle', "birthday" = '1927-08-13T00:00:00',
-     "email" = 'tender_hugle@internet.com', "xmpp_address" = 'tender@tender_hugle.com',
+     "identification" = '123456', "email" = 'tender_hugle@internet.com', "xmpp_address" = 'tender@tender_hugle.com',
      "website" = 'https://www.tender-hugle.com', "phone" = '+61 5 5555 5555',
      "mobile_phone" = '+61 555 555 555', "profession" = 'scientist, engineer, inventor',
      "external_memberships" = 'Standard Electronics Research Corp.',
