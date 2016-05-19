@@ -84,8 +84,26 @@ public class MembersControllerTests
                 .andExpect(jsonPath("$.id", is(HUGLE_MEMBER_ID.intValue())))
                 .andExpect(jsonPath("$.name", is("Tender Hugle")))
                 .andExpect(jsonPath("$.active", is(true)))
+                .andExpect(jsonPath("$.activated", is(JsonFieldType.NUMBER)))
                 .andExpect(jsonPath("$.last_activity", is(JsonFieldType.STRING)))
+                .andExpect(jsonPath("$.last_login", is(JsonFieldType.NUMBER)))
+                .andExpect(jsonPath("$.locked", is(false)))
+                .andExpect(jsonPath("$.admin", is(false)))
+                .andExpect(jsonPath("$.organizational_unit", is(JsonFieldType.STRING)))
+                .andExpect(jsonPath("$.internal_posts", is(JsonFieldType.STRING)))
+                .andExpect(jsonPath("$.realname", is("Tender Hugle")))
+                .andExpect(jsonPath("$.birthday", is(323355600))) // april 1 1980 in Melbourne
+                .andExpect(jsonPath("$.email", is("tender_hugle@internet.com")))
+                .andExpect(jsonPath("$.xmpp_address", is("tender@tender_hugle.com")))
+                .andExpect(jsonPath("$.website", is("https://www.tender-hugle.com")))
+                .andExpect(jsonPath("$.phone", is("+61 5 5555 5555")))
+                .andExpect(jsonPath("$.mobile_phone", is("+61 555 555 555")))
+                .andExpect(jsonPath("$.profession", is("scientist, engineer, inventor")))
                 .andExpect(jsonPath("$.login", is("tender_hugle")))
+                .andExpect(jsonPath("$.external_memberships", is("Standard Electronics Research Corp.")))
+                .andExpect(jsonPath("$.external_posts", is("Director of Research")))
+                .andExpect(jsonPath("$.formatting_engine", is("plain")))
+                .andExpect(jsonPath("$.statement", is("an American scientist, engineer, and inventor who contributed to the understanding of semiconductors, integrated circuitry, and the unique electrical principles of microscopic materials.")))
                 .andDo(document("members/get", pathParameters(
                         parameterWithName("unitId")
                                 .description("The unit to which the member belongs"),
@@ -101,8 +119,64 @@ public class MembersControllerTests
                         fieldWithPath("active")
                                 .type(JsonFieldType.BOOLEAN)
                                 .description("Memberships, support and votes are taken into account when corresponding members are marked as active. Automatically set to FALSE, if \"last_activity\" is older than \"member_ttl\""),
-                        fieldWithPath("last_activity")
+                        fieldWithPath("activated")
                                 .type(JsonFieldType.NUMBER)
-                                .description("Date of last activity of member"))));
+                                .description("(timestamp) First activation of account (i.e. usage of \"invite_code\")"),
+                        fieldWithPath("last_activity")
+                                .type(JsonFieldType.NUMBER).description("(timestamp) Date of last activity of member"),
+                        fieldWithPath("last_login")
+                                .type(JsonFieldType.NUMBER)
+                                .description("(timestamp) Timestamp of last login in main interface"),
+                        fieldWithPath("locked")
+                                .type(JsonFieldType.BOOLEAN)
+                                .description("Locked members can not log in"),
+                        fieldWithPath("admin")
+                                .type(JsonFieldType.BOOLEAN)
+                                .description("Indicates if member is administrator of the system"),
+                        fieldWithPath("identification")
+                                .type(JsonFieldType.STRING)
+                                .description("Optional identification number or code of the member"),
+                        fieldWithPath("organizational_unit")
+                                .type(JsonFieldType.STRING)
+                                .description("Branch or division of the organization the member belongs to"),
+                        fieldWithPath("internal_posts")
+                                .type(JsonFieldType.STRING)
+                                .description("Posts (offices) of the member inside the organization"),
+                        fieldWithPath("realname")
+                                .type(JsonFieldType.STRING)
+                                .description("Real name of the member, may be identical with \"name\""),
+                        fieldWithPath("birthday")
+                                .type(JsonFieldType.NUMBER)
+                                .description("(date) Birth date"),
+                        fieldWithPath("email")
+                                .type(JsonFieldType.STRING)
+                                .description("(e-mail) Published email address of member; not used for system notifications"),
+                        fieldWithPath("xmpp_address")
+                                .type(JsonFieldType.STRING)
+                                .description("(xmpp) instant messenging address"),
+                        fieldWithPath("website")
+                                .type(JsonFieldType.STRING)
+                                .description("(url) Members personal website"),
+                        fieldWithPath("phone")
+                                .type(JsonFieldType.STRING)
+                                .description("(phone-number) Members contact number"),
+                        fieldWithPath("mobile_phone")
+                                .type(JsonFieldType.STRING)
+                                .description("(phone-number) Members mobile number"),
+                        fieldWithPath("profession")
+                                .type(JsonFieldType.STRING)
+                                .description("members profession"),
+                        fieldWithPath("external_memberships")
+                                .type(JsonFieldType.STRING)
+                                .description("Other organizations the member is involved in"),
+                        fieldWithPath("external_posts")
+                                .type(JsonFieldType.STRING)
+                                .description("Posts (offices) outside the organization"),
+                        fieldWithPath("formatting_engine")
+                                .type(JsonFieldType.STRING)
+                                .description("Formatting engine used for \"statement\""),
+                        fieldWithPath("statement")
+                                .type(JsonFieldType.STRING)
+                                .description("Freely chosen text of the member for their profile"))));
     }
 }
