@@ -64,6 +64,15 @@ public class MembersControllerTests
     }
 
     @Test
+    public void getMemberShould401IfNoUnitReadPermission() throws Exception
+    {
+        mockMvc.perform(get("/units/{unitId}/members/{memberId}",
+                                MARS_UNIT_ID.intValue(), SAHA_MEMBER_ID.intValue())
+                            .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     public void getMemberShouldReturnMember() throws Exception
     {
         mockMvc.perform(get("/units/{unitId}/members/{memberId}",
