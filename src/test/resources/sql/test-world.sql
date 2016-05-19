@@ -48,6 +48,17 @@ UPDATE "member" SET "password" = '$1$PcI6b1Bg$2SHjAZH2nMLFp0fxHis.Q0';
 UPDATE "member" SET "password_liquidcanon" = '$2a$10$S14jaCA5zJ3lZ/r7eTQEae5NDV69isO20LCcOnojPf6MeR4hmexd2';
 UPDATE "member" SET admin = TRUE WHERE login = 'admin';
 
+-- extra details for integration test
+UPDATE "member" SET "locked" = FALSE, "last_login" = 'now', "organizational_unit" = 'Silicon Valley',
+    "internal_posts" = 'Chief Scientist', "realname" = 'Frances Hugle', "birthday" = '1927-08-13T00:00:00-06:00',
+     "email" = 'tender_hugle@internet.com', "xmpp_address" = 'tender@tender_hugle.com',
+     "website" = 'https://www.tender-hugle.com', "phone" = '+61 5 5555 5555',
+     "mobile_phone" = '+61 555 555 555', "profession" = 'scientist, engineer, inventor',
+     "external_memberships" = 'Standard Electronics Research Corp.',
+     "external_posts" = 'Director of Research', "formatting_engine" = 'plain',
+     "statement" = 'an American scientist, engineer, and inventor who contributed to the understanding of semiconductors, integrated circuitry, and the unique electrical principles of microscopic materials.'
+     WHERE "login" = 'tender_hugle';
+
 INSERT INTO "policy" (
     "id",
     "index",

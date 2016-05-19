@@ -20,6 +20,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -89,10 +94,10 @@ public class MembersControllerTests
                 .andExpect(jsonPath("$.last_login", is(JsonFieldType.NUMBER)))
                 .andExpect(jsonPath("$.locked", is(false)))
                 .andExpect(jsonPath("$.admin", is(false)))
-                .andExpect(jsonPath("$.organizational_unit", is(JsonFieldType.STRING)))
-                .andExpect(jsonPath("$.internal_posts", is(JsonFieldType.STRING)))
-                .andExpect(jsonPath("$.realname", is("Tender Hugle")))
-                .andExpect(jsonPath("$.birthday", is(323355600))) // april 1 1980 in Melbourne
+                .andExpect(jsonPath("$.organizational_unit", is("Silicon Valley")))
+                .andExpect(jsonPath("$.internal_posts", is("Chief Scientist")))
+                .andExpect(jsonPath("$.realname", is("Frances Hugle")))
+                .andExpect(jsonPath("$.birthday", is(ZonedDateTime.parse("1927-08-13T00:00:00-06:00").toInstant().getEpochSecond()))) //
                 .andExpect(jsonPath("$.email", is("tender_hugle@internet.com")))
                 .andExpect(jsonPath("$.xmpp_address", is("tender@tender_hugle.com")))
                 .andExpect(jsonPath("$.website", is("https://www.tender-hugle.com")))

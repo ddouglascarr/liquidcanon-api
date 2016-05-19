@@ -47,6 +47,20 @@ public class MemberRepositoryTests
     }
 
     @Test(expected = ItemNotFoundException.class)
+    public void findOneByUnitIdAndIdShouldThrowIfNotFound() throws Exception
+    {
+        memberRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, KHORANA_MEMBER_ID);
+    }
+
+    @Test
+    public void findOneByUnitIdAndIdShouldReturnMember() throws Exception
+    {
+        Member returnedMember = memberRepository
+                .findOneByUnitIdAndId(EARTH_UNIT_ID, POITRAS_MEMBER_ID);
+        assertEquals(POITRAS_MEMBER_ID, returnedMember.getId());
+    }
+
+    @Test(expected = ItemNotFoundException.class)
     public void findOneByLoginShouldThrowIfNotFound() throws Exception
     {
         memberRepository.findOneByLogin("nonexistant_unicorn");
