@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentation;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -31,7 +30,6 @@ import static org.hamcrest.Matchers.*;
 import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {LiquidcanonApplication.class, WebSecurityConfig.class})
@@ -43,7 +41,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
                 "classpath:sql/liquid-canon.sql",
                 "classpath:sql/test-world.sql"
         })
-public class UnitsControllerTests
+public class MembersControllerTests
 {
     @Rule
     public RestDocumentation restDocumentation =
@@ -66,72 +64,36 @@ public class UnitsControllerTests
     }
 
     @Test
-    public void getUnitShould4xxIfUnitDoesNotExist() throws Exception
+    public void getMemberShouldReturnMember() throws Exception
     {
-        mockMvc.perform(get("/units/" + NON_EXISTENT_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void getUnitShould401IfMemberDoesNotHaveUnitReadPrivilegeAndUnitIsPrivate()
-            throws Exception
-    {
-        mockMvc.perform(get("/units/" + MARS_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().isUnauthorized())
-                .andDo(document("units/get"));
-    }
-
-    @Test
-    public void getUnitShouldSucceedIfMemberDoesNotHaveUnitPrivilegeAndUnitIsPublic()
-            throws Exception
-    {
-        mockMvc.perform(get("/units/" + MOON_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", hasSize(7)));
-    }
-
-    @Test
-    public void getUnitShouldReturnUnit() throws Exception
-    {
-        mockMvc.perform(get("/units/{unitId}", EARTH_MOON_FEDERATION_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
+        mockMvc.perform(get("/units/{unitId}/members/{memberId}",
+                                EARTH_MOON_FEDERATION_UNIT_ID.intValue(),
+                                HUGLE_MEMBER_ID.intValue())
+                        .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
-                .andExpect(jsonPath("$.parent_id", is(SOLAR_SYSTEM_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.id", is(HUGLE_MEMBER_ID.intValue())))
+                .andExpect(jsonPath("$.name", is("Tender Hugle")))
                 .andExpect(jsonPath("$.active", is(true)))
-                .andExpect(jsonPath("$.name", is(EARTH_MOON_FEDERATION_UNIT_NAME)))
-                .andExpect(jsonPath("$.description", isEmptyOrNullString()))
-                .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
-                .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
-                .andExpect(jsonPath("$.*", hasSize(7)))
-                .andDo(document("units/get", responseFields(
+                .andExpect(jsonPath("$.last_activity", is(JsonFieldType.STRING)))
+                .andExpect(jsonPath("$.login", is("tender_hugle")))
+                .andDo(document("members/get", pathParameters(
+                        parameterWithName("unitId")
+                                .description("The unit to which the member belongs"),
+                        parameterWithName("memberId")
+                                .description("The id of the member"))))
+                .andDo(document("members/get", responseFields(
                         fieldWithPath("id")
                                 .type(JsonFieldType.NUMBER)
                                 .description("Primary key"),
-                        fieldWithPath("parent_id")
-                                .type(JsonFieldType.NUMBER)
-                                .description("Referencing the parent unit (unset/null if unit is in root level)"),
-                        fieldWithPath("active")
-                                .type(JsonFieldType.BOOLEAN)
-                                .description("New issues can be created in the unit"),
                         fieldWithPath("name")
                                 .type(JsonFieldType.STRING)
-                                .description("Name of the unit"),
-                        fieldWithPath("description")
-                                .type(JsonFieldType.STRING)
-                                .description("Description of the unit"),
-                        fieldWithPath("member_count")
+                                .description("Distinct name of the member, may be changed freely"),
+                        fieldWithPath("active")
+                                .type(JsonFieldType.BOOLEAN)
+                                .description("Memberships, support and votes are taken into account when corresponding members are marked as active. Automatically set to FALSE, if \"last_activity\" is older than \"member_ttl\""),
+                        fieldWithPath("last_activity")
                                 .type(JsonFieldType.NUMBER)
-                                .description("Count of currently active members with voting right for this unit."),
-                        fieldWithPath("areas")
-                                .type(JsonFieldType.ARRAY)
-                                .description("Areas which belong to this unit"))))
-                .andDo(document("units/get", pathParameters(
-                        parameterWithName("unitId").description("The unit id"))));
+                                .description("Date of last activity of member"))));
     }
-
 }

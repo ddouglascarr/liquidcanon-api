@@ -11,6 +11,7 @@ public class IntegrationTestConsts
     public static Long BABBAGE_MEMBER_ID = new Long(6);
     public static Long CARSON_MEMBER_ID = new Long(13);
     public static Long KHORANA_MEMBER_ID = new Long(19);
+    public static Long SAHA_MEMBER_ID = new Long(21);
 
     // member credentials
     public static String POITRAS_LOGIN = "determined_poitras";
