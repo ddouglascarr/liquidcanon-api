@@ -1,18 +1,10 @@
 
-== GET /units/:id
+== {verb} {path}
 
 === Path Parameters
-include::{snippets}/units/get/path-parameters.adoc[]
+include::{snippets}/{controller}/{verb}/path-parameters.adoc[]
 
 === Response Fields
-include::{snippets}/units/get/response-fields.adoc[]
+include::{snippets}/{controller}/{verb}/response-fields.adoc[]
 
 
-
-== GET /units/:unitId/members/:memberId
-
-=== Path Parameters
-include::{snippets}/members/get/path-parameters.adoc[]
-
-=== Response Fields
-include::{snippets}/members/get/response-fields.adoc[]
