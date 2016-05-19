@@ -3,6 +3,7 @@ package org.ddouglascarr.unit.controllers;
 import org.ddouglascarr.controllers.MembersController;
 import org.ddouglascarr.enums.ExceptionCodes;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
+import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.models.UserDetailsImpl;
 import org.ddouglascarr.services.MemberService;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 public class MembersControllerTests
 {
@@ -30,43 +32,40 @@ public class MembersControllerTests
     @InjectMocks
     private MembersController membersController = new MembersController();
 
+    @Mock
     private Member mockMember2;
+    @Mock
     private Member mockMember3;
-
-    private List<String> mockRoles = new ArrayList<>();
+    @Mock
     private UserDetailsImpl mockUserDetails;
+
     @Before
     public void setup()
     {
         MockitoAnnotations.initMocks(this);
 
-        mockMember2 = new Member();
-        mockMember2.setId(new Long(2));
+        when(mockMember2.getId()).thenReturn(HUGLE_MEMBER_ID);
+        when(mockMember3.getId()).thenReturn(ALMEIDA_MEMBER_ID);
 
-        mockMember3 = new Member();
-        mockMember3.setId(new Long(3));
+        when(mockUserDetails.getId()).thenReturn(HUGLE_MEMBER_ID);
+    }
 
-        mockRoles.add("ROLE_USER");
-        mockUserDetails = new UserDetailsImpl(mockMember2, mockRoles);
+    @Test(expected = ItemNotFoundException.class)
+    public void getMemberShouldReturn404IfMemberNotFound() throws Exception
+    {
+        when(memberService.findOneByUnitIdAndId(HUGLE_MEMBER_ID, MOON_UNIT_ID, ALMEIDA_MEMBER_ID))
+                .thenThrow(new ItemNotFoundException());
+        membersController.getMember(mockUserDetails, MOON_UNIT_ID, ALMEIDA_MEMBER_ID);
     }
 
     @Test
-    public void getMemberShouldReturn404IfMemberNotFound() throws ItemNotFoundException
+    public void getMemberShouldReturnMember() throws Exception
     {
-        when(memberService.findOne(new Long(6))).thenThrow(new ItemNotFoundException());
-        ResponseEntity<Member> resp = membersController.getMember(new Long(6));
-        assertEquals(resp.getStatusCode(), HttpStatus.NOT_FOUND);
-        MultiValueMap<String, String> headers = resp.getHeaders();
-        assertEquals(headers.getFirst("error-code"), ExceptionCodes.ITEM_NOT_FOUND.toString());
-    }
-
-    @Test
-    public void getMemberShouldReturnMember() throws ItemNotFoundException
-    {
-        when(memberService.findOne(new Long(3))).thenReturn(mockMember3);
-        ResponseEntity<Member> resp = membersController.getMember(new Long(3));
+        when(memberService.findOneByUnitIdAndId(HUGLE_MEMBER_ID, EARTH_UNIT_ID, ALMEIDA_MEMBER_ID))
+                .thenReturn(mockMember3);
+        ResponseEntity<Member> resp = membersController
+                .getMember(mockUserDetails, EARTH_UNIT_ID, ALMEIDA_MEMBER_ID);
         assertEquals(resp.getStatusCode(), HttpStatus.OK);
-
         Member body = resp.getBody();
         assertEquals(mockMember3, body);
     }
