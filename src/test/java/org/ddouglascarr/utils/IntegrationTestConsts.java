@@ -32,6 +32,6 @@ public class IntegrationTestConsts
     public static Long MARS_STATUTES_AREA_ID = new Long(3);
     public static Long ALIEN_AFFAIRS_AREA_ID = new Long(7);
     public static Long MARS_MINERAL_RESOURCES_AREA_ID = new Long(17);
-    public static Long EARTH_STATUTES_AREA_ID = new Long(2);
+    public static Long EARTH_MOON_FEDERATION_STATUTES_AREA_ID = new Long(2);
     public static Long EARTH_SPACE_VEHICLES_AREA_ID = new Long(13);
 }

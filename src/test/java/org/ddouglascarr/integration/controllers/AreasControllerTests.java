@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentation;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -31,7 +30,6 @@ import static org.hamcrest.Matchers.*;
 import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {LiquidcanonApplication.class, WebSecurityConfig.class})
@@ -44,7 +42,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
                 "classpath:sql/test-world.sql"
         }
 )
-public class UnitsControllerTests
+public class AreasControllerTests
 {
     @Rule
     public RestDocumentation restDocumentation =
@@ -67,72 +65,50 @@ public class UnitsControllerTests
     }
 
     @Test
-    public void getUnitShould4xxIfUnitDoesNotExist() throws Exception
+    public void getAreasShouldReturnListOfAreas() throws Exception
     {
-        mockMvc.perform(get("/units/" + NON_EXISTENT_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void getUnitShould401IfMemberDoesNotHaveUnitReadPrivilegeAndUnitIsPrivate()
-            throws Exception
-    {
-        mockMvc.perform(get("/units/" + MARS_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().isUnauthorized())
-                .andDo(document("units/get"));
-    }
-
-    @Test
-    public void getUnitShouldSucceedIfMemberDoesNotHaveUnitPrivilegeAndUnitIsPublic()
-            throws Exception
-    {
-        mockMvc.perform(get("/units/" + MOON_UNIT_ID.toString())
-                    .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", hasSize(7)));
-    }
-
-    @Test
-    public void getUnitShouldReturnUnit() throws Exception
-    {
-        mockMvc.perform(get("/units/{unitId}", EARTH_MOON_FEDERATION_UNIT_ID.toString())
+        mockMvc.perform(get("/units/{unitId}/areas/{areaId}",
+                        EARTH_MOON_FEDERATION_UNIT_ID.toString(),
+                        EARTH_MOON_FEDERATION_STATUTES_AREA_ID.toString())
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
-                .andExpect(jsonPath("$.parent_id", is(SOLAR_SYSTEM_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_STATUTES_AREA_ID.intValue())))
+                .andExpect(jsonPath("$.unit_id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
                 .andExpect(jsonPath("$.active", is(true)))
-                .andExpect(jsonPath("$.name", is(EARTH_MOON_FEDERATION_UNIT_NAME)))
-                .andExpect(jsonPath("$.description", isEmptyOrNullString()))
-                .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
-                .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
-                .andExpect(jsonPath("$.*", hasSize(7)))
-                .andDo(document("units/get", responseFields(
+                .andExpect(jsonPath("$.name", is("Statutes of the Earth Moon Federation")))
+                .andExpect(jsonPath("$.description", isEmptyOrNullString())) // TODO
+                .andExpect(jsonPath("$.direct_member_count", isEmptyOrNullString())) // TODO
+                .andExpect(jsonPath("$.member_weight", isEmptyOrNullString())) // TODO
+                .andExpect(jsonPath("$.external_reference", isEmptyOrNullString())) // TODO
+                .andExpect(jsonPath("$.*", hasSize(8)))
+                .andDo(document("areas/get", pathParameters(
+                        parameterWithName("unitId").description("The unit id to which the area belongs"),
+                        parameterWithName("areaId").description("The area id"))))
+                .andDo(document("areas/get", responseFields(
                         fieldWithPath("id")
                                 .type(JsonFieldType.NUMBER)
                                 .description("Primary key"),
-                        fieldWithPath("parent_id")
+                        fieldWithPath("unit_id")
                                 .type(JsonFieldType.NUMBER)
-                                .description("Referencing the parent unit (unset/null if unit is in root level)"),
+                                .description("Unit to which the area belongs"),
                         fieldWithPath("active")
                                 .type(JsonFieldType.BOOLEAN)
-                                .description("New issues can be created in the unit"),
+                                .description("New issues can be created in the area"),
                         fieldWithPath("name")
                                 .type(JsonFieldType.STRING)
-                                .description("Name of the unit"),
+                                .description("Name of area"),
                         fieldWithPath("description")
                                 .type(JsonFieldType.STRING)
-                                .description("Description of the unit"),
-                        fieldWithPath("member_count")
+                                .description("Description of area"),
+                        fieldWithPath("direct_member_count")
                                 .type(JsonFieldType.NUMBER)
-                                .description("Count of currently active members with voting right for this unit."),
-                        fieldWithPath("areas")
-                                .type(JsonFieldType.ARRAY)
-                                .description("Areas which belong to this unit"))))
-                .andDo(document("units/get", pathParameters(
-                        parameterWithName("unitId").description("The unit id"))));
+                                .description("Count of active members of that area (ignoring their weight)"),
+                        fieldWithPath("member_weight")
+                                .type(JsonFieldType.NUMBER)
+                                .description("Same as direct_member_count, but respecting delegations"),
+                        fieldWithPath("external_reference")
+                                .type(JsonFieldType.STRING)
+                                .description("Reference to resource outside of project"))));
     }
-
 }

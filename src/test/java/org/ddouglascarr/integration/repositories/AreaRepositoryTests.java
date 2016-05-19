@@ -54,10 +54,10 @@ public class AreaRepositoryTests
         assertEquals(3, areas.size());
 
         Area statutesArea = areas.stream()
-                .filter(a -> EARTH_STATUTES_AREA_ID.equals(a.getId()))
+                .filter(a -> EARTH_MOON_FEDERATION_STATUTES_AREA_ID.equals(a.getId()))
                 .findFirst().get();
         assertNotNull(statutesArea);
-        assertEquals(EARTH_STATUTES_AREA_ID, statutesArea.getId());
+        assertEquals(EARTH_MOON_FEDERATION_STATUTES_AREA_ID, statutesArea.getId());
 
         Area spaceVehiclesArea = areas.stream()
                 .filter(a -> EARTH_SPACE_VEHICLES_AREA_ID.equals(a.getId()))
@@ -97,9 +97,9 @@ public class AreaRepositoryTests
     @Test
     public void findOneByUnitIdAndIDShouldReturnArea() throws Exception
     {
-        Area area = areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, EARTH_STATUTES_AREA_ID);
+        Area area = areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, EARTH_MOON_FEDERATION_STATUTES_AREA_ID);
         assertNotNull(area);
-        assertEquals(EARTH_STATUTES_AREA_ID, area.getId());
+        assertEquals(EARTH_MOON_FEDERATION_STATUTES_AREA_ID, area.getId());
     }
 
 
