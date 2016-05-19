@@ -89,15 +89,15 @@ public class MembersControllerTests
                 .andExpect(jsonPath("$.id", is(HUGLE_MEMBER_ID.intValue())))
                 .andExpect(jsonPath("$.name", is("Tender Hugle")))
                 .andExpect(jsonPath("$.active", is(true)))
-                .andExpect(jsonPath("$.activated", is(JsonFieldType.NUMBER)))
-                .andExpect(jsonPath("$.last_activity", is(JsonFieldType.STRING)))
-                .andExpect(jsonPath("$.last_login", is(JsonFieldType.NUMBER)))
-                .andExpect(jsonPath("$.locked", is(false)))
+                .andExpect(jsonPath("$.activated", is(isA(Long.class))))
+                .andExpect(jsonPath("$.last_activity", isA(Long.class)))
+                .andExpect(jsonPath("$.last_login", isA(Long.class)))
+                .andExpect(jsonPath("$.locked", isOneOf(null, false)))
                 .andExpect(jsonPath("$.admin", is(false)))
                 .andExpect(jsonPath("$.organizational_unit", is("Silicon Valley")))
                 .andExpect(jsonPath("$.internal_posts", is("Chief Scientist")))
                 .andExpect(jsonPath("$.realname", is("Frances Hugle")))
-                .andExpect(jsonPath("$.birthday", is(ZonedDateTime.parse("1927-08-13T00:00:00-06:00").toInstant().getEpochSecond()))) //
+                .andExpect(jsonPath("$.birthday", is("1927-08-13"))) //
                 .andExpect(jsonPath("$.email", is("tender_hugle@internet.com")))
                 .andExpect(jsonPath("$.xmpp_address", is("tender@tender_hugle.com")))
                 .andExpect(jsonPath("$.website", is("https://www.tender-hugle.com")))
@@ -151,7 +151,7 @@ public class MembersControllerTests
                                 .type(JsonFieldType.STRING)
                                 .description("Real name of the member, may be identical with \"name\""),
                         fieldWithPath("birthday")
-                                .type(JsonFieldType.NUMBER)
+                                .type(JsonFieldType.STRING)
                                 .description("(date) Birth date"),
                         fieldWithPath("email")
                                 .type(JsonFieldType.STRING)

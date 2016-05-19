@@ -22,12 +22,14 @@ public class Member
     private Boolean admin;
     private String notifyEmail;
     private Boolean active;
+    private Date activated;
     private Date lastActivity;
     private Date lastLogin;
     private Boolean locked;
     private String organizationalUnit;
+    private String internalPosts;
     private String realname;
-    private Date birthday;
+    private String birthday;
     private String email;
     private String xmppAddress;
     private String website;
@@ -119,6 +121,16 @@ public class Member
         this.active = active;
     }
 
+    public Date getActivated()
+    {
+        return activated;
+    }
+
+    public void setActivated(Date activated)
+    {
+        this.activated = activated;
+    }
+
     public List<Unit> getUnits()
     {
         return units;
@@ -179,6 +191,16 @@ public class Member
         this.organizationalUnit = organizationalUnit;
     }
 
+    public String getInternalPosts()
+    {
+        return internalPosts;
+    }
+
+    public void setInternalPosts(String internalPosts)
+    {
+        this.internalPosts = internalPosts;
+    }
+
     public String getRealname()
     {
         return realname;
@@ -189,12 +211,12 @@ public class Member
         this.realname = realname;
     }
 
-    public Date getBirthday()
+    public String getBirthday()
     {
         return birthday;
     }
 
-    public void setBirthday(Date birthday)
+    public void setBirthday(String birthday)
     {
         this.birthday = birthday;
     }

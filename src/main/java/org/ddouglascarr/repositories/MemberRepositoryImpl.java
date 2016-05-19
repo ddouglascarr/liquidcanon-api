@@ -23,7 +23,7 @@ public class MemberRepositoryImpl implements MemberRepository
 
     private static String SELECT_LIST = String.join(" ",
             "m.id, m.password_liquidcanon AS password, m.login,",
-            "m.name, m.admin, m.notify_email, m.active, m.last_activity,",
+            "m.name, m.admin, m.notify_email, m.active, m.activated, m.last_activity,",
             "m.last_login, m.organizational_unit, m.internal_posts,",
             "m.realname, m.birthday, m.email, m.xmpp_address,",
             "m.website, m.phone, m.mobile_phone, m.profession, m.external_memberships,",
