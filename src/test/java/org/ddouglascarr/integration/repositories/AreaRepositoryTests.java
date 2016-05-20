@@ -1,4 +1,4 @@
-package org.ddouglascarr.integration;
+package org.ddouglascarr.integration.repositories;
 
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(LiquidcanonApplication.class)
@@ -33,14 +34,6 @@ public class AreaRepositoryTests
     @Autowired
     private AreaRepository areaRepository;
 
-    private final Long EARTH_UNIT_ID = new Long(2);
-    private final Long MARS_UNIT_ID = new Long(5);
-    private final Long NON_EXISTANT_AREA_ID = new Long(9999);
-    private final Long MARS_STATUTES_AREA_ID = new Long(3);
-    private final Long MARS_MINERAL_RESOURCES_AREA_ID = new Long(17);
-    private final Long EARTH_STATUTES_AREA_ID = new Long(2);
-    private final Long EARTH_SPACE_VEHICLES_AREA_ID = new Long(13);
-
     @Test(expected = ItemNotFoundException.class)
     public void findOneShouldThrowIfDoesNotExist() throws Exception
     {
@@ -57,14 +50,14 @@ public class AreaRepositoryTests
     @Test
     public void findByUnitIdShouldReturnListOfAreasForEarth() throws Exception
     {
-        List<Area> areas = areaRepository.findByUnitId(EARTH_UNIT_ID);
+        List<Area> areas = areaRepository.findByUnitId(EARTH_MOON_FEDERATION_UNIT_ID);
         assertEquals(3, areas.size());
 
         Area statutesArea = areas.stream()
-                .filter(a -> EARTH_STATUTES_AREA_ID.equals(a.getId()))
+                .filter(a -> EARTH_MOON_FEDERATION_STATUTES_AREA_ID.equals(a.getId()))
                 .findFirst().get();
         assertNotNull(statutesArea);
-        assertEquals(EARTH_STATUTES_AREA_ID, statutesArea.getId());
+        assertEquals(EARTH_MOON_FEDERATION_STATUTES_AREA_ID, statutesArea.getId());
 
         Area spaceVehiclesArea = areas.stream()
                 .filter(a -> EARTH_SPACE_VEHICLES_AREA_ID.equals(a.getId()))
@@ -92,21 +85,21 @@ public class AreaRepositoryTests
     @Test(expected = ItemNotFoundException.class)
     public void findOneByUnitIdAndIdShouldThrowIfNotPartOfUnit() throws Exception
     {
-        areaRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, MARS_STATUTES_AREA_ID);
+        areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, MARS_STATUTES_AREA_ID);
     }
 
     @Test(expected = ItemNotFoundException.class)
     public void findOneByUnitIdAndIDSHouldThrowIfDoesNotExist() throws Exception
     {
-        areaRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, NON_EXISTANT_AREA_ID);
+        areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, NON_EXISTANT_AREA_ID);
     }
 
     @Test
     public void findOneByUnitIdAndIDShouldReturnArea() throws Exception
     {
-        Area area = areaRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, EARTH_STATUTES_AREA_ID);
+        Area area = areaRepository.findOneByUnitIdAndId(EARTH_MOON_FEDERATION_UNIT_ID, EARTH_MOON_FEDERATION_STATUTES_AREA_ID);
         assertNotNull(area);
-        assertEquals(EARTH_STATUTES_AREA_ID, area.getId());
+        assertEquals(EARTH_MOON_FEDERATION_STATUTES_AREA_ID, area.getId());
     }
 
 

@@ -1,4 +1,4 @@
-package org.ddouglascarr.integration;
+package org.ddouglascarr.integration.repositories;
 
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.enums.DelegationScope;
@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,6 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(LiquidcanonApplication.class)
@@ -35,24 +35,12 @@ public class DelegationRepositoryTests
     @Autowired
     private DelegationRepository delegationRepository;
 
-    private final Long POITRAS_MEMBER_ID = new Long(1);
-    private final Long HUGLE_MEMBER_ID = new Long(2);
-    private final Long ALMEIDA_MEMBER_ID = new Long(3);
-    private final Long HEISENBERG_MEMBER_ID = new Long(5);
-    private final Long BABBAGE_MEMBER_ID = new Long(6);
-    private final Long CARSON_MEMBER_ID = new Long(13);
-    private final Long KHORANA_MEMBER_ID = new Long(19);
-    private final Long SOLAR_SYSTEM_UNIT_ID = new Long(1);
-    private final Long EARTH_UNIT_ID = new Long(2);
-    private final Long MARS_UNIT_ID = new Long(5);
-    private final Long ALIEN_AFFAIRS_AREA_ID = new Long(7);
-
     @Test
     public void findOneUnitDelegationByTrusterIdShouldReturnDelegation()
             throws Exception
     {
         Delegation delegation = delegationRepository
-                .findUnitDelegationByTrusterId(EARTH_UNIT_ID, HEISENBERG_MEMBER_ID);
+                .findUnitDelegationByTrusterId(EARTH_MOON_FEDERATION_UNIT_ID, HEISENBERG_MEMBER_ID);
         assertEquals(POITRAS_MEMBER_ID, delegation.getTrusteeId());
         assertEquals(new Long(13), delegation.getId());
     }
@@ -62,7 +50,7 @@ public class DelegationRepositoryTests
             throws Exception
     {
         Delegation delegation = delegationRepository
-                .findUnitDelegationByTrusterId(EARTH_UNIT_ID, BABBAGE_MEMBER_ID);
+                .findUnitDelegationByTrusterId(EARTH_MOON_FEDERATION_UNIT_ID, BABBAGE_MEMBER_ID);
         assertNull(delegation);
     }
 
@@ -105,7 +93,7 @@ public class DelegationRepositoryTests
     {
         Delegation delegation = delegationRepository
                 .findAreaDelegationByTrusterId(
-                        EARTH_UNIT_ID,
+                        EARTH_MOON_FEDERATION_UNIT_ID,
                         ALIEN_AFFAIRS_AREA_ID,
                         KHORANA_MEMBER_ID);
         assertNull(delegation);
@@ -117,7 +105,7 @@ public class DelegationRepositoryTests
     {
         List<Delegation> delegations = delegationRepository
                 .findAreaDelegationsByTrusteeId(
-                        EARTH_UNIT_ID,
+                        EARTH_MOON_FEDERATION_UNIT_ID,
                         ALIEN_AFFAIRS_AREA_ID,
                         CARSON_MEMBER_ID);
         assertEquals(0, delegations.size());

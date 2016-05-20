@@ -1,0 +1,11 @@
+= Liquid Canon HTTP API Reference
+
+:verb: get
+:controller: units
+:path: /units/:id
+include::method.adoc[]
+
+:verb: get
+:controller: members
+:path: /units/:unitId/members/:memberId
+include::method.adoc[]

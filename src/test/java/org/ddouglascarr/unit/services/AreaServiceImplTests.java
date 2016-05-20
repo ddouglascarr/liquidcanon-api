@@ -1,4 +1,4 @@
-package org.ddouglascarr.unit;
+package org.ddouglascarr.unit.services;
 
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;

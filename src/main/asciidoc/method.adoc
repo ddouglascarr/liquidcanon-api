@@ -1,0 +1,10 @@
+
+== {verb} {path}
+
+=== Path Parameters
+include::{snippets}/{controller}/{verb}/path-parameters.adoc[]
+
+=== Response Fields
+include::{snippets}/{controller}/{verb}/response-fields.adoc[]
+
+

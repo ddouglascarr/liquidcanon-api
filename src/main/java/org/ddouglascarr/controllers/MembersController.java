@@ -1,6 +1,8 @@
 package org.ddouglascarr.controllers;
 
+import org.ddouglascarr.aop.HandleServiceErrors;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
+import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Member;
 import org.ddouglascarr.models.UserDetailsImpl;
 import org.ddouglascarr.services.MemberService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/units/{unitId}")
 public class MembersController
 {
     @Autowired
@@ -23,14 +26,16 @@ public class MembersController
             value = "/members/{memberId}",
             method = RequestMethod.GET
     )
-    public ResponseEntity<Member> getMember(@PathVariable Long memberId)
+    @HandleServiceErrors
+    public ResponseEntity<Member> getMember(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long unitId,
+            @PathVariable Long memberId)
+            throws ItemNotFoundException, MemberUnprivilegedException
     {
-        try {
-            Member member = memberService.findOne(memberId);
-            return new ResponseEntity<Member>(member, HttpStatus.OK);
-        } catch (ItemNotFoundException e) {
-            return new ResponseEntity<Member>(e.getResponseHeaders(), HttpStatus.NOT_FOUND);
-        }
+        Member member = memberService.findOneByUnitIdAndId(
+                userDetails.getId(), unitId, memberId);
+        return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
 }

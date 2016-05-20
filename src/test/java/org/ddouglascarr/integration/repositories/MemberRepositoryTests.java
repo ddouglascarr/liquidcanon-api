@@ -1,4 +1,4 @@
-package org.ddouglascarr.integration;
+package org.ddouglascarr.integration.repositories;
 
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(LiquidcanonApplication.class)
@@ -32,14 +33,6 @@ public class MemberRepositoryTests
     @Autowired
     private MemberRepository memberRepository;
 
-    private final Long POITRAS_MEMBER_ID = new Long(1);
-    private final Long BABBAGE_MEMBER_ID = new Long(6);
-    private final Long KHORANA_MEMBER_ID = new Long(19);
-    private final Long NON_EXISTANT_MEMBER_ID = new Long (666);
-    private final Long SOLAR_SYSTEM_UNIT_ID = new Long(1);
-    private final Long EARTH_UNIT_ID = new Long(2);
-    private final Long MARS_UNIT_ID = new Long(5);
-
     @Test(expected = ItemNotFoundException.class)
     public void getOneByIdShouldThrowIfNotFound() throws Exception
     {
@@ -50,6 +43,20 @@ public class MemberRepositoryTests
     public void getOneByIdShouldReturnMember() throws Exception
     {
         Member returnedMember = memberRepository.findOneById(POITRAS_MEMBER_ID);
+        assertEquals(POITRAS_MEMBER_ID, returnedMember.getId());
+    }
+
+    @Test(expected = ItemNotFoundException.class)
+    public void findOneByUnitIdAndIdShouldThrowIfNotFound() throws Exception
+    {
+        memberRepository.findOneByUnitIdAndId(EARTH_UNIT_ID, KHORANA_MEMBER_ID);
+    }
+
+    @Test
+    public void findOneByUnitIdAndIdShouldReturnMember() throws Exception
+    {
+        Member returnedMember = memberRepository
+                .findOneByUnitIdAndId(EARTH_UNIT_ID, POITRAS_MEMBER_ID);
         assertEquals(POITRAS_MEMBER_ID, returnedMember.getId());
     }
 
@@ -70,7 +77,7 @@ public class MemberRepositoryTests
     @Test
     public void findByUnitIdShouldReturnListOfMember()
     {
-        List<Member> returnedMembers = memberRepository.findByUnitId(EARTH_UNIT_ID);
+        List<Member> returnedMembers = memberRepository.findByUnitId(EARTH_MOON_FEDERATION_UNIT_ID);
         assertEquals(15, returnedMembers.size());
 
         Member poitras = returnedMembers.stream()

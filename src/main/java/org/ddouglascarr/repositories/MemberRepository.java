@@ -11,6 +11,7 @@ import java.util.List;
 public interface MemberRepository
 {
     Member findOneById(Long id) throws ItemNotFoundException;
+    Member findOneByUnitIdAndId(Long unitId, Long id) throws ItemNotFoundException;
     Member findOneByLogin(String login) throws ItemNotFoundException;
     List<Member> findByUnitId(Long unitId);
 }
