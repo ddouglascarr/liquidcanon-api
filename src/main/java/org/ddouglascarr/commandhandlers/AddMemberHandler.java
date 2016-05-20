@@ -2,22 +2,21 @@ package org.ddouglascarr.commandhandlers;
 
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.repository.Repository;
-import org.ddouglascarr.commands.CreateUnit;
+import org.ddouglascarr.commands.AddMember;
 import org.ddouglascarr.entities.UnitEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateUnitHandler
+public class AddMemberHandler
 {
     @Autowired
     private Repository repository;
 
     @CommandHandler
-    public void handle(CreateUnit createUnitCommand)
+    public void handle(AddMember addMemberCommand)
     {
-        UnitEntity unitEntity = new UnitEntity(
-                createUnitCommand.getName(), createUnitCommand.getDescription());
-
+        UnitEntity unitEntity = (UnitEntity) repository.load(addMemberCommand.getUnitId());
+        unitEntity.addMember();
     }
 }
