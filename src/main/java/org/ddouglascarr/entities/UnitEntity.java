@@ -9,6 +9,7 @@ import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.ddouglascarr.commands.CreateUnit;
 import org.ddouglascarr.events.MemberAddedEvent;
 import org.ddouglascarr.events.UnitCreatedEvent;
+import org.ddouglascarr.events.UnitUpdatedEvent;
 
 import java.util.UUID;
 
@@ -39,6 +40,15 @@ public class UnitEntity extends AbstractAnnotatedAggregateRoot
         System.out.println("UnitCreatedEvent handled: " + id);
     }
 
+    public void update(String name, String description)
+    {
+        apply(new UnitUpdatedEvent(this.id, name, description));
+    }
 
-
+    @EventSourcingHandler
+    public void applyUnitUpdatedEvent(UnitUpdatedEvent event)
+    {
+        this.name = event.getName();
+        this.description = event.getDescription();
+    }
 }
