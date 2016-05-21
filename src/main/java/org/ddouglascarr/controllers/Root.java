@@ -27,7 +27,7 @@ public class Root
     @ResponseBody
     public ResponseEntity<String> getMember()
     {
-        CreateUnit createUnit = new CreateUnit("foo", "foobar bingbong");
+        CreateUnit createUnit = new CreateUnit(new Long(6), "foo", "foobar bingbong");
         commandGateway.send(createUnit);
         return new ResponseEntity<String>("Hello World", HttpStatus.OK);
     }

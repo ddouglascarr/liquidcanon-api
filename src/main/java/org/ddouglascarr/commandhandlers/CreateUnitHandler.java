@@ -10,14 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateUnitHandler
 {
-    @Autowired
     private Repository repository;
 
-    @CommandHandler
-    public void handle(CreateUnit createUnitCommand)
+    @Autowired
+    public CreateUnitHandler(Repository repository)
     {
-        UnitEntity unitEntity = new UnitEntity(
-                createUnitCommand.getName(), createUnitCommand.getDescription());
+        this.repository = repository;
+    }
 
+    @CommandHandler
+    public void handle(CreateUnit command)
+    {
+        UnitEntity unitEntity = new UnitEntity(command);
+        repository.add(unitEntity);
     }
 }

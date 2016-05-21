@@ -17,6 +17,5 @@ public class AddMemberHandler
     public void handle(AddMember addMemberCommand)
     {
         UnitEntity unitEntity = (UnitEntity) repository.load(addMemberCommand.getUnitId());
-        unitEntity.addMember();
     }
 }

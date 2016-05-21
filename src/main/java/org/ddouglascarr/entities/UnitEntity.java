@@ -1,5 +1,8 @@
 package org.ddouglascarr.entities;
 
+import org.axonframework.commandhandling.annotation.CommandHandler;
+import org.axonframework.eventhandling.annotation.EventHandler;
+import org.axonframework.eventsourcing.EventSourcedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
@@ -22,55 +25,25 @@ public class UnitEntity extends AbstractAnnotatedAggregateRoot
 
     public UnitEntity() {}
 
-    public UnitEntity(String name, String description)
+    /*public UnitEntity(Long id, String name, String description)
     {
-        apply(new UnitCreatedEvent(name, description));
+        apply(new UnitCreatedEvent(id, name, description));
+    }*/
+
+    public UnitEntity(CreateUnit command)
+    {
+        apply(new UnitCreatedEvent(command.getId(), command.getName(), command.getDescription()));
     }
 
     @EventSourcingHandler
-    public void applyUnitCreation(UnitCreatedEvent unitCreatedEvent)
+    public void applyUnitCreatedEvent(UnitCreatedEvent event)
     {
-        this.name = unitCreatedEvent.getName();
-        this.description = unitCreatedEvent.getDescription();
-        this.active = true;
-        this.memberCount = new Long(0);
-        System.out.println("Unit created: " + this.getName());
+        this.id = event.getId();
+        this.name = event.getName();
+        this.description = event.getDescription();
+        System.out.println("UnitCreatedEvent handled: " + id);
     }
 
-    public void addMember()
-    {
-        apply(new MemberAddedEvent(this.getId()));
-    }
 
-    @EventSourcingHandler
-    public void applyMemberAdded(MemberAddedEvent memberAddedEvent)
-    {
-        this.memberCount += 1;
 
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public Boolean getActive()
-    {
-        return active;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public Long getMemberCount()
-    {
-        return memberCount;
-    }
 }

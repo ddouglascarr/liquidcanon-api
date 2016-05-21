@@ -1,7 +1,10 @@
 package org.ddouglascarr.commands;
 
+import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
+
 public class AddMember
 {
+    @TargetAggregateIdentifier
     private final Long unitId;
 
 
