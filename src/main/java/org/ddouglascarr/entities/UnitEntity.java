@@ -25,14 +25,9 @@ public class UnitEntity extends AbstractAnnotatedAggregateRoot
 
     public UnitEntity() {}
 
-    /*public UnitEntity(Long id, String name, String description)
+    public UnitEntity(Long id, String name, String description)
     {
         apply(new UnitCreatedEvent(id, name, description));
-    }*/
-
-    public UnitEntity(CreateUnit command)
-    {
-        apply(new UnitCreatedEvent(command.getId(), command.getName(), command.getDescription()));
     }
 
     @EventSourcingHandler

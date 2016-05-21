@@ -21,7 +21,7 @@ public class CreateUnitHandler
     @CommandHandler
     public void handle(CreateUnit command)
     {
-        UnitEntity unitEntity = new UnitEntity(command);
+        UnitEntity unitEntity = new UnitEntity(command.getId(), command.getName(), command.getDescription());
         repository.add(unitEntity);
     }
 }
