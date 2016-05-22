@@ -8,6 +8,6 @@ public class UnitEventHandler
     @EventHandler
     public void handle(UnitCreatedEvent event)
     {
-        System.out.println("handle unit event creation: " + event.getName());
+        System.out.println("handleCreate unit event creation: " + event.getName());
     }
 }

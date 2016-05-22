@@ -2,8 +2,7 @@ package org.ddouglascarr.integration.entities;
 
 import org.axonframework.test.FixtureConfiguration;
 import org.axonframework.test.Fixtures;
-import org.ddouglascarr.commandhandlers.CreateUnitHandler;
-import org.ddouglascarr.commandhandlers.UpdateUnitHandler;
+import org.ddouglascarr.commandhandlers.UnitCommandHandler;
 import org.ddouglascarr.commands.CreateUnit;
 import org.ddouglascarr.commands.UpdateUnit;
 import org.ddouglascarr.entities.UnitEntity;
@@ -20,10 +19,8 @@ public class UnitEntityTests
     public void setup() throws Exception
     {
         fixture = Fixtures.newGivenWhenThenFixture(UnitEntity.class);
-        CreateUnitHandler createUnitHandler = new CreateUnitHandler(fixture.getRepository());
-        UpdateUnitHandler updateUnitHandler = new UpdateUnitHandler(fixture.getRepository());
-        fixture.registerAnnotatedCommandHandler(createUnitHandler);
-        fixture.registerAnnotatedCommandHandler(updateUnitHandler);
+        UnitCommandHandler unitCommandHandler = new UnitCommandHandler(fixture.getRepository());
+        fixture.registerAnnotatedCommandHandler(unitCommandHandler);
     }
 
     @Test
