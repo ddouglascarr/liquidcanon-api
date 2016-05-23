@@ -37,6 +37,5 @@ public class UnitEntityTests
         fixture.given(new UnitCreatedEvent(new Long(2), "old-name", "old-description"))
                 .when(new UpdateUnit(new Long(2), "new-name", "new-description"))
                 .expectEvents(new UnitUpdatedEvent(new Long(2), "new-name", "new-description"));
-
     }
 }

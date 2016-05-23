@@ -37,7 +37,6 @@ public class UnitEntity extends AbstractAnnotatedAggregateRoot
         this.id = event.getId();
         this.name = event.getName();
         this.description = event.getDescription();
-        System.out.println("UnitCreatedEvent handled: " + id);
     }
 
     public void update(String name, String description)
