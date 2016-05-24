@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -34,9 +35,9 @@ public class AreasControllerTests
 
     private Area mockArea;
     private List<Area> mockAreaList;
-    private static Long UNIT_ID = new Long(2);
-    private static Long AREA_ID = new Long(12);
-    private static Long MEMBER_ID = new Long(32);
+    private static UUID UNIT_ID = UUID.randomUUID();
+    private static UUID AREA_ID = UUID.randomUUID();
+    private static UUID MEMBER_ID = UUID.randomUUID();
 
     @Before
     public void setup()

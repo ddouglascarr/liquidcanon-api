@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +34,7 @@ public class UnitRepositoryTests
     @Test
     public void findOneById() throws Exception
     {
-        Unit unit = unitRepository.findOneById(new Long(1));
-        assertEquals(new Long(1), unit.getId());
+        Unit unit = unitRepository.findOneById(EARTH_MOON_FEDERATION_UNIT_ID);
+        assertEquals(EARTH_MOON_FEDERATION_UNIT_ID, unit.getId());
     }
 }

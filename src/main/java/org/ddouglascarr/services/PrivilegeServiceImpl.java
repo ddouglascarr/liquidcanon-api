@@ -10,6 +10,8 @@ import org.ddouglascarr.repositories.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class PrivilegeServiceImpl implements PrivilegeService
 {
@@ -20,7 +22,7 @@ public class PrivilegeServiceImpl implements PrivilegeService
     private UnitRepository unitRepository;
 
     @Override
-    public void assertUnitReadPrivilege(Long memberId, Long unitId)
+    public void assertUnitReadPrivilege(UUID memberId, UUID unitId)
             throws MemberUnprivilegedException, ItemNotFoundException
     {
         Unit unit;
@@ -38,7 +40,7 @@ public class PrivilegeServiceImpl implements PrivilegeService
     }
 
     @Override
-    public void assertUnitVotingPrivilege(Long memberId, Long unitId)
+    public void assertUnitVotingPrivilege(UUID memberId, UUID unitId)
             throws MemberUnprivilegedException
     {
         try {

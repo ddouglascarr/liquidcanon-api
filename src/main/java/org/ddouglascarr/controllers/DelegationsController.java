@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.jws.soap.SOAPBinding;
 
@@ -33,8 +34,8 @@ public class DelegationsController
             method = RequestMethod.GET)
     public ResponseEntity<Delegation> getOutgoingUnitDelegation(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @PathVariable Long unitId,
-            @PathVariable Long trusterId)
+            @PathVariable UUID unitId,
+            @PathVariable UUID trusterId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         Delegation delegation = delegationService.findUnitDelegationForTruster(
@@ -48,8 +49,8 @@ public class DelegationsController
             method = RequestMethod.GET)
     public ResponseEntity<List<Delegation>> getIncomingUnitDelegations(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @PathVariable Long unitId,
-            @PathVariable Long trusteeId)
+            @PathVariable UUID unitId,
+            @PathVariable UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         List<Delegation> delegations = delegationService.findIncomingUnitDelegationForTrustee(
@@ -63,9 +64,9 @@ public class DelegationsController
             method = RequestMethod.GET)
     public ResponseEntity<Delegation> getOutgoingAreaDelegation(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @PathVariable Long unitId,
-            @PathVariable Long areaId,
-            @PathVariable Long trusterId)
+            @PathVariable UUID unitId,
+            @PathVariable UUID areaId,
+            @PathVariable UUID trusterId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         Delegation delegation = delegationService.findAreaDelegationForTruster(
@@ -79,9 +80,9 @@ public class DelegationsController
             method = RequestMethod.GET)
     public ResponseEntity<List<Delegation>> getIncomingAreaDelegations(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @PathVariable Long unitId,
-            @PathVariable Long areaId,
-            @PathVariable Long trusteeId)
+            @PathVariable UUID unitId,
+            @PathVariable UUID areaId,
+            @PathVariable UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         List<Delegation> delegations = delegationService.findIncomingAreaDelegationsForTrustee(

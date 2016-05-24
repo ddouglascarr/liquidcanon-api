@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class UnitsController
@@ -37,7 +38,7 @@ public class UnitsController
             method = RequestMethod.GET
     )
     public ResponseEntity<Unit> getUnit(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                        @PathVariable Long unitId)
+                                        @PathVariable UUID unitId)
     {
         try {
             Unit unit = unitService.findOne(userDetails.getId(), unitId);
@@ -53,7 +54,7 @@ public class UnitsController
             value = "/units/{unitId}/members",
             method = RequestMethod.GET
     )
-    public ResponseEntity<List<Member>> getMembers(@PathVariable Long unitId)
+    public ResponseEntity<List<Member>> getMembers(@PathVariable UUID unitId)
     {
         List<Member> members = memberService.findByUnitId(unitId);
         return new ResponseEntity<List<Member>>(members, HttpStatus.OK);

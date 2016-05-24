@@ -72,7 +72,7 @@ public class MembersControllerTests
     public void getMemberShould401IfNoUnitReadPermission() throws Exception
     {
         mockMvc.perform(get("/units/{unitId}/members/{memberId}",
-                                MARS_UNIT_ID.intValue(), SAHA_MEMBER_ID.intValue())
+                                MARS_UNIT_ID.toString(), SAHA_MEMBER_ID.toString())
                             .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isUnauthorized());
     }
@@ -81,12 +81,12 @@ public class MembersControllerTests
     public void getMemberShouldReturnMember() throws Exception
     {
         mockMvc.perform(get("/units/{unitId}/members/{memberId}",
-                                EARTH_MOON_FEDERATION_UNIT_ID.intValue(),
-                                HUGLE_MEMBER_ID.intValue())
+                                EARTH_MOON_FEDERATION_UNIT_ID.toString(),
+                                HUGLE_MEMBER_ID.toString())
                         .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(HUGLE_MEMBER_ID.intValue())))
+                .andExpect(jsonPath("$.id", is(HUGLE_MEMBER_ID.toString())))
                 .andExpect(jsonPath("$.name", is("Tender Hugle")))
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.activated", is(isA(Long.class))))
@@ -116,7 +116,7 @@ public class MembersControllerTests
                                 .description("The id of the member"))))
                 .andDo(document("members/get", responseFields(
                         fieldWithPath("id")
-                                .type(JsonFieldType.NUMBER)
+                                .type(JsonFieldType.STRING)
                                 .description("Primary key"),
                         fieldWithPath("name")
                                 .type(JsonFieldType.STRING)

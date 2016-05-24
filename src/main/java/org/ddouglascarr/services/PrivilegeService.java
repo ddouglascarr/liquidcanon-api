@@ -3,10 +3,12 @@ package org.ddouglascarr.services;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 
+import java.util.UUID;
+
 public interface PrivilegeService
 {
-    void assertUnitReadPrivilege(Long memberId, Long unitId)
+    void assertUnitReadPrivilege(UUID memberId, UUID unitId)
             throws MemberUnprivilegedException, ItemNotFoundException;
-    void assertUnitVotingPrivilege(Long memberId, Long unitId)
+    void assertUnitVotingPrivilege(UUID memberId, UUID unitId)
             throws MemberUnprivilegedException;
 }

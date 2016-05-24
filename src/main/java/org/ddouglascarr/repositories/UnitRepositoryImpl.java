@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public class UnitRepositoryImpl implements UnitRepository
 {
@@ -24,7 +26,7 @@ public class UnitRepositoryImpl implements UnitRepository
             new BeanPropertyRowMapper<>(Unit.class);
 
     @Override
-    public Unit findOneById(Long id) throws ItemNotFoundException
+    public Unit findOneById(UUID id) throws ItemNotFoundException
     {
         String sql = String.join(" ",
                 "SELECT", SELECT_LIST, "FROM unit",

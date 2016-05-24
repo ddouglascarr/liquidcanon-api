@@ -100,8 +100,8 @@ public class UnitsControllerTests
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
-                .andExpect(jsonPath("$.parent_id", is(SOLAR_SYSTEM_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_UNIT_ID.toString())))
+                .andExpect(jsonPath("$.parent_id", is(SOLAR_SYSTEM_UNIT_ID.toString())))
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.name", is(EARTH_MOON_FEDERATION_UNIT_NAME)))
                 .andExpect(jsonPath("$.description", isEmptyOrNullString()))
@@ -111,10 +111,10 @@ public class UnitsControllerTests
                 .andExpect(jsonPath("$.*", hasSize(8)))
                 .andDo(document("units/get", responseFields(
                         fieldWithPath("id")
-                                .type(JsonFieldType.NUMBER)
+                                .type(JsonFieldType.STRING)
                                 .description("Primary key"),
                         fieldWithPath("parent_id")
-                                .type(JsonFieldType.NUMBER)
+                                .type(JsonFieldType.STRING)
                                 .description("Referencing the parent unit (unset/null if unit is in root level)"),
                         fieldWithPath("active")
                                 .type(JsonFieldType.BOOLEAN)

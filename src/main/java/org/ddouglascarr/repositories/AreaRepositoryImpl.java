@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class AreaRepositoryImpl implements AreaRepository
@@ -19,7 +20,7 @@ public class AreaRepositoryImpl implements AreaRepository
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Area findOne(Long id) throws ItemNotFoundException
+    public Area findOne(UUID id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
                 "SELECT * FROM area WHERE id = :id");
@@ -35,7 +36,7 @@ public class AreaRepositoryImpl implements AreaRepository
     }
 
     @Override
-    public Area findOneByUnitIdAndId(Long unitId, Long id) throws ItemNotFoundException
+    public Area findOneByUnitIdAndId(UUID unitId, UUID id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
                 "SELECT * FROM area",
@@ -53,14 +54,14 @@ public class AreaRepositoryImpl implements AreaRepository
     }
 
     @Override
-    public List<Area> findByUnitId(Long unitId)
+    public List<Area> findByUnitId(UUID unitId)
     {
         final String sql = "SELECT * FROM area WHERE unit_id = :unitId";
         SqlParameterSource namedParameters = new MapSqlParameterSource("unitId", unitId);
         List<Area> areas = this.namedParameterJdbcTemplate.query(
                 sql,
                 namedParameters,
-                new BeanPropertyRowMapper(Area.class));
+                new BeanPropertyRowMapper<>(Area.class));
         return areas;
     }
 

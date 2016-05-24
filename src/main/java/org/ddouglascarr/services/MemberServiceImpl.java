@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by daniel on 17/04/16.
@@ -22,7 +23,7 @@ public class MemberServiceImpl implements MemberService
     PrivilegeService privilegeService;
 
     @Override
-    public Member findOne(Long id) throws ItemNotFoundException
+    public Member findOne(UUID id) throws ItemNotFoundException
     {
         Member member = memberRepository.findOneById(id);
         if (null == member) throw new ItemNotFoundException();
@@ -38,7 +39,7 @@ public class MemberServiceImpl implements MemberService
     }
 
     @Override
-    public Member findOneByUnitIdAndId(Long userDetailsId, Long unitId, Long id) throws ItemNotFoundException, MemberUnprivilegedException
+    public Member findOneByUnitIdAndId(UUID userDetailsId, UUID unitId, UUID id) throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(userDetailsId, unitId);
         Member member = memberRepository.findOneByUnitIdAndId(unitId, id);
@@ -46,7 +47,7 @@ public class MemberServiceImpl implements MemberService
     }
 
     @Override
-    public List<Member> findByUnitId(Long unitId)
+    public List<Member> findByUnitId(UUID unitId)
     {
         List<Member> members = memberRepository.findByUnitId(unitId);
         return members;

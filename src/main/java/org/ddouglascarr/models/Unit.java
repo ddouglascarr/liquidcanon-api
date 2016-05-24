@@ -4,14 +4,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.util.List;
+import java.util.UUID;
 
 
 public class Unit
 {
     @Id
-    private Long id;
+    private UUID id;
 
-    private Long parentId;
+    private UUID parentId;
 
     private Boolean active;
     private String name;
@@ -25,22 +26,22 @@ public class Unit
 
     // Getters and Setters
 
-    public Long getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(Long id)
+    public void setId(UUID id)
     {
         this.id = id;
     }
 
-    public Long getParentId()
+    public UUID getParentId()
     {
         return parentId;
     }
 
-    public void setParentId(Long parentId)
+    public void setParentId(UUID parentId)
     {
         this.parentId = parentId;
     }

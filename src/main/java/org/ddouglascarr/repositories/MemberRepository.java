@@ -4,14 +4,15 @@ import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.models.Member;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by daniel on 17/04/16.
  */
 public interface MemberRepository
 {
-    Member findOneById(Long id) throws ItemNotFoundException;
-    Member findOneByUnitIdAndId(Long unitId, Long id) throws ItemNotFoundException;
+    Member findOneById(UUID id) throws ItemNotFoundException;
+    Member findOneByUnitIdAndId(UUID unitId, UUID id) throws ItemNotFoundException;
     Member findOneByLogin(String login) throws ItemNotFoundException;
-    List<Member> findByUnitId(Long unitId);
+    List<Member> findByUnitId(UUID unitId);
 }

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class MemberRepositoryImpl implements MemberRepository
@@ -30,7 +31,7 @@ public class MemberRepositoryImpl implements MemberRepository
             "m.external_posts, m.formatting_engine, m.statement");
 
     @Override
-    public Member findOneById(Long id) throws ItemNotFoundException
+    public Member findOneById(UUID id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
                 "SELECT", SELECT_LIST, "FROM member AS m WHERE id = :id");
@@ -46,7 +47,7 @@ public class MemberRepositoryImpl implements MemberRepository
     }
 
     @Override
-    public Member findOneByUnitIdAndId(Long unitId, Long id) throws ItemNotFoundException
+    public Member findOneByUnitIdAndId(UUID unitId, UUID id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
                 "SELECT", SELECT_LIST, "FROM",
@@ -83,7 +84,7 @@ public class MemberRepositoryImpl implements MemberRepository
     }
 
     @Override
-    public List<Member> findByUnitId(Long unitId)
+    public List<Member> findByUnitId(UUID unitId)
     {
         String sql = String.join(" ",
                 "SELECT", SELECT_LIST, "FROM",

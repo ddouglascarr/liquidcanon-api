@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public class PrivilegeRepositoryImpl implements PrivilegeRepository
 {
@@ -17,7 +19,7 @@ public class PrivilegeRepositoryImpl implements PrivilegeRepository
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Privilege findOneByMemberIdAndUnitId(Long memberId, Long unitId)
+    public Privilege findOneByMemberIdAndUnitId(UUID memberId, UUID unitId)
             throws ItemNotFoundException
     {
         String sql = String.join(" ",
@@ -27,8 +29,8 @@ public class PrivilegeRepositoryImpl implements PrivilegeRepository
         namedParameters.addValue("memberId", memberId);
         namedParameters.addValue("unitId", unitId);
         try {
-            Privilege privilege = (Privilege) namedParameterJdbcTemplate.queryForObject(
-                    sql, namedParameters, new BeanPropertyRowMapper<Privilege>(Privilege.class));
+            Privilege privilege = namedParameterJdbcTemplate.queryForObject(
+                    sql, namedParameters, new BeanPropertyRowMapper<>(Privilege.class));
             return privilege;
         } catch (EmptyResultDataAccessException e) {
             throw new ItemNotFoundException();

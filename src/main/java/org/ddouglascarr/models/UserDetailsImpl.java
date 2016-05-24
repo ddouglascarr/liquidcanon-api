@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public class UserDetailsImpl extends Member implements UserDetails
 {
@@ -29,7 +30,7 @@ public class UserDetailsImpl extends Member implements UserDetails
     }
 
     @Override
-    public Long getId()
+    public UUID getId()
     {
         return super.getId();
     }
