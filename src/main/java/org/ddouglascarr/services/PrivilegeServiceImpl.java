@@ -3,9 +3,10 @@ package org.ddouglascarr.services;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Privilege;
+import org.ddouglascarr.models.Unit;
 import org.ddouglascarr.models.UnitPermission;
 import org.ddouglascarr.repositories.PrivilegeRepository;
-import org.ddouglascarr.repositories.UnitPermissionRepository;
+import org.ddouglascarr.repositories.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +17,16 @@ public class PrivilegeServiceImpl implements PrivilegeService
     private PrivilegeRepository privilegeRepository;
 
     @Autowired
-    private UnitPermissionRepository unitPermissionRepository;
+    private UnitRepository unitRepository;
 
     @Override
     public void assertUnitReadPrivilege(Long memberId, Long unitId)
-            throws MemberUnprivilegedException
+            throws MemberUnprivilegedException, ItemNotFoundException
     {
-        UnitPermission unitPermission;
+        Unit unit;
         Boolean hasUnitReadPermission = false;
-        try {
-            unitPermission = unitPermissionRepository.findOneByUnitId(unitId);
-            if (unitPermission.getPublicRead()) return;
-        } catch (ItemNotFoundException e) {
-            hasUnitReadPermission = false;
-        }
+        unit = unitRepository.findOneById(unitId);
+        if (unit.getPublicRead()) return;
 
         try {
             Privilege privilege = privilegeRepository

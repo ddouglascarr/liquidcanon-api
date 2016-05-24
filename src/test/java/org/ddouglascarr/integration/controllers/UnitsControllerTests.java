@@ -90,7 +90,7 @@ public class UnitsControllerTests
         mockMvc.perform(get("/units/" + MOON_UNIT_ID.toString())
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", hasSize(7)));
+                .andExpect(jsonPath("$.*", hasSize(8)));
     }
 
     @Test
@@ -106,8 +106,9 @@ public class UnitsControllerTests
                 .andExpect(jsonPath("$.name", is(EARTH_MOON_FEDERATION_UNIT_NAME)))
                 .andExpect(jsonPath("$.description", isEmptyOrNullString()))
                 .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
+                .andExpect(jsonPath("$.public_read", is(true)))
                 .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
-                .andExpect(jsonPath("$.*", hasSize(7)))
+                .andExpect(jsonPath("$.*", hasSize(8)))
                 .andDo(document("units/get", responseFields(
                         fieldWithPath("id")
                                 .type(JsonFieldType.NUMBER)
@@ -127,6 +128,9 @@ public class UnitsControllerTests
                         fieldWithPath("member_count")
                                 .type(JsonFieldType.NUMBER)
                                 .description("Count of currently active members with voting right for this unit."),
+                        fieldWithPath("public_read")
+                                .type(JsonFieldType.BOOLEAN)
+                                .description("Are unit events readable by non-members"),
                         fieldWithPath("areas")
                                 .type(JsonFieldType.ARRAY)
                                 .description("Areas which belong to this unit"))))

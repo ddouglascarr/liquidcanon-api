@@ -134,19 +134,12 @@ INSERT INTO "policy" (
     TRUE, FALSE
   );
 
-INSERT INTO "unit" ("id", "parent_id", "name") VALUES
-  ( 1, NULL, 'Solar System'),           -- id 1
-  ( 2, 1   , 'Earth Moon Federation'),  -- id 2
-  ( 3, 2   , 'Earth'),                  -- id 3
-  ( 4, 2   , 'Moon'),                   -- id 4
-  ( 5, 1   , 'Mars');                   -- id 5
-
-INSERT INTO "unit_permissions" ("id", "unit_id", "public_read") VALUES
-  ( 1, 1, TRUE ),
-  ( 2, 2, TRUE ),
-  ( 3, 3, TRUE ),
-  ( 4, 4, TRUE ),
-  ( 5, 5, FALSE );
+INSERT INTO "unit" ("id", "parent_id", "name", "public_read") VALUES
+  ( 1, NULL, 'Solar System', TRUE),           -- id 1
+  ( 2, 1   , 'Earth Moon Federation', TRUE),  -- id 2
+  ( 3, 2   , 'Earth', TRUE),                  -- id 3
+  ( 4, 2   , 'Moon', TRUE),                   -- id 4
+  ( 5, 1   , 'Mars', FALSE);                   -- id 5
 
 INSERT INTO "area" ("id", "unit_id", "name") VALUES
   ( 1, 1, 'Statutes of the United Solar System'),       -- id  1

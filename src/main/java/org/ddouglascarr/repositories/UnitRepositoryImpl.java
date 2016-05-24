@@ -18,7 +18,7 @@ public class UnitRepositoryImpl implements UnitRepository
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static String SELECT_LIST = String.join(" ",
-            "id, parent_id, active, name, description, member_count");
+            "id, parent_id, active, name, description, member_count, public_read");
 
     private BeanPropertyRowMapper<Unit> beanPropertyRowMapper =
             new BeanPropertyRowMapper<>(Unit.class);

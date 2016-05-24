@@ -18,6 +18,7 @@ public class Unit
     private String description;
 
     private Long memberCount;
+    private Boolean publicRead;
 
     @ReadOnlyProperty
     private List<Area> areas;
@@ -92,5 +93,15 @@ public class Unit
     public void setAreas(List<Area> areas)
     {
         this.areas = areas;
+    }
+
+    public Boolean getPublicRead()
+    {
+        return publicRead;
+    }
+
+    public void setPublicRead(Boolean publicRead)
+    {
+        this.publicRead = publicRead;
     }
 }
