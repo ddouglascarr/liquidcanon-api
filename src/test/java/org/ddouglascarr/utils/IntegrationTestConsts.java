@@ -2,6 +2,7 @@ package org.ddouglascarr.utils;
 
 import java.util.UUID;
 
+// bash UUID generator: echo -n UUID.fromString\(\"$(uuidgen)\"\)\; | xclip -selection clipboard
 public class IntegrationTestConsts
 {
     // member ids
@@ -32,9 +33,31 @@ public class IntegrationTestConsts
 
     // area ids
     public static UUID NON_EXISTANT_AREA_ID = UUID.fromString("33f53dbf-1442-4f7b-a900-12f586da7406");
-    public static UUID MARS_STATUTES_AREA_ID = UUID.fromString("d3fb43d8-d249-4c42-8f3e-628170bf7323");
-    public static UUID ALIEN_AFFAIRS_AREA_ID = UUID.fromString("99ffb1d2-20d4-4898-b219-69d5a75619d1");
-    public static UUID MARS_MINERAL_RESOURCES_AREA_ID = UUID.fromString("10b0465f-bd1c-4430-9879-e31cf827bfd5");
+    public static UUID STATUTES_OF_THE_UNITED_SOLAR_SYSTEM_AREA_ID = UUID.fromString("752f442d-58b7-4261-9d77-60c37b3d8378");
     public static UUID EARTH_MOON_FEDERATION_STATUTES_AREA_ID = UUID.fromString("7e9dbf52-feb1-4399-a664-634d6e7f70f2");
+    public static UUID MARS_STATUTES_AREA_ID = UUID.fromString("d3fb43d8-d249-4c42-8f3e-628170bf7323");
+    public static UUID INTRA_SOLAR_SPACE_TRAVEL_AREA_ID = UUID.fromString("7f4272ce-9996-441a-b75b-b15a01ce7345");
+    public static UUID INTRA_SOLAR_SYSTEM_TRADE_AND_TAXATION_AREA_ID = UUID.fromString("005c3934-3c10-40c2-bf5e-49d2e6bd935a");
+    public static UUID COMET_DEFENSE_AND_BLACK_HOLES_MANAGEMENT_AREA_ID = UUID.fromString("45184e5b-14bd-4e03-9b97-eb28c72d7748");
+    public static UUID ALIEN_AFFAIRS_AREA_ID = UUID.fromString("99ffb1d2-20d4-4898-b219-69d5a75619d1");
+    public static UUID FOREIGN_AFFAIRS_AREA_ID = UUID.fromString("3bcd2520-6fea-4b81-a6e8-225054172b27");
+    public static UUID MOON_AFFAIRS_AREA_ID = UUID.fromString("b64d021e-decc-4206-b537-0d81d2c7ab55");
+    public static UUID EARTH_AFFAIRS_AREA_ID = UUID.fromString("074292ca-0dbd-42ee-827e-501698e7f96c");
+    public static UUID MOON_TOURISM_AREA_ID = UUID.fromString("b7dbf24d-cad1-4368-8122-cfa559bbb28e");
+    public static UUID FOREIGN_AFFAIRS_AREA_ID = UUID.fromString("12777cda-31aa-4ca6-8c61-5838bcc888e0");
     public static UUID EARTH_SPACE_VEHICLES_AREA_ID = UUID.fromString("92da2047-51ee-4308-b72d-ce1ea800f631");
+    public static UUID ENVIRONMENT_AREA_ID = UUID.fromString("17bf505c-1f1d-4d92-a4ef-10d3129a143e");
+    public static UUID ENERGY_AND_OXYGEN_AREA_ID = UUID.fromString("d7d59392-95aa-4436-8cd8-cf0277ddc677");
+    public static UUID ENERGY_AND_OXYGEN_AREA_ID = UUID.fromString("bb80ec37-3d03-4eea-a8c0-c51498bc42e4");
+    public static UUID MARS_MINERAL_RESOURCES_AREA_ID = UUID.fromString("10b0465f-bd1c-4430-9879-e31cf827bfd5");
+
+    // policy ids
+    public static UUID SOLAR_SYSTEM_STATUTES_POLICY_ID = UUID.fromString("25ae80aa-f0b5-47f6-8ecf-3ac6817e78c6");
+    public static UUID EARTH_MOON_FEDERATION_STATUTES_POLICY_ID = UUID.fromString("a7c72c67-fed9-4593-9b83-96c349aa1241");
+    public static UUID MARS_STATUTES_POLICY_ID = UUID.fromString("e1c405c6-9efc-4d90-8fd7-d91cd2c35a3f");
+    public static UUID PROPOSITION_POLICY_ID = UUID.fromString("88c0ffcb-f05a-40ef-ae5d-182f21b1c82e");
+    public static UUID NON_BINDING_SURVEY_POLICY_ID = UUID.fromString("e94b1352-423d-416e-819b-f2d6011bb5dd");
+    public static UUID FAST_NON_BINDING_SURVEY_POLICY_ID = UUID.fromString("bc600b10-496d-497a-ab51-2bae548a95ca");
+
 }
+
