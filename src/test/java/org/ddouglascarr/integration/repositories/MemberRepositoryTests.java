@@ -25,7 +25,6 @@ import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 @Sql(
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
         scripts = {
-                "classpath:sql/liquid-canon.sql",
                 "classpath:sql/test-world.sql"
         })
 public class MemberRepositoryTests
