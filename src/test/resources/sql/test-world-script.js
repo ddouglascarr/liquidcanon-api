@@ -55,30 +55,14 @@ INSERT INTO "contingent" ("polling", "time_frame", "text_entry_limit", "initiati
   (TRUE, '1 week', 120, 20);
 
 INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "name") VALUES
-  ('${POITRAS_MEMBER_ID}',  'now', 'now', TRUE, ${POITRAS_LOGIN},  'Determined Poitras'),
+  ('${POITRAS_MEMBER_ID}',  'now', 'now', TRUE, '${POITRAS_LOGIN}',  'Determined Poitras'),
   ('${HUGLE_MEMBER_ID}',  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  2
   ('${ALMEIDA_MEMBER_ID}',  'now', 'now', TRUE, 'dreamy_almeida',  'Dreamy Almeida'),          -- id  3
-  (4,  'now', 'now', TRUE, 'thirsty_swirles',  'Thirsty Swirles'),        -- id  4
   ('${HEISENBERG_MEMBER_ID}',  'now', 'now', TRUE, 'goofy_heisenberg',  'Goofy Heisenberg'),      -- id  5
   ('${BABBAGE_MEMBER_ID}',  'now', 'now', TRUE, 'thirsty_babbage',  'Thirsty Babbage'),        -- id  6
-  (7,  'now', 'now', TRUE, 'sick_lamarr',  'Sick Lamarr'),                -- id  7
-  (8,  'now', 'now', TRUE, 'admiring_sammet',  'Admiring Sammet'),        -- id  8
-  (9,  'now', 'now', TRUE, 'compassionate_bose',  'Compassionate Bose'),  -- id  9
-  (10, 'now', 'now', TRUE, 'fervent_wright',  'Fervent Wright'),          -- id 10
-  (11, 'now', 'now', TRUE, 'focused_bell',  'Focused Bell'),              -- id 11
-  (12, 'now', 'now', TRUE, 'elated_meninsky',  'Elated Meninsky'),        -- id 12
   ('${CARSON_MEMBER_ID}', 'now', 'now', TRUE, 'romantic_carson',  'Romantic Carson'),        -- id 13
-  (14, 'now', 'now', TRUE, 'admiring_bartik',  'Admiring Bartik'),        -- id 14
-  (15, 'now', 'now', TRUE, 'evil_austin',  'Evil Austin'),                -- id 15
-  (16, 'now', 'now', TRUE, 'mad_mcnulty',  'Mad Mcnulty'),                -- id 16
-  (17, 'now', 'now', TRUE, 'insane_poincare',  'Insane Poincare'),        -- id 17
-  (18, 'now', 'now', TRUE, 'jovial_blackwell',  'Jovial Blackwell'),      -- id 18
   ('${KHORANA_MEMBER_ID}', 'now', 'now', TRUE, 'goofy_khorana',  'Goofy Khorana'),            -- id 19
-  (20, 'now', 'now', TRUE, 'kickass_fermat',  'Kickass Fermat'),          -- id 20
-  ('${SAHA_MEMBER_ID}', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha'),                  -- id 21
-  (22, 'now', 'now', TRUE, 'angry_ritchie',  'Angry Ritchie'),            -- id 22
-  (23, 'now', 'now', TRUE, 'desperate_easley',  'Desperate Easley'),      -- id 23
-  (24, 'now', 'now', TRUE, 'admin', 'Admin #1' );                         -- id 24
+  ('${SAHA_MEMBER_ID}', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha');                  -- id 21
 
 -- set password to "login"
 UPDATE "member" SET "password" = '$1$PcI6b1Bg$2SHjAZH2nMLFp0fxHis.Q0';
