@@ -44,15 +44,15 @@ var INTRA_SOLAR_SPACE_TRAVEL_AREA_ID = "7f4272ce-9996-441a-b75b-b15a01ce7345";
 var INTRA_SOLAR_SYSTEM_TRADE_AND_TAXATION_AREA_ID = "005c3934-3c10-40c2-bf5e-49d2e6bd935a";
 var COMET_DEFENSE_AND_BLACK_HOLES_MANAGEMENT_AREA_ID = "45184e5b-14bd-4e03-9b97-eb28c72d7748";
 var ALIEN_AFFAIRS_AREA_ID = "99ffb1d2-20d4-4898-b219-69d5a75619d1";
-var FOREIGN_AFFAIRS_AREA_ID = "3bcd2520-6fea-4b81-a6e8-225054172b27";
+var EARTH_MOON_FEDERATION_FOREIGN_AFFAIRS_AREA_ID = "3bcd2520-6fea-4b81-a6e8-225054172b27";
 var MOON_AFFAIRS_AREA_ID = "b64d021e-decc-4206-b537-0d81d2c7ab55";
 var EARTH_AFFAIRS_AREA_ID = "074292ca-0dbd-42ee-827e-501698e7f96c";
 var MOON_TOURISM_AREA_ID = "b7dbf24d-cad1-4368-8122-cfa559bbb28e";
-var FOREIGN_AFFAIRS_AREA_ID = "12777cda-31aa-4ca6-8c61-5838bcc888e0";
+var MARS_FOREIGN_AFFAIRS_AREA_ID = "12777cda-31aa-4ca6-8c61-5838bcc888e0";
 var EARTH_SPACE_VEHICLES_AREA_ID = "92da2047-51ee-4308-b72d-ce1ea800f631";
 var ENVIRONMENT_AREA_ID = "17bf505c-1f1d-4d92-a4ef-10d3129a143e";
-var ENERGY_AND_OXYGEN_AREA_ID = "d7d59392-95aa-4436-8cd8-cf0277ddc677";
-var ENERGY_AND_OXYGEN_AREA_ID = "bb80ec37-3d03-4eea-a8c0-c51498bc42e4";
+var MOON_ENERGY_AND_OXYGEN_AREA_ID = "d7d59392-95aa-4436-8cd8-cf0277ddc677";
+var MARS_ENERGY_AND_OXYGEN_AREA_ID = "bb80ec37-3d03-4eea-a8c0-c51498bc42e4";
 var MARS_MINERAL_RESOURCES_AREA_ID = "10b0465f-bd1c-4430-9879-e31cf827bfd5";
 
 // policy ids
@@ -183,6 +183,65 @@ INSERT INTO "unit" ("id", "parent_id", "name", "public_read") VALUES
   ( '${EARTH_UNIT_ID}',                  '${SOLAR_SYSTEM_UNIT_ID}', 'Earth',                  TRUE),                  -- id 3
   ( '${MOON_UNIT_ID}',                   '${SOLAR_SYSTEM_UNIT_ID}', 'Moon',                   TRUE),                   -- id 4
   ( '${MARS_UNIT_ID}',                   '${SOLAR_SYSTEM_UNIT_ID}', 'Mars',                   FALSE);                   -- id 5
+
+INSERT INTO "area" ("id", "unit_id", "name") VALUES
+  ( '${STATUTES_OF_THE_UNITED_SOLAR_SYSTEM_AREA_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'Statutes of the United Solar System'),       -- id  1
+  ( '${EARTH_MOON_FEDERATION_STATUTES_AREA_ID}',       '${EARTH_MOON_FEDERATION_UNIT_ID}', 'Statutes of the Earth Moon Federation'),     -- id  2
+  ( '${MARS_STATUTES_AREA_ID}',                         '${MARS_UNIT_ID}', 'Statutes of the United Mars Colonies'),      -- id  3
+  ( '${INTRA_SOLAR_SPACE_TRAVEL_AREA_ID}',              '${SOLAR_SYSTEM_UNIT_ID}', 'Intra solar space travel'),                  -- id  4
+  ( '${INTRA_SOLAR_SYSTEM_TRADE_AND_TAXATION_AREA_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'Intra solar system trade and taxation'),     -- id  5
+  ( '${COMET_DEFENSE_AND_BLACK_HOLES_MANAGEMENT_AREA_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'Comet defense and black holes management'),  -- id  6
+  ( '${ALIEN_AFFAIRS_AREA_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'Alien affairs'),                             -- id  7
+  ( '${EARTH_MOON_FEDERATION_FOREIGN_AFFAIRS_AREA_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', 'Foreign affairs'),                           -- id  8
+  ( '${MOON_AFFAIRS_AREA_ID}', '${EARTH_UNIT_ID}', 'Moon affairs'),                              -- id  9
+  ( '${EARTH_AFFAIRS_AREA_ID}', '${MOON_UNIT_ID}', 'Earth affairs'),                             -- id 10
+  ( '${MOON_TOURISM_AREA_ID}', '${MOON_UNIT_ID}', 'Moon tourism'),                              -- id 11
+  ( '${MARS_FOREIGN_AFFAIRS_AREA_ID}', '${MARS_UNIT_ID}', 'Foreign affairs'),                           -- id 12
+  ( '${EARTH_SPACE_VEHICLES_AREA_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', 'Department of space vehicles'),              -- id 13
+  ( '${ENVIRONMENT_AREA_ID}', '${EARTH_UNIT_ID}', 'Environment'),                               -- id 14
+  ( '${MOON_ENERGY_AND_OXYGEN_AREA_ID}', '${MOON_UNIT_ID}', 'Energy and oxygen'),                         -- id 15
+  ( '${MARS_ENERGY_AND_OXYGEN_AREA_ID}', '${MARS_UNIT_ID}', 'Energy and oxygen'),                         -- id 16
+  ( '${MARS_MINERAL_RESOURCES_AREA_ID}', '${MARS_UNIT_ID}', 'Mineral resources');                         -- id 17
+
+
+-- All are able to vote in Solar System
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '${POITRAS_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${HUGLE_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${ALMEIDA_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${HEISENBERG_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${BABBAGE_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${CARSON_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${KHORANA_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE ),
+    ( '${SAHA_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', TRUE );
+
+-- Earth Moon Federation privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '${POITRAS_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', TRUE ),
+    ( '${HUGLE_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', TRUE ),
+    ( '${ALMEIDA_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', TRUE ),
+    ( '${HEISENBERG_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', TRUE ),
+    ( '${BABBAGE_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', TRUE ),
+    ( '${CARSON_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', TRUE );
+
+-- Earth privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '${POITRAS_MEMBER_ID}', '${EARTH_UNIT_ID}', TRUE ),
+    ( '${HUGLE_MEMBER_ID}', '${EARTH_UNIT_ID}', TRUE ),
+    ( '${ALMEIDA_MEMBER_ID}', '${EARTH_UNIT_ID}', TRUE ),
+    ( '${HEISENBERG_MEMBER_ID}', '${EARTH_UNIT_ID}', TRUE ),
+    ( '${BABBAGE_MEMBER_ID}', '${EARTH_UNIT_ID}', TRUE );
+
+-- Moon Privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '${CARSON_MEMBER_ID}', '${MOON_UNIT_ID}', TRUE );
+
+-- Mars Privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '${KHORANA_MEMBER_ID}', '${MARS_UNIT_ID}', TRUE ),
+    ( '${SAHA_MEMBER_ID}', '${MARS_UNIT_ID}', TRUE );
+
+-- Solar System Unit Delegations
 
 `;
 
