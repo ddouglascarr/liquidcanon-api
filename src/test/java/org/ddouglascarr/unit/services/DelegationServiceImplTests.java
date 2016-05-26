@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -36,12 +37,12 @@ public class DelegationServiceImplTests
     @InjectMocks
     private DelegationService delegationService = new DelegationServiceImpl();
 
-    private static Long MEMBER_ID = new Long(1);
-    private static Long UNIT_ID = new Long(2);
-    private static Long TRUSTER_ID = new Long(3);
-    private static Long TRUSTEE_ID = new Long(4);
-    private static Long AREA_ID = new Long(5);
-    private static Long DELEGATION_ID = new Long(6);
+    private static UUID MEMBER_ID = UUID.randomUUID();
+    private static UUID UNIT_ID = UUID.randomUUID();
+    private static UUID TRUSTER_ID = UUID.randomUUID();
+    private static UUID TRUSTEE_ID = UUID.randomUUID();
+    private static UUID AREA_ID = UUID.randomUUID();
+    private static UUID DELEGATION_ID = UUID.randomUUID();
 
     @Before
     public void setup()

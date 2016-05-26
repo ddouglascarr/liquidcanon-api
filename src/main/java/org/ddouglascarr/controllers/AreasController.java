@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "units/{unitId}/areas")
@@ -30,7 +31,7 @@ public class AreasController
             method = RequestMethod.GET
     )
     public ResponseEntity<List<Area>> getAreas(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                               @PathVariable Long unitId)
+                                               @PathVariable UUID unitId)
             throws MemberUnprivilegedException, ItemNotFoundException
     {
         System.out.println("getAreas()");
@@ -43,8 +44,8 @@ public class AreasController
             method = RequestMethod.GET
     )
     public ResponseEntity<Area> getArea(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                        @PathVariable Long unitId,
-                                        @PathVariable Long areaId)
+                                        @PathVariable UUID unitId,
+                                        @PathVariable UUID areaId)
     {
         try {
             Area area = areaService.findOneByUnitId(userDetails.getId(), unitId, areaId);

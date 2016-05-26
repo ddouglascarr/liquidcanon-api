@@ -2,33 +2,35 @@ package org.ddouglascarr.models;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.UUID;
+
 public class UnitPermission
 {
     @Id
-    private Long id;
+    private UUID id;
 
-    private Long unitId;
+    private UUID unitId;
     private Boolean publicRead;
 
 
     // getters and setters
 
-    public Long getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(Long id)
+    public void setId(UUID id)
     {
         this.id = id;
     }
 
-    public Long getUnitId()
+    public UUID getUnitId()
     {
         return unitId;
     }
 
-    public void setUnitId(Long unitId)
+    public void setUnitId(UUID unitId)
     {
         this.unitId = unitId;
     }

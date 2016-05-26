@@ -78,7 +78,7 @@ public class MemberRepositoryTests
     public void findByUnitIdShouldReturnListOfMember()
     {
         List<Member> returnedMembers = memberRepository.findByUnitId(EARTH_MOON_FEDERATION_UNIT_ID);
-        assertEquals(15, returnedMembers.size());
+        assertEquals(6, returnedMembers.size());
 
         Member poitras = returnedMembers.stream()
                 .filter(m -> POITRAS_MEMBER_ID.equals(m.getId()))

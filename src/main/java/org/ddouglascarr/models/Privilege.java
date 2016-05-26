@@ -1,9 +1,11 @@
 package org.ddouglascarr.models;
 
+import java.util.UUID;
+
 public class Privilege
 {
-    private Long memberId;
-    private Long unitId;
+    private UUID memberId;
+    private UUID unitId;
 
     private Boolean unitManager;
     private Boolean areaManager;
@@ -14,22 +16,22 @@ public class Privilege
 
     // Getters and setters
 
-    public Long getMemberId()
+    public UUID getMemberId()
     {
         return memberId;
     }
 
-    public void setMemberId(Long memberId)
+    public void setMemberId(UUID memberId)
     {
         this.memberId = memberId;
     }
 
-    public Long getUnitId()
+    public UUID getUnitId()
     {
         return unitId;
     }
 
-    public void setUnitId(Long unitId)
+    public void setUnitId(UUID unitId)
     {
         this.unitId = unitId;
     }

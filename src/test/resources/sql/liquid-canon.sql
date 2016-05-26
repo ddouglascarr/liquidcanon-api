@@ -18,3 +18,5 @@ CREATE OR REPLACE VIEW area_delegation AS
   WHERE member.active AND privilege.voting_right
   ORDER BY area.id, delegation.truster_id, delegation.scope DESC;
 
+-- So incompatable hashing algorythms can be used during dev
+ALTER TABLE "member" ADD COLUMN "password_liquidcanon" VARCHAR(60);

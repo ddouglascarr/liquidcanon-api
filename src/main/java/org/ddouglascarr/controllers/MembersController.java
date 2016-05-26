@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/units/{unitId}")
 public class MembersController
@@ -29,8 +31,8 @@ public class MembersController
     @HandleServiceErrors
     public ResponseEntity<Member> getMember(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @PathVariable Long unitId,
-            @PathVariable Long memberId)
+            @PathVariable UUID unitId,
+            @PathVariable UUID memberId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         Member member = memberService.findOneByUnitIdAndId(

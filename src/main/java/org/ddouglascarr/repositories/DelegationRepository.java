@@ -3,21 +3,22 @@ package org.ddouglascarr.repositories;
 import org.ddouglascarr.models.Delegation;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface DelegationRepository
 {
-    Delegation findUnitDelegationByTrusterId(Long unitId, Long trusterId);
-    Delegation findAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId);
-    List<Delegation> findAreaDelegationsByUnitIdAndTrusterId(Long unitId, Long trusterId);
-//    Delegation findIssueDelegationByTrusterId(Long unitId, Long issueId, Long trusterId);
-    Delegation findOneById(Long unitId, Long id);
+    Delegation findUnitDelegationByTrusterId(UUID unitId, UUID trusterId);
+    Delegation findAreaDelegationByTrusterId(UUID unitId, UUID areaId, UUID trusterId);
+    List<Delegation> findAreaDelegationsByUnitIdAndTrusterId(UUID unitId, UUID trusterId);
+//    Delegation findIssueDelegationByTrusterId(UUID unitId, UUID issueId, UUID trusterId);
+    Delegation findOneById(UUID unitId, UUID id);
 
-//    List<Delegation> findAreaDelegationsForUnitByTrusterId(Long unitId, Long trusterId);
-//    List<Delegation> findIssueDelegationsForAreaByTrusterId(Long unitId, Long trusterId);
-    List<Delegation> findByTrusterId(Long unitId, Long trusterId);
+//    List<Delegation> findAreaDelegationsForUnitByTrusterId(UUID unitId, UUID trusterId);
+//    List<Delegation> findIssueDelegationsForAreaByTrusterId(UUID unitId, UUID trusterId);
+    List<Delegation> findByTrusterId(UUID unitId, UUID trusterId);
 
 
-    List<Delegation> findUnitDelegationsByTrusteeId(Long unitId, Long trusteeId);
-    List<Delegation> findAreaDelegationsByTrusteeId(Long unitId, Long areaId, Long trusteeId);
+    List<Delegation> findUnitDelegationsByTrusteeId(UUID unitId, UUID trusteeId);
+    List<Delegation> findAreaDelegationsByTrusteeId(UUID unitId, UUID areaId, UUID trusteeId);
 
 }

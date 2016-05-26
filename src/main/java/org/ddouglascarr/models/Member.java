@@ -8,11 +8,12 @@ import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Member
 {
     @Id
-    private Long id;
+    private UUID id;
 
     @JsonIgnore private String password;
     @JsonIgnore private String login;
@@ -58,12 +59,12 @@ public class Member
 
 
     // Getters and Setters
-    public Long getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(Long id)
+    public void setId(UUID id)
     {
         this.id = id;
     }

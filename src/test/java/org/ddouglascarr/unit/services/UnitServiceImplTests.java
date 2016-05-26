@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.UUID;
+
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
@@ -30,9 +32,9 @@ public class UnitServiceImplTests
     private Unit mockUnit2;
     private Unit mockUnit3;
 
-    private static Long UNIT_2_ID = new Long(2);
-    private static Long UNIT_3_ID = new Long(2);
-    private static Long MEMBER_ID = new Long(32);
+    private static UUID UNIT_2_ID = UUID.randomUUID();
+    private static UUID UNIT_3_ID = UUID.randomUUID();
+    private static UUID MEMBER_ID = UUID.randomUUID();
 
     @Before
     public void setup()

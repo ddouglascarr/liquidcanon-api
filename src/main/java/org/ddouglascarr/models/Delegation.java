@@ -3,47 +3,49 @@ package org.ddouglascarr.models;
 import org.ddouglascarr.enums.DelegationScope;
 import org.springframework.data.annotation.Id;
 
+import java.util.UUID;
+
 public class Delegation
 {
     @Id
-    private Long id;
+    private UUID id;
 
-    private Long trusterId;
-    private Long trusteeId;
+    private UUID trusterId;
+    private UUID trusteeId;
     private DelegationScope scope;
-    private Long unitId;
-    private Long areaId;
-    private Long issueId;
+    private UUID unitId;
+    private UUID areaId;
+    private UUID issueId;
 
     // Getters and Setters
 
 
-    public Long getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(Long id)
+    public void setId(UUID id)
     {
         this.id = id;
     }
 
-    public Long getTrusterId()
+    public UUID getTrusterId()
     {
         return trusterId;
     }
 
-    public void setTrusterId(Long trusterId)
+    public void setTrusterId(UUID trusterId)
     {
         this.trusterId = trusterId;
     }
 
-    public Long getTrusteeId()
+    public UUID getTrusteeId()
     {
         return trusteeId;
     }
 
-    public void setTrusteeId(Long trusteeId)
+    public void setTrusteeId(UUID trusteeId)
     {
         this.trusteeId = trusteeId;
     }
@@ -58,32 +60,32 @@ public class Delegation
         this.scope = scope;
     }
 
-    public Long getUnitId()
+    public UUID getUnitId()
     {
         return unitId;
     }
 
-    public void setUnitId(Long unitId)
+    public void setUnitId(UUID unitId)
     {
         this.unitId = unitId;
     }
 
-    public Long getAreaId()
+    public UUID getAreaId()
     {
         return areaId;
     }
 
-    public void setAreaId(Long areaId)
+    public void setAreaId(UUID areaId)
     {
         this.areaId = areaId;
     }
 
-    public Long getIssueId()
+    public UUID getIssueId()
     {
         return issueId;
     }
 
-    public void setIssueId(Long issueId)
+    public void setIssueId(UUID issueId)
     {
         this.issueId = issueId;
     }

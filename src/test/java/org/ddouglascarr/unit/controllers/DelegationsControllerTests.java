@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -33,12 +34,12 @@ public class DelegationsControllerTests
     @InjectMocks
     DelegationsController delegationsController;
 
-    private static Long UNIT_ID = new Long(2);
-    private static Long AREA_ID = new Long(3);
-    private static Long MEMBER_ID = new Long(4);
-    private static Long DELEGATION_ID = new Long(5);
-    private static Long TRUSTER_ID = new Long(6);
-    private static Long TRUSTEE_ID = new Long(7);
+    private static UUID UNIT_ID = UUID.randomUUID();
+    private static UUID AREA_ID = UUID.randomUUID();
+    private static UUID MEMBER_ID = UUID.randomUUID();
+    private static UUID DELEGATION_ID = UUID.randomUUID();
+    private static UUID TRUSTER_ID = UUID.randomUUID();
+    private static UUID TRUSTEE_ID = UUID.randomUUID();
 
     @Before
     public void setup()

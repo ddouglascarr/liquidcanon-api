@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
+import static org.ddouglascarr.utils.IntegrationTestConsts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(LiquidcanonApplication.class)
@@ -30,11 +31,6 @@ public class PrivilegeRepositoryImplTests
 {
     @Autowired
     private PrivilegeRepository privilegeRepository;
-
-    private final Long EARTH_UNIT_ID = new Long(2);
-    private final Long MARS_UNIT_ID = new Long(5);
-    private final Long POITRAS_MEMBER_ID = new Long(1);
-    private final Long KHORANA_MEMBER_ID = new Long(19);
 
     @Test(expected = ItemNotFoundException.class)
     public void findOneByMemberIdAndUnitIdShouldThrowIfDoesNotExist()

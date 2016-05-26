@@ -1,8 +1,3 @@
--- NOTE: This file requires that sequence generators have not been used.
--- (All new rows need to start with id '1'.)
-
--- set transaction isolation level to be able to call "check_everything"() function
-
 
 INSERT INTO "system_setting" ("member_ttl") VALUES ('31 days');
 
@@ -14,34 +9,15 @@ INSERT INTO "contingent" ("polling", "time_frame", "text_entry_limit", "initiati
   (TRUE, '1 day', 60, 10),
   (TRUE, '1 week', 120, 20);
 
--- So incompatable hashing algorythms can be used during dev
-ALTER TABLE "member" ADD COLUMN "password_liquidcanon" VARCHAR(60);
-
 INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "name") VALUES
-  (1,  'now', 'now', TRUE, 'determined_poitras',  'Determined Poitras'),  -- id  1
-  (2,  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  2
-  (3,  'now', 'now', TRUE, 'dreamy_almeida',  'Dreamy Almeida'),          -- id  3
-  (4,  'now', 'now', TRUE, 'thirsty_swirles',  'Thirsty Swirles'),        -- id  4
-  (5,  'now', 'now', TRUE, 'goofy_heisenberg',  'Goofy Heisenberg'),      -- id  5
-  (6,  'now', 'now', TRUE, 'thirsty_babbage',  'Thirsty Babbage'),        -- id  6
-  (7,  'now', 'now', TRUE, 'sick_lamarr',  'Sick Lamarr'),                -- id  7
-  (8,  'now', 'now', TRUE, 'admiring_sammet',  'Admiring Sammet'),        -- id  8
-  (9,  'now', 'now', TRUE, 'compassionate_bose',  'Compassionate Bose'),  -- id  9
-  (10, 'now', 'now', TRUE, 'fervent_wright',  'Fervent Wright'),          -- id 10
-  (11, 'now', 'now', TRUE, 'focused_bell',  'Focused Bell'),              -- id 11
-  (12, 'now', 'now', TRUE, 'elated_meninsky',  'Elated Meninsky'),        -- id 12
-  (13, 'now', 'now', TRUE, 'romantic_carson',  'Romantic Carson'),        -- id 13
-  (14, 'now', 'now', TRUE, 'admiring_bartik',  'Admiring Bartik'),        -- id 14
-  (15, 'now', 'now', TRUE, 'evil_austin',  'Evil Austin'),                -- id 15
-  (16, 'now', 'now', TRUE, 'mad_mcnulty',  'Mad Mcnulty'),                -- id 16
-  (17, 'now', 'now', TRUE, 'insane_poincare',  'Insane Poincare'),        -- id 17
-  (18, 'now', 'now', TRUE, 'jovial_blackwell',  'Jovial Blackwell'),      -- id 18
-  (19, 'now', 'now', TRUE, 'goofy_khorana',  'Goofy Khorana'),            -- id 19
-  (20, 'now', 'now', TRUE, 'kickass_fermat',  'Kickass Fermat'),          -- id 20
-  (21, 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha'),                  -- id 21
-  (22, 'now', 'now', TRUE, 'angry_ritchie',  'Angry Ritchie'),            -- id 22
-  (23, 'now', 'now', TRUE, 'desperate_easley',  'Desperate Easley'),      -- id 23
-  (24, 'now', 'now', TRUE, 'admin', 'Admin #1' );                         -- id 24
+  ('10ef659d-bea8-4c9c-a663-683e85392685',  'now', 'now', TRUE, 'determined_poitras',  'Determined Poitras'),
+  ('4c499b61-ba43-45bd-8640-ac5eedb969b7',  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  2
+  ('f3cfebba-32ac-460d-bc7a-005d768aa03e',  'now', 'now', TRUE, 'dreamy_almeida',  'Dreamy Almeida'),          -- id  3
+  ('91a444b2-8b58-4c2a-95f4-6ec2ebd9e459',  'now', 'now', TRUE, 'goofy_heisenberg',  'Goofy Heisenberg'),      -- id  5
+  ('c388fd86-bf47-4b80-ba2d-d6a9b404c301',  'now', 'now', TRUE, 'thirsty_babbage',  'Thirsty Babbage'),        -- id  6
+  ('f8ba83a9-90cd-460e-b3c2-7f61f0ee6538', 'now', 'now', TRUE, 'romantic_carson',  'Romantic Carson'),        -- id 13
+  ('9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', 'now', 'now', TRUE, 'goofy_khorana',  'Goofy Khorana'),            -- id 19
+  ('0fcd54c0-abb1-4188-a592-0b583505a6f1', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha');                  -- id 21
 
 -- set password to "login"
 UPDATE "member" SET "password" = '$1$PcI6b1Bg$2SHjAZH2nMLFp0fxHis.Q0';
@@ -73,7 +49,7 @@ INSERT INTO "policy" (
     "indirect_majority_num", "indirect_majority_den", "indirect_majority_strict",
     "no_reverse_beat_path", "no_multistage_majority"
   ) VALUES (
-    1,
+    '25ae80aa-f0b5-47f6-8ecf-3ac6817e78c6',
     1,
     'amendment of the statutes (solar system)',
     '0', '8 days', '15 days', '8 days', '15 days',
@@ -83,7 +59,7 @@ INSERT INTO "policy" (
     2, 3, FALSE,
     TRUE, FALSE
   ), (
-    2,
+    'a7c72c67-fed9-4593-9b83-96c349aa1241',
     2,
     'amendment of the statutes (earth moon federation)',
     '0', '8 days', '15 days', '8 days', '15 days',
@@ -93,7 +69,7 @@ INSERT INTO "policy" (
     2, 3, FALSE,
     TRUE, FALSE
   ), (
-    3,
+    'e1c405c6-9efc-4d90-8fd7-d91cd2c35a3f',
     3,
     'amendment of the statutes (united mars colonies)',
     '0', '8 days', '15 days', '8 days', '15 days',
@@ -103,7 +79,7 @@ INSERT INTO "policy" (
     2, 3, FALSE,
     TRUE, FALSE
   ), (
-    4,
+    '88c0ffcb-f05a-40ef-ae5d-182f21b1c82e',
     4,
     'proposition',
     '0', '8 days', '15 days', '8 days', '15 days',
@@ -113,7 +89,7 @@ INSERT INTO "policy" (
     1, 2, TRUE,
     TRUE, FALSE
   ), (
-    5,
+    'e94b1352-423d-416e-819b-f2d6011bb5dd',
     5,
     'non-binding survey',
     '0', '2 days', '3 days', '2 days', '3 days',
@@ -123,7 +99,7 @@ INSERT INTO "policy" (
     1, 2, TRUE,
     TRUE, FALSE
   ), (
-    6,
+    'bc600b10-496d-497a-ab51-2bae548a95ca',
     6,
     'non-binding survey (super fast)',
     '0', '1 hour', '30 minutes', '15 minutes', '30 minutes',
@@ -134,146 +110,88 @@ INSERT INTO "policy" (
     TRUE, FALSE
   );
 
+
 INSERT INTO "unit" ("id", "parent_id", "name", "public_read") VALUES
-  ( 1, NULL, 'Solar System', TRUE),           -- id 1
-  ( 2, 1   , 'Earth Moon Federation', TRUE),  -- id 2
-  ( 3, 2   , 'Earth', TRUE),                  -- id 3
-  ( 4, 2   , 'Moon', TRUE),                   -- id 4
-  ( 5, 1   , 'Mars', FALSE);                   -- id 5
+  ( '0987eb49-a650-417e-8b4e-816fcead2126',           NULL,                      'Solar System',           TRUE),           -- id 1
+  ( '5a57955c-949f-4953-b346-4c907e4de0d5', '0987eb49-a650-417e-8b4e-816fcead2126',  'Earth Moon Federation',  TRUE),  -- id 2
+  ( '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb',                  '0987eb49-a650-417e-8b4e-816fcead2126', 'Earth',                  TRUE),                  -- id 3
+  ( '6f5265f3-90f4-4b76-b051-1b51fa4eefdd',                   '0987eb49-a650-417e-8b4e-816fcead2126', 'Moon',                   TRUE),                   -- id 4
+  ( '6480dfc7-986b-410e-a6c2-f3ef4b711f5c',                   '0987eb49-a650-417e-8b4e-816fcead2126', 'Mars',                   FALSE);                   -- id 5
 
 INSERT INTO "area" ("id", "unit_id", "name") VALUES
-  ( 1, 1, 'Statutes of the United Solar System'),       -- id  1
-  ( 2, 2, 'Statutes of the Earth Moon Federation'),     -- id  2
-  ( 3, 5, 'Statutes of the United Mars Colonies'),      -- id  3
-  ( 4, 1, 'Intra solar space travel'),                  -- id  4
-  ( 5, 1, 'Intra solar system trade and taxation'),     -- id  5
-  ( 6, 1, 'Comet defense and black holes management'),  -- id  6
-  ( 7, 1, 'Alien affairs'),                             -- id  7
-  ( 8, 2, 'Foreign affairs'),                           -- id  8
-  ( 9, 3, 'Moon affairs'),                              -- id  9
-  (10, 4, 'Earth affairs'),                             -- id 10
-  (11, 4, 'Moon tourism'),                              -- id 11
-  (12, 5, 'Foreign affairs'),                           -- id 12
-  (13, 2, 'Department of space vehicles'),              -- id 13
-  (14, 3, 'Environment'),                               -- id 14
-  (15, 4, 'Energy and oxygen'),                         -- id 15
-  (16, 5, 'Energy and oxygen'),                         -- id 16
-  (17, 5, 'Mineral resources');                         -- id 17
+  ( '752f442d-58b7-4261-9d77-60c37b3d8378', '0987eb49-a650-417e-8b4e-816fcead2126', 'Statutes of the United Solar System'),       -- id  1
+  ( '7e9dbf52-feb1-4399-a664-634d6e7f70f2',       '5a57955c-949f-4953-b346-4c907e4de0d5', 'Statutes of the Earth Moon Federation'),     -- id  2
+  ( 'd3fb43d8-d249-4c42-8f3e-628170bf7323',                         '6480dfc7-986b-410e-a6c2-f3ef4b711f5c', 'Statutes of the United Mars Colonies'),      -- id  3
+  ( '7f4272ce-9996-441a-b75b-b15a01ce7345',              '0987eb49-a650-417e-8b4e-816fcead2126', 'Intra solar space travel'),                  -- id  4
+  ( '005c3934-3c10-40c2-bf5e-49d2e6bd935a', '0987eb49-a650-417e-8b4e-816fcead2126', 'Intra solar system trade and taxation'),     -- id  5
+  ( '45184e5b-14bd-4e03-9b97-eb28c72d7748', '0987eb49-a650-417e-8b4e-816fcead2126', 'Comet defense and black holes management'),  -- id  6
+  ( '99ffb1d2-20d4-4898-b219-69d5a75619d1', '0987eb49-a650-417e-8b4e-816fcead2126', 'Alien affairs'),                             -- id  7
+  ( '3bcd2520-6fea-4b81-a6e8-225054172b27', '5a57955c-949f-4953-b346-4c907e4de0d5', 'Foreign affairs'),                           -- id  8
+  ( 'b64d021e-decc-4206-b537-0d81d2c7ab55', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', 'Moon affairs'),                              -- id  9
+  ( '074292ca-0dbd-42ee-827e-501698e7f96c', '6f5265f3-90f4-4b76-b051-1b51fa4eefdd', 'Earth affairs'),                             -- id 10
+  ( 'b7dbf24d-cad1-4368-8122-cfa559bbb28e', '6f5265f3-90f4-4b76-b051-1b51fa4eefdd', 'Moon tourism'),                              -- id 11
+  ( '12777cda-31aa-4ca6-8c61-5838bcc888e0', '6480dfc7-986b-410e-a6c2-f3ef4b711f5c', 'Foreign affairs'),                           -- id 12
+  ( '92da2047-51ee-4308-b72d-ce1ea800f631', '5a57955c-949f-4953-b346-4c907e4de0d5', 'Department of space vehicles'),              -- id 13
+  ( '17bf505c-1f1d-4d92-a4ef-10d3129a143e', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', 'Environment'),                               -- id 14
+  ( 'd7d59392-95aa-4436-8cd8-cf0277ddc677', '6f5265f3-90f4-4b76-b051-1b51fa4eefdd', 'Energy and oxygen'),                         -- id 15
+  ( 'bb80ec37-3d03-4eea-a8c0-c51498bc42e4', '6480dfc7-986b-410e-a6c2-f3ef4b711f5c', 'Energy and oxygen'),                         -- id 16
+  ( '10b0465f-bd1c-4430-9879-e31cf827bfd5', '6480dfc7-986b-410e-a6c2-f3ef4b711f5c', 'Mineral resources');                         -- id 17
 
-INSERT INTO "allowed_policy" ("area_id", "policy_id", "default_policy") VALUES
-  ( 1, 1, TRUE),
-  ( 1, 5, FALSE),
-  ( 1, 6, FALSE),
-  ( 2, 2, TRUE),
-  ( 2, 5, FALSE),
-  ( 2, 6, FALSE),
-  ( 3, 3, TRUE),
-  ( 3, 5, FALSE),
-  ( 3, 6, FALSE),
-  ( 4, 4, TRUE),
-  ( 4, 5, FALSE),
-  ( 4, 6, FALSE),
-  ( 5, 4, TRUE),
-  ( 5, 5, FALSE),
-  ( 5, 6, FALSE),
-  ( 6, 4, TRUE),
-  ( 6, 5, FALSE),
-  ( 6, 6, FALSE),
-  ( 7, 4, TRUE),
-  ( 7, 5, FALSE),
-  ( 7, 6, FALSE),
-  ( 8, 4, TRUE),
-  ( 8, 5, FALSE),
-  ( 8, 6, FALSE),
-  ( 9, 4, TRUE),
-  ( 9, 5, FALSE),
-  ( 9, 6, FALSE),
-  (10, 4, TRUE),
-  (10, 5, FALSE),
-  (10, 6, FALSE),
-  (11, 4, TRUE),
-  (11, 5, FALSE),
-  (11, 6, FALSE),
-  (12, 4, TRUE),
-  (12, 5, FALSE),
-  (12, 6, FALSE),
-  (13, 4, TRUE),
-  (13, 5, FALSE),
-  (13, 6, FALSE),
-  (14, 4, TRUE),
-  (14, 5, FALSE),
-  (14, 6, FALSE),
-  (15, 4, TRUE),
-  (15, 5, FALSE),
-  (15, 6, FALSE),
-  (16, 4, TRUE),
-  (16, 5, FALSE),
-  (16, 6, FALSE),
-  (17, 4, TRUE),
-  (17, 5, FALSE),
-  (17, 6, FALSE);
 
--- All Member are voting privileged for Unit 1 (Solar System)
-INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
-  SELECT 1 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
-  FROM "member"
-  WHERE "member"."admin" != TRUE;
+-- All are able to vote in Solar System
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '10ef659d-bea8-4c9c-a663-683e85392685', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( '4c499b61-ba43-45bd-8640-ac5eedb969b7', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( 'f8ba83a9-90cd-460e-b3c2-7f61f0ee6538', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE ),
+    ( '0fcd54c0-abb1-4188-a592-0b583505a6f1', '0987eb49-a650-417e-8b4e-816fcead2126', TRUE );
 
--- Members 1 - 15 are voting privileged for Unit 2 (Earth Moon Federation)
-INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
-  SELECT 2 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
-  FROM "member"
-  WHERE "member"."id" > 0 AND "member"."id" < 16;
+-- Earth Moon Federation privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '10ef659d-bea8-4c9c-a663-683e85392685', '5a57955c-949f-4953-b346-4c907e4de0d5', TRUE ),
+    ( '4c499b61-ba43-45bd-8640-ac5eedb969b7', '5a57955c-949f-4953-b346-4c907e4de0d5', TRUE ),
+    ( 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '5a57955c-949f-4953-b346-4c907e4de0d5', TRUE ),
+    ( '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '5a57955c-949f-4953-b346-4c907e4de0d5', TRUE ),
+    ( 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '5a57955c-949f-4953-b346-4c907e4de0d5', TRUE ),
+    ( 'f8ba83a9-90cd-460e-b3c2-7f61f0ee6538', '5a57955c-949f-4953-b346-4c907e4de0d5', TRUE );
 
--- Members 1 - 10 are voting privileged for Unit 3 (Earth)
-INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
-  SELECT 3 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
-  FROM "member"
-  WHERE "member"."id" > 0 AND "member"."id" < 11;
+-- Earth privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '10ef659d-bea8-4c9c-a663-683e85392685', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', TRUE ),
+    ( '4c499b61-ba43-45bd-8640-ac5eedb969b7', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', TRUE ),
+    ( 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', TRUE ),
+    ( '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', TRUE ),
+    ( 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '889d2ba8-ca5f-4d42-ad04-7fc1d1ece1cb', TRUE );
 
--- Members 10 - 15 are voting privileged for Unit 4 (Moon)
-INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
-  SELECT 4 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
-  FROM "member"
-  WHERE "member"."id" > 10 AND "member"."id" < 16;
+-- Moon Privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( 'f8ba83a9-90cd-460e-b3c2-7f61f0ee6538', '6f5265f3-90f4-4b76-b051-1b51fa4eefdd', TRUE );
 
--- Members 16 - 23 are voting privileged for Unit 5 (Mars)
-INSERT INTO "privilege" ("unit_id", "member_id", "voting_right")
-  SELECT 5 AS "unit_id", "id" AS "member_id", TRUE AS "voting_right"
-  FROM "member"
-  WHERE "member"."id" > 15 AND "member"."id" < 24;
+-- Mars Privileges
+INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
+    ( '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '6480dfc7-986b-410e-a6c2-f3ef4b711f5c', TRUE ),
+    ( '0fcd54c0-abb1-4188-a592-0b583505a6f1', '6480dfc7-986b-410e-a6c2-f3ef4b711f5c', TRUE );
 
--- Solar System unit delegations
+-- Unit Delegations
 INSERT INTO "delegation"
-    ("id", "truster_id", "scope", "unit_id", "trustee_id") VALUES
-    ( 1, 2,  'unit', 1, 1),          -- Hugle delegates to Poitras
-    ( 2, 3,  'unit', 1, 1),          -- Almeida delegates to Poitras
-    ( 3, 4,  'unit', 1, 1),          -- Swirles delgates to Poitras
-    ( 4, 5,  'unit', 1, 3),          -- Heisenberg delegates to Almeida
-    ( 5, 6,  'unit', 1, 2),          -- Babbage delegates to Hugle
-    ( 6, 8,  'unit', 1, 7),          -- Sammet delegates to Lamarr
-    ( 7, 11, 'unit', 1, 1),          -- Bell delegates to Poitras
-    ( 8, 12, 'unit', 1, 11),         -- Meminsky delegates to Bell
-    ( 9, 17, 'unit', 1, 16),         -- Poincare delegates to McNulty
-    (10, 18, 'unit', 1, 16);         -- Blackwell delegates to McNulty
+    ( "id", "truster_id", "unit_id", "scope", "trustee_id" ) VALUES
+    ( 'da709348-3508-21f5-a3dd-e04d9c2ad3c1', '4c499b61-ba43-45bd-8640-ac5eedb969b7', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685'),
+    ( 'ede4ca39-bbf0-98c2-e310-1ae6b14cfe0e', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
+    ( '2eca9cb1-c6ed-72f1-8048-ee8fbebc9e69', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
+    ( 'fb979076-9beb-68b8-79f5-8215c493ccf3', 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'b87ef286-0c55-cd3f-6e76-f32b5cdd97dc', '10ef659d-bea8-4c9c-a663-683e85392685', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '8214865f-da9b-7591-6672-5154064732e2', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'aad6f9f3-0769-29e2-cd26-95d9f1ae95fd', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' );
 
--- Earth unit delegations
+-- Area Delegations
 INSERT INTO "delegation"
-    ("id", "truster_id", "scope", "unit_id", "trustee_id") VALUES
-    (11, 1, 'unit', 2, 2),          -- Poitras delegates to Hugle
-    (12, 3, 'unit', 2, 2),          -- Almeida delegates to Hugle
-    (13, 5, 'unit', 2, 1);          -- Heisenberg delegates to Poitras
-
--- Solar System Alien Affairs area delegations
-INSERT INTO "delegation"
-    ("id", "truster_id", "scope", "area_id", "trustee_id") VALUES
-    (14,  3,  'area', 7, 13),       -- Almeida delegates to Carson
-    (15,  9,  'area', 7, 13),       -- Bose delegates to Carson
-    (16,  19, 'area', 7, 5);        -- Khorana delegates to Heisenberg
-
--- Solar System Comet Defence area delegations
-INSERT INTO "delegation"
-    ("id", "truster_id", "scope", "area_id", "trustee_id") VALUES
-    (17,  3,  'area', 6, 2);        -- Almeida delegates to Hugle
+    ( "id", "truster_id", "area_id", "scope", "trustee_id" ) VALUES
+    ( 'e333bb2d-f9d7-57e0-46fc-807543cd536d', '10ef659d-bea8-4c9c-a663-683e85392685', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'b97df8a9-41a5-974f-b001-100eea70608a', '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459' ),
+    ( '77cb15c9-7353-45a8-fdea-29b5afa188a7', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '45184e5b-14bd-4e03-9b97-eb28c72d7748', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '92131bc2-218c-b9cb-6074-5cf509cfea85', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459');
 
 

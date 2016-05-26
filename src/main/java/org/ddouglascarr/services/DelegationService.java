@@ -5,22 +5,23 @@ import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Delegation;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface DelegationService
 {
-    Delegation findUnitDelegationForTruster(Long memberId, Long unitId, Long trusterId)
+    Delegation findUnitDelegationForTruster(UUID memberId, UUID unitId, UUID trusterId)
             throws ItemNotFoundException, MemberUnprivilegedException;
 
     List<Delegation> findIncomingUnitDelegationForTrustee(
-            Long memberId, Long unitId, Long trusteeId)
+            UUID memberId, UUID unitId, UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException;
 
     Delegation findAreaDelegationForTruster(
-            Long memberId, Long unitId, Long areaId, Long trusteeId)
+            UUID memberId, UUID unitId, UUID areaId, UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException;
 
     List<Delegation> findIncomingAreaDelegationsForTrustee(
-            Long memberId, Long unitId, Long areaId, Long trusteeId)
+            UUID memberId, UUID unitId, UUID areaId, UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException;
 
 }

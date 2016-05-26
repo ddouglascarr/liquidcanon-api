@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AreaServiceImpl implements AreaService
@@ -23,7 +24,7 @@ public class AreaServiceImpl implements AreaService
     PrivilegeService privilegeService;
 
     @Override
-    public Area findOne(Long memberId, Long id)
+    public Area findOne(UUID memberId, UUID id)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         Area area = areaRepository.findOne(id);
@@ -33,7 +34,7 @@ public class AreaServiceImpl implements AreaService
     }
 
     @Override
-    public List<Area> findByUnitId(Long memberId, Long unitId)
+    public List<Area> findByUnitId(UUID memberId, UUID unitId)
                 throws MemberUnprivilegedException, ItemNotFoundException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
@@ -46,7 +47,7 @@ public class AreaServiceImpl implements AreaService
     }
 
     @Override
-    public Area findOneByUnitId(Long memberId, Long unitId, Long id)
+    public Area findOneByUnitId(UUID memberId, UUID unitId, UUID id)
             throws MemberUnprivilegedException, ItemNotFoundException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);

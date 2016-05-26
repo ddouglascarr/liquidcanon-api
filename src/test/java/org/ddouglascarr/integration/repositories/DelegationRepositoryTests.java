@@ -42,7 +42,7 @@ public class DelegationRepositoryTests
         Delegation delegation = delegationRepository
                 .findUnitDelegationByTrusterId(EARTH_MOON_FEDERATION_UNIT_ID, HEISENBERG_MEMBER_ID);
         assertEquals(POITRAS_MEMBER_ID, delegation.getTrusteeId());
-        assertEquals(new Long(13), delegation.getId());
+        assertEquals(HEISENBERG_MEMBER_ID, delegation.getTrusterId());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class DelegationRepositoryTests
     {
         List<Delegation> delegations = delegationRepository
                 .findUnitDelegationsByTrusteeId(SOLAR_SYSTEM_UNIT_ID, POITRAS_MEMBER_ID);
-        assertEquals(4, delegations.size());
+        assertEquals(3, delegations.size());
     }
 
     @Test
@@ -71,8 +71,8 @@ public class DelegationRepositoryTests
                 .findAreaDelegationByTrusterId(SOLAR_SYSTEM_UNIT_ID,
                         ALIEN_AFFAIRS_AREA_ID,
                         KHORANA_MEMBER_ID);
-        assertEquals(new Long(16), delegation.getId());
         assertEquals(HEISENBERG_MEMBER_ID, delegation.getTrusteeId());
+        assertEquals(KHORANA_MEMBER_ID, delegation.getTrusterId());
     }
 
     @Test
@@ -119,13 +119,14 @@ public class DelegationRepositoryTests
                 .findAreaDelegationsByTrusteeId(
                         SOLAR_SYSTEM_UNIT_ID,
                         ALIEN_AFFAIRS_AREA_ID,
-                        CARSON_MEMBER_ID);
+                        HEISENBERG_MEMBER_ID);
         assertEquals(2, delegations.size());
 
         Delegation almeidaDelegation = delegations.stream()
                 .filter(d -> ALMEIDA_MEMBER_ID.equals(d.getTrusterId()))
                 .findFirst().get();
-        assertEquals(new Long(14), almeidaDelegation.getId());
+        assertEquals(ALMEIDA_MEMBER_ID, almeidaDelegation.getTrusterId());
+        assertEquals(HEISENBERG_MEMBER_ID, almeidaDelegation.getTrusteeId());
     }
 
     @Test
@@ -164,7 +165,7 @@ public class DelegationRepositoryTests
                 .filter(d -> d.getAreaId().equals(ALIEN_AFFAIRS_AREA_ID))
                 .findFirst().get();
         assertEquals(ALMEIDA_MEMBER_ID, alienAffairsDelegation.getTrusterId());
-        assertEquals(CARSON_MEMBER_ID, alienAffairsDelegation.getTrusteeId());
+        assertEquals(HEISENBERG_MEMBER_ID, alienAffairsDelegation.getTrusteeId());
 
     }
 

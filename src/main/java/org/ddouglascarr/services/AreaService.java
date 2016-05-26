@@ -5,29 +5,30 @@ import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.models.Area;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface AreaService
 {
-    Area findOne(Long memberId, Long id)
+    Area findOne(UUID memberId, UUID id)
             throws ItemNotFoundException, MemberUnprivilegedException;
 
-    default Area findOne(Long id) throws ItemNotFoundException
+    default Area findOne(UUID id) throws ItemNotFoundException
     {
         throw new RuntimeException("method removed");
     }
 
-   default Area findOneByUnitId(Long unitId, Long id) throws ItemNotFoundException
+   default Area findOneByUnitId(UUID unitId, UUID id) throws ItemNotFoundException
    {
        throw new RuntimeException("method removed");
    }
-    Area findOneByUnitId(Long memberid, Long unitId, Long id)
+    Area findOneByUnitId(UUID memberId, UUID unitId, UUID id)
             throws ItemNotFoundException, MemberUnprivilegedException;
 
-    default List<Area> findByUnitId(Long unitId)
+    default List<Area> findByUnitId(UUID unitId)
     {
         throw new RuntimeException("method removed");
     }
 
-    List<Area> findByUnitId(Long memberId, Long unitId)
+    List<Area> findByUnitId(UUID memberId, UUID unitId)
             throws ItemNotFoundException, MemberUnprivilegedException;
 }

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class DelegationRepositoryImpl implements DelegationRepository
@@ -20,7 +21,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Delegation findUnitDelegationByTrusterId(Long unitId, Long trusterId)
+    public Delegation findUnitDelegationByTrusterId(UUID unitId, UUID trusterId)
     {
         final String sql = String.join(" ",
                 "SELECT * FROM delegation",
@@ -42,7 +43,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
     }
 
     @Override
-    public Delegation findAreaDelegationByTrusterId(Long unitId, Long areaId, Long trusterId)
+    public Delegation findAreaDelegationByTrusterId(UUID unitId, UUID areaId, UUID trusterId)
     {
         final String sql = String.join(" ",
                 "SELECT delegation.* FROM",
@@ -58,10 +59,10 @@ public class DelegationRepositoryImpl implements DelegationRepository
         namedParameters.addValue("areaId", areaId);
         namedParameters.addValue("trusterId", trusterId);
         try {
-            Delegation delegation = (Delegation) namedParameterJdbcTemplate.queryForObject(
+            Delegation delegation = namedParameterJdbcTemplate.queryForObject(
                     sql,
                     namedParameters,
-                    new BeanPropertyRowMapper(Delegation.class));
+                    new BeanPropertyRowMapper<>(Delegation.class));
             return delegation;
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -69,7 +70,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
     }
 
     @Override
-    public List<Delegation> findAreaDelegationsByUnitIdAndTrusterId(Long unitId, Long trusterId)
+    public List<Delegation> findAreaDelegationsByUnitIdAndTrusterId(UUID unitId, UUID trusterId)
     {
         String sql = String.join(" ",
                 "SELECT delegation.* FROM delegation",
@@ -83,18 +84,18 @@ public class DelegationRepositoryImpl implements DelegationRepository
         List<Delegation> delegations = namedParameterJdbcTemplate.query(
                 sql,
                 namedParameters,
-                new BeanPropertyRowMapper(Delegation.class));
+                new BeanPropertyRowMapper<>(Delegation.class));
         return delegations;
     }
 
     @Override
-    public Delegation findOneById(Long unitId, Long id)
+    public Delegation findOneById(UUID unitId, UUID id)
     {
         return null;
     }
 
     @Override
-    public List<Delegation> findByTrusterId(Long unitId, Long trusterId)
+    public List<Delegation> findByTrusterId(UUID unitId, UUID trusterId)
     {
         Delegation unitDelegation = this.findUnitDelegationByTrusterId(unitId, trusterId);
         List<Delegation> delegations = this
@@ -104,7 +105,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
     }
 
     @Override
-    public List<Delegation> findUnitDelegationsByTrusteeId(Long unitId, Long trusteeId)
+    public List<Delegation> findUnitDelegationsByTrusteeId(UUID unitId, UUID trusteeId)
     {
         final String sql = String.join(" ",
                 "SELECT * FROM delegation",
@@ -116,13 +117,13 @@ public class DelegationRepositoryImpl implements DelegationRepository
         List<Delegation> delegations = namedParameterJdbcTemplate.query(
                 sql,
                 namedParameters,
-                new BeanPropertyRowMapper(Delegation.class)
+                new BeanPropertyRowMapper<>(Delegation.class)
         );
         return delegations;
     }
 
     @Override
-    public List<Delegation> findAreaDelegationsByTrusteeId(Long unitId, Long areaId, Long trusteeId)
+    public List<Delegation> findAreaDelegationsByTrusteeId(UUID unitId, UUID areaId, UUID trusteeId)
     {
         final String sql = String.join(" ",
                 "SELECT d.*",
@@ -139,7 +140,7 @@ public class DelegationRepositoryImpl implements DelegationRepository
         List<Delegation> delegations = namedParameterJdbcTemplate.query(
                 sql,
                 namedParameters,
-                new BeanPropertyRowMapper(Delegation.class));
+                new BeanPropertyRowMapper<>(Delegation.class));
         return delegations;
     }
 }

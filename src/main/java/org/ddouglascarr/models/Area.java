@@ -3,11 +3,13 @@ package org.ddouglascarr.models;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.UUID;
+
 public class Area
 {
     @Id
-    private Long id;
-    private Long unitId;
+    private UUID id;
+    private UUID unitId;
     private Boolean active;
     private String name;
     private String description;
@@ -18,22 +20,22 @@ public class Area
 
     // Getters and Setters
 
-    public Long getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(Long id)
+    public void setId(UUID id)
     {
         this.id = id;
     }
 
-    public Long getUnitId()
+    public UUID getUnitId()
     {
         return unitId;
     }
 
-    public void setUnitId(Long unitId)
+    public void setUnitId(UUID unitId)
     {
         this.unitId = unitId;
     }

@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -38,10 +39,10 @@ public class AreaServiceImplTests
     private Area mockArea2;
     private Area mockArea3;
 
-    private static Long AREA_2_ID = new Long(2);
-    private static Long AREA_3_ID = new Long(3);
-    private static Long UNIT_ID = new Long(12);
-    private static Long MEMBER_ID = new Long(22);
+    private static UUID AREA_2_ID = UUID.randomUUID();
+    private static UUID AREA_3_ID = UUID.randomUUID();
+    private static UUID UNIT_ID = UUID.randomUUID();
+    private static UUID MEMBER_ID = UUID.randomUUID();
 
     @Before
     public void setup()

@@ -22,6 +22,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -47,11 +48,11 @@ public class UnitsControllerTests
     private Unit mockUnit3;
     private List<Area> mockAreaList;
 
-    private static Long UNIT_2_ID = new Long(2);
-    private static Long UNIT_3_ID = new Long(3);
-    private static Long AREA_12_ID = new Long(12);
-    private static Long AREA_13_ID = new Long(13);
-    private static Long MEMBER_ID = new Long(52);
+    private static UUID UNIT_2_ID = UUID.randomUUID();
+    private static UUID UNIT_3_ID = UUID.randomUUID();
+    private static UUID AREA_12_ID = UUID.randomUUID();
+    private static UUID AREA_13_ID = UUID.randomUUID();
+    private static UUID MEMBER_ID = UUID.randomUUID();
 
     @Before
     public void setup()
@@ -115,16 +116,14 @@ public class UnitsControllerTests
     public void getMembersShouldReturnMembersForUnit()
     {
         Member mockMember2 = new Member();
-        mockMember2.setId(new Long(2));
         Member mockMember3 = new Member();
-        mockMember3.setId(new Long(3));
         List<Member> mockList = new ArrayList<>();
         mockList.add(mockMember2);
         mockList.add(mockMember3);
 
-        when(memberService.findByUnitId(new Long(2))).thenReturn(mockList);
+        when(memberService.findByUnitId(UNIT_2_ID)).thenReturn(mockList);
 
-        ResponseEntity<List<Member>> resp = unitsController.getMembers(new Long(2));
+        ResponseEntity<List<Member>> resp = unitsController.getMembers(UNIT_2_ID);
         assertEquals(resp.getStatusCode(), HttpStatus.OK);
         List<Member> returnedList = resp.getBody();
         assertEquals(returnedList.size(), 2);
@@ -136,9 +135,9 @@ public class UnitsControllerTests
     public void getMembersShouldReturnEmptyListIfNoMembers()
     {
         List<Member> mockList = new ArrayList<>();
-        when(memberService.findByUnitId(new Long(6))).thenReturn(mockList);
+        when(memberService.findByUnitId(UNIT_3_ID)).thenReturn(mockList);
 
-        ResponseEntity<List<Member>> resp = unitsController.getMembers(new Long(6));
+        ResponseEntity<List<Member>> resp = unitsController.getMembers(UNIT_3_ID);
         assertEquals(resp.getStatusCode(), HttpStatus.OK);
         List<Member> returnedList = resp.getBody();
         assertEquals(returnedList.size(), 0);

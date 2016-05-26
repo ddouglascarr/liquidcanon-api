@@ -73,8 +73,8 @@ public class AreasControllerTests
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_STATUTES_AREA_ID.intValue())))
-                .andExpect(jsonPath("$.unit_id", is(EARTH_MOON_FEDERATION_UNIT_ID.intValue())))
+                .andExpect(jsonPath("$.id", is(EARTH_MOON_FEDERATION_STATUTES_AREA_ID.toString())))
+                .andExpect(jsonPath("$.unit_id", is(EARTH_MOON_FEDERATION_UNIT_ID.toString())))
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.name", is("Statutes of the Earth Moon Federation")))
                 .andExpect(jsonPath("$.description", isEmptyOrNullString())) // TODO
@@ -87,10 +87,10 @@ public class AreasControllerTests
                         parameterWithName("areaId").description("The area id"))))
                 .andDo(document("areas/get", responseFields(
                         fieldWithPath("id")
-                                .type(JsonFieldType.NUMBER)
+                                .type(JsonFieldType.STRING)
                                 .description("Primary key"),
                         fieldWithPath("unit_id")
-                                .type(JsonFieldType.NUMBER)
+                                .type(JsonFieldType.STRING)
                                 .description("Unit to which the area belongs"),
                         fieldWithPath("active")
                                 .type(JsonFieldType.BOOLEAN)

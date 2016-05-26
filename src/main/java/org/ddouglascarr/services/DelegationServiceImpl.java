@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DelegationServiceImpl implements DelegationService
@@ -19,7 +20,7 @@ public class DelegationServiceImpl implements DelegationService
     private PrivilegeService privilegeService;
 
     @Override
-    public Delegation findUnitDelegationForTruster(Long memberId, Long unitId, Long trusterId)
+    public Delegation findUnitDelegationForTruster(UUID memberId, UUID unitId, UUID trusterId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
@@ -31,7 +32,7 @@ public class DelegationServiceImpl implements DelegationService
 
     @Override
     public List<Delegation> findIncomingUnitDelegationForTrustee(
-            Long memberId, Long unitId, Long trusteeId)
+            UUID memberId, UUID unitId, UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
@@ -42,7 +43,7 @@ public class DelegationServiceImpl implements DelegationService
 
     @Override
     public Delegation findAreaDelegationForTruster(
-            Long memberId, Long unitId, Long areaId, Long trusterId)
+            UUID memberId, UUID unitId, UUID areaId, UUID trusterId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
@@ -54,7 +55,7 @@ public class DelegationServiceImpl implements DelegationService
 
     @Override
     public List<Delegation> findIncomingAreaDelegationsForTrustee(
-            Long memberId, Long unitId, Long areaId, Long trusteeId)
+            UUID memberId, UUID unitId, UUID areaId, UUID trusteeId)
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, unitId);
