@@ -268,7 +268,8 @@ INSERT INTO "delegation"
     ( "id", "truster_id", "area_id", "scope", "trustee_id" ) VALUES
     ( '${uuid()}', '${POITRAS_MEMBER_ID}', '${ALIEN_AFFAIRS_AREA_ID}', 'area', '${HUGLE_MEMBER_ID}' ),
     ( '${uuid()}', '${KHORANA_MEMBER_ID}', '${ALIEN_AFFAIRS_AREA_ID}', 'area', '${HEISENBERG_MEMBER_ID}' ),
-    ( '${uuid()}', '${ALMEIDA_MEMBER_ID}', '${COMET_DEFENSE_AND_BLACK_HOLES_MANAGEMENT_AREA_ID}', 'area', '${HUGLE_MEMBER_ID}' );
+    ( '${uuid()}', '${ALMEIDA_MEMBER_ID}', '${COMET_DEFENSE_AND_BLACK_HOLES_MANAGEMENT_AREA_ID}', 'area', '${HUGLE_MEMBER_ID}' ),
+    ( '${uuid()}', '${ALMEIDA_MEMBER_ID}', '${ALIEN_AFFAIRS_AREA_ID}', 'area', '${HEISENBERG_MEMBER_ID}');
 
 `;
 

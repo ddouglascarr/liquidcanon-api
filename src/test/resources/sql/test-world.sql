@@ -178,19 +178,20 @@ INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
 -- Unit Delegations
 INSERT INTO "delegation"
     ( "id", "truster_id", "unit_id", "scope", "trustee_id" ) VALUES
-    ( '3bdbbaa5-615d-774f-f8bb-232c6956d0a1', '4c499b61-ba43-45bd-8640-ac5eedb969b7', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685'),
-    ( 'c8282a95-4117-4d99-3fa6-d2ade5d80cc5', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
-    ( '99e2ee9f-2ca7-1b68-42f9-e48874dc9d67', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
-    ( 'ec682ffd-0dc0-75b4-cf20-e0218d291b47', 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( '49589b51-f6fb-ec94-638a-c2626d7eb59e', '10ef659d-bea8-4c9c-a663-683e85392685', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( '5c038d41-913e-8380-a8f5-bb732be5adf8', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( '9ca30fe6-e3ec-7bc7-d836-cd4133690596', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' );
+    ( 'da709348-3508-21f5-a3dd-e04d9c2ad3c1', '4c499b61-ba43-45bd-8640-ac5eedb969b7', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685'),
+    ( 'ede4ca39-bbf0-98c2-e310-1ae6b14cfe0e', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
+    ( '2eca9cb1-c6ed-72f1-8048-ee8fbebc9e69', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
+    ( 'fb979076-9beb-68b8-79f5-8215c493ccf3', 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'b87ef286-0c55-cd3f-6e76-f32b5cdd97dc', '10ef659d-bea8-4c9c-a663-683e85392685', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '8214865f-da9b-7591-6672-5154064732e2', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'aad6f9f3-0769-29e2-cd26-95d9f1ae95fd', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' );
 
 -- Area Delegations
 INSERT INTO "delegation"
     ( "id", "truster_id", "area_id", "scope", "trustee_id" ) VALUES
-    ( '7899a947-47af-d5c4-85f0-67ef278b1c52', '10ef659d-bea8-4c9c-a663-683e85392685', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( 'a21d9e40-ac19-f447-8fda-aee08bd3f6c6', '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459' ),
-    ( '538b2b9e-08e0-1c40-a5f1-3b535d514f20', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '45184e5b-14bd-4e03-9b97-eb28c72d7748', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' );
+    ( 'e333bb2d-f9d7-57e0-46fc-807543cd536d', '10ef659d-bea8-4c9c-a663-683e85392685', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'b97df8a9-41a5-974f-b001-100eea70608a', '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459' ),
+    ( '77cb15c9-7353-45a8-fdea-29b5afa188a7', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '45184e5b-14bd-4e03-9b97-eb28c72d7748', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '92131bc2-218c-b9cb-6074-5cf509cfea85', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459');
 
 
