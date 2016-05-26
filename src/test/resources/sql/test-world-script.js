@@ -9,6 +9,17 @@
 //      sed 's/)//g' | \
 //      sed 's/public static String/var/g'
 
+// credit Jon  Surrell @ http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+function uuid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
 // member ids
 var NON_EXISTANT_MEMBER_ID = "8068bcf3-31dd-41e9-b87f-e400828c352c";
 var POITRAS_MEMBER_ID = "10ef659d-bea8-4c9c-a663-683e85392685";
@@ -241,7 +252,23 @@ INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
     ( '${KHORANA_MEMBER_ID}', '${MARS_UNIT_ID}', TRUE ),
     ( '${SAHA_MEMBER_ID}', '${MARS_UNIT_ID}', TRUE );
 
--- Solar System Unit Delegations
+-- Unit Delegations
+INSERT INTO "delegation"
+    ( "id", "truster_id", "unit_id", "scope", "trustee_id" ) VALUES
+    ( '${uuid()}', '${HUGLE_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'unit', '${POITRAS_MEMBER_ID}'),
+    ( '${uuid()}', '${ALMEIDA_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'unit', '${POITRAS_MEMBER_ID}' ),
+    ( '${uuid()}', '${HEISENBERG_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'unit', '${POITRAS_MEMBER_ID}' ),
+    ( '${uuid()}', '${BABBAGE_MEMBER_ID}', '${SOLAR_SYSTEM_UNIT_ID}', 'unit', '${HUGLE_MEMBER_ID}' ),
+    ( '${uuid()}', '${POITRAS_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', 'unit', '${HUGLE_MEMBER_ID}' ),
+    ( '${uuid()}', '${ALMEIDA_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', 'unit', '${HUGLE_MEMBER_ID}' ),
+    ( '${uuid()}', '${HEISENBERG_MEMBER_ID}', '${EARTH_MOON_FEDERATION_UNIT_ID}', 'unit', '${POITRAS_MEMBER_ID}' );
+
+-- Area Delegations
+INSERT INTO "delegation"
+    ( "id", "truster_id", "area_id", "scope", "trustee_id" ) VALUES
+    ( '${uuid()}', '${POITRAS_MEMBER_ID}', '${ALIEN_AFFAIRS_AREA_ID}', 'area', '${HUGLE_MEMBER_ID}' ),
+    ( '${uuid()}', '${KHORANA_MEMBER_ID}', '${ALIEN_AFFAIRS_AREA_ID}', 'area', '${HEISENBERG_MEMBER_ID}' ),
+    ( '${uuid()}', '${ALMEIDA_MEMBER_ID}', '${COMET_DEFENSE_AND_BLACK_HOLES_MANAGEMENT_AREA_ID}', 'area', '${HUGLE_MEMBER_ID}' );
 
 `;
 
