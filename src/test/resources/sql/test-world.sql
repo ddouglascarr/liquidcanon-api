@@ -18,8 +18,8 @@ INSERT INTO "contingent" ("polling", "time_frame", "text_entry_limit", "initiati
 ALTER TABLE "member" ADD COLUMN "password_liquidcanon" VARCHAR(60);
 
 INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "name") VALUES
-  (1,  'now', 'now', TRUE, 'determined_poitras',  'Determined Poitras'),  -- id  1
-  (2,  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  2
+  (${POITRAS_MEMBER_ID},  'now', 'now', TRUE, 'determined_poitras',  'Determined Poitras'),  -- id  1
+  (${HUGLE_MEMBER_ID},  'now', 'now', TRUE, 'tender_hugle',  'Tender Hugle'),              -- id  2
   (3,  'now', 'now', TRUE, 'dreamy_almeida',  'Dreamy Almeida'),          -- id  3
   (4,  'now', 'now', TRUE, 'thirsty_swirles',  'Thirsty Swirles'),        -- id  4
   (5,  'now', 'now', TRUE, 'goofy_heisenberg',  'Goofy Heisenberg'),      -- id  5
