@@ -1,4 +1,4 @@
-package org.ddouglascarr.integration.command.unit;
+package org.ddouglascarr.integration.command;
 
 import org.axonframework.test.FixtureConfiguration;
 import org.axonframework.test.Fixtures;

@@ -170,8 +170,9 @@ public class UnitsControllerTests
         request.setName(name);
         request.setDescription(description);
 
-        ResponseEntity<String> resp = unitsController.createUnit(request);
+        ResponseEntity<UUID> resp = unitsController.createUnit(request);
         assertEquals(HttpStatus.CREATED, resp.getStatusCode());
+        assertEquals(id, resp.getBody());
         verify(commandGateway).send(argument.capture());
         assertEquals(parentId, argument.getValue().getParentId());
         assertEquals(name, argument.getValue().getName());

@@ -14,6 +14,7 @@ import org.ddouglascarr.query.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,14 +73,14 @@ public class UnitsController
     @RequestMapping(
             value = "/units",
             method = RequestMethod.POST)
-    public ResponseEntity<String> createUnit(
+    public ResponseEntity<UUID> createUnit(
             @RequestBody CreateUnitRequest request)
     {
         UUID id = projectUtils.generateUniqueId();
         CreateUnitCommand command = new CreateUnitCommand(
                 id, request.getParentId(), request.getName(), request.getDescription());
         commandGateway.send(command);
-        return new ResponseEntity<>(id.toString(), HttpStatus.CREATED);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     public static class CreateUnitRequest
