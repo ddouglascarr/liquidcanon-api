@@ -2,11 +2,10 @@ package org.ddouglascarr.unit.controllers;
 
 import org.ddouglascarr.controllers.AreasController;
 import org.ddouglascarr.enums.ExceptionCodes;
-import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
-import org.ddouglascarr.models.Area;
-import org.ddouglascarr.models.UserDetailsImpl;
-import org.ddouglascarr.services.AreaService;
+import org.ddouglascarr.query.models.Area;
+import org.ddouglascarr.query.models.UserDetailsImpl;
+import org.ddouglascarr.query.services.AreaService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

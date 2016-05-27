@@ -3,14 +3,13 @@ package org.ddouglascarr.controllers;
 import org.ddouglascarr.aop.HandleServiceErrors;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
-import org.ddouglascarr.models.Delegation;
-import org.ddouglascarr.models.UserDetailsImpl;
-import org.ddouglascarr.services.DelegationService;
+import org.ddouglascarr.query.models.Delegation;
+import org.ddouglascarr.query.models.UserDetailsImpl;
+import org.ddouglascarr.query.services.DelegationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
-
-import javax.jws.soap.SOAPBinding;
 
 @RestController
 @RequestMapping(value = "/units/{unitId}")

@@ -2,9 +2,9 @@ package org.ddouglascarr.unit.controllers;
 
 
 import org.ddouglascarr.controllers.DelegationsController;
-import org.ddouglascarr.models.Delegation;
-import org.ddouglascarr.models.UserDetailsImpl;
-import org.ddouglascarr.services.DelegationService;
+import org.ddouglascarr.query.models.Delegation;
+import org.ddouglascarr.query.models.UserDetailsImpl;
+import org.ddouglascarr.query.services.DelegationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

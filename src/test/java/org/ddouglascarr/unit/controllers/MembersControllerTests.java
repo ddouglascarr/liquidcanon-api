@@ -1,12 +1,10 @@
 package org.ddouglascarr.unit.controllers;
 
 import org.ddouglascarr.controllers.MembersController;
-import org.ddouglascarr.enums.ExceptionCodes;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
-import org.ddouglascarr.exceptions.MemberUnprivilegedException;
-import org.ddouglascarr.models.Member;
-import org.ddouglascarr.models.UserDetailsImpl;
-import org.ddouglascarr.services.MemberService;
+import org.ddouglascarr.query.models.Member;
+import org.ddouglascarr.query.models.UserDetailsImpl;
+import org.ddouglascarr.query.services.MemberService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -14,11 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.MultiValueMap;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;

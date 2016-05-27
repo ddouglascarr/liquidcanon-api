@@ -1,6 +1,6 @@
 package org.ddouglascarr.config;
 
-import org.ddouglascarr.services.UserDetailsServiceImpl;
+import org.ddouglascarr.query.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
