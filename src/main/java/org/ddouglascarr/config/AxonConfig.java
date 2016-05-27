@@ -9,6 +9,7 @@ import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventstore.EventStore;
 import org.axonframework.eventstore.fs.FileSystemEventStore;
 import org.axonframework.eventstore.fs.SimpleEventFileResolver;
+import org.ddouglascarr.command.unit.UnitAggregate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,8 +45,6 @@ public class AxonConfig
         return eventStore;
     }
 
-    // Needs a UnitAggregate defined before will work
-    /*
     @Bean
     public EventSourcingRepository eventSourcingRepository()
     {
@@ -53,5 +52,5 @@ public class AxonConfig
                 UnitAggregate.class, eventStore());
         eventSourcingRepository.setEventBus(eventBus());
         return eventSourcingRepository;
-    }*/
+    }
 }
