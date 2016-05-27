@@ -1,5 +1,8 @@
 package org.ddouglascarr.unit.controllers;
 
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.ddouglascarr.config.ProjectUtils;
+import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
 import org.ddouglascarr.controllers.UnitsController;
 import org.ddouglascarr.enums.ExceptionCodes;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
@@ -13,6 +16,7 @@ import org.ddouglascarr.query.services.MemberService;
 import org.ddouglascarr.query.services.UnitService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -37,6 +41,12 @@ public class UnitsControllerTests
 
     @Mock
     private AreaService areaService;
+
+    @Mock
+    private CommandGateway commandGateway;
+
+    @Mock
+    private ProjectUtils projectUtils;
 
     @Mock
     private UserDetailsImpl userDetails;
@@ -141,6 +151,31 @@ public class UnitsControllerTests
         assertEquals(resp.getStatusCode(), HttpStatus.OK);
         List<Member> returnedList = resp.getBody();
         assertEquals(returnedList.size(), 0);
+    }
+
+    @Test
+    public void createUnitIssueCommandAndReturnSuccess()
+    {
+        UUID id = UUID.randomUUID();
+        UUID parentId = UUID.randomUUID();
+        String name = "test";
+        String description = "test description";
+
+        when(projectUtils.generateUniqueId()).thenReturn(id);
+        ArgumentCaptor<CreateUnitCommand> argument = ArgumentCaptor.forClass(
+                CreateUnitCommand.class);
+
+        UnitsController.CreateUnitRequest request = new UnitsController.CreateUnitRequest();
+        request.setParentId(parentId);
+        request.setName(name);
+        request.setDescription(description);
+
+        ResponseEntity<String> resp = unitsController.createUnit(request);
+        assertEquals(HttpStatus.CREATED, resp.getStatusCode());
+        verify(commandGateway).send(argument.capture());
+        assertEquals(parentId, argument.getValue().getParentId());
+        assertEquals(name, argument.getValue().getName());
+        assertEquals(description, argument.getValue().getDescription());
     }
 
 

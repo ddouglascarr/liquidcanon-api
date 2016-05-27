@@ -1,5 +1,8 @@
 package org.ddouglascarr.controllers;
 
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
+import org.ddouglascarr.config.ProjectUtils;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.query.models.Member;
@@ -13,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +35,12 @@ public class UnitsController
 
     @Autowired
     private AreaService areaService;
+
+    @Autowired
+    private CommandGateway commandGateway;
+
+    @Autowired
+    private ProjectUtils projectUtils;
 
     @RequestMapping(
             value = "/units/{unitId}",
@@ -57,6 +67,56 @@ public class UnitsController
     {
         List<Member> members = memberService.findByUnitId(unitId);
         return new ResponseEntity<List<Member>>(members, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/units",
+            method = RequestMethod.POST)
+    public ResponseEntity<String> createUnit(
+            @RequestBody CreateUnitRequest request)
+    {
+        UUID id = projectUtils.generateUniqueId();
+        CreateUnitCommand command = new CreateUnitCommand(
+                id, request.getParentId(), request.getName(), request.getDescription());
+        commandGateway.send(command);
+        return new ResponseEntity<>(id.toString(), HttpStatus.CREATED);
+    }
+
+    public static class CreateUnitRequest
+    {
+        private UUID parentId;
+        private String name;
+        private String description;
+
+        public UUID getParentId()
+        {
+            return parentId;
+        }
+
+        public void setParentId(UUID parentId)
+        {
+            this.parentId = parentId;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+
+        public String getDescription()
+        {
+            return description;
+        }
+
+        public void setDescription(String description)
+        {
+            this.description = description;
+        }
     }
 
 }
