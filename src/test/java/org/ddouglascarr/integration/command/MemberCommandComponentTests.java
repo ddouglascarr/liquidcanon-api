@@ -11,6 +11,7 @@ import org.ddouglascarr.command.member.events.MemberCreatedEvent;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
