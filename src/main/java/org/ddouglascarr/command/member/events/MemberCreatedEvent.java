@@ -6,7 +6,6 @@ import java.util.UUID;
 
 public class MemberCreatedEvent
 {
-    @TargetAggregateIdentifier
     private final UUID id;
     private final String login;
     private final String password;

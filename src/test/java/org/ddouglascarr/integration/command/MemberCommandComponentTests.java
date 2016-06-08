@@ -15,14 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Transactional
 public class MemberCommandComponentTests
 {
     private FixtureConfiguration fixture;
 
-    final UUID ADMIN_MEMBER_ID = UUID.randomUUID();
+    final UUID ADMIN_MEMBER_ID = UUID.fromString("a4a031fd-57a4-4666-b1fd-afcb75800000");
     final String ADMIN_LOGIN = "test_admin";
 
-    final UUID MEMBER_ID = UUID.randomUUID();
+    final UUID MEMBER_ID = UUID.fromString("a4a031fd-57a4-4666-b1fd-afcb75811111");
     final String LOGIN = "test_member";
     final String PASSWORD = "test_password";
     final String EMAIL = "test@internet.com";
@@ -47,9 +48,9 @@ public class MemberCommandComponentTests
     @Test
     public void createMemberShouldThrowIfRequestingMemberIsNotAdmin() throws Exception
     {
-        final UUID OTHER_MEMBER_ID = UUID.randomUUID();
-        final String OTHER_MEMBER_LOGIN = "other_member";
-        final String OTHER_MEMBER_EMAIL = "foo@bar.com";
+        UUID OTHER_MEMBER_ID = UUID.fromString("0893fa8f-7e92-4fe7-9d0e-af349d2cbaa6");
+        String OTHER_MEMBER_LOGIN = "other_member";
+        String OTHER_MEMBER_EMAIL = "foo@bar.com";
 
         fixture.given(new AdminMemberCreatedEvent(ADMIN_MEMBER_ID, ADMIN_LOGIN, PASSWORD),
                         new MemberCreatedEvent(OTHER_MEMBER_ID, OTHER_MEMBER_LOGIN,

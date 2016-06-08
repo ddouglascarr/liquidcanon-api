@@ -32,9 +32,12 @@ public class MemberCommandHandler
             throws MemberUnprivilegedException
     {
         MemberAggregate requester = repository.load(command.getRequestingMemberId());
-        if (!requester.getAdmin()) throw new MemberUnprivilegedException();
-        MemberAggregate newMember = new MemberAggregate(
-                command.getId(), command.getLogin(), command.getPassword(), command.getNotifyEmail(), false );
-        repository.add(newMember);
+        if (!requester.getAdmin()) {
+            throw new MemberUnprivilegedException();
+        }
+        MemberAggregate memberAggregate = new MemberAggregate(
+                command.getId(), command.getLogin(), command.getPassword(),
+                command.getNotifyEmail(), false );
+        repository.add(memberAggregate);
     }
 }
