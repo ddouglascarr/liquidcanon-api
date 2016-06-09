@@ -86,4 +86,10 @@ public class MemberRepositoryTests
         assertEquals(POITRAS_MEMBER_ID, poitras.getId());
     }
 
+    @Test
+    public void isAtLeastOneAdminMemberShouldReturnTrueIfAdminExists()
+    {
+        assertEquals(true, memberRepository.isAtLeastOneAdminMember());
+    }
+
 }

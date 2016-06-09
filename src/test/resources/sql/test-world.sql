@@ -17,7 +17,8 @@ INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "na
   ('c388fd86-bf47-4b80-ba2d-d6a9b404c301',  'now', 'now', TRUE, 'thirsty_babbage',  'Thirsty Babbage'),        -- id  6
   ('f8ba83a9-90cd-460e-b3c2-7f61f0ee6538', 'now', 'now', TRUE, 'romantic_carson',  'Romantic Carson'),        -- id 13
   ('9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', 'now', 'now', TRUE, 'goofy_khorana',  'Goofy Khorana'),            -- id 19
-  ('0fcd54c0-abb1-4188-a592-0b583505a6f1', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha');                  -- id 21
+  ('0fcd54c0-abb1-4188-a592-0b583505a6f1', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha'),                     -- id 21
+  ('9e805039-7816-4270-a4f5-06b69a939ce5', 'now', 'now', TRUE, 'admin', 'Administrator');
 
 -- set password to "login"
 UPDATE "member" SET "password" = '$1$PcI6b1Bg$2SHjAZH2nMLFp0fxHis.Q0';
@@ -178,20 +179,20 @@ INSERT INTO "privilege" ("member_id", "unit_id", "voting_right") VALUES
 -- Unit Delegations
 INSERT INTO "delegation"
     ( "id", "truster_id", "unit_id", "scope", "trustee_id" ) VALUES
-    ( 'da709348-3508-21f5-a3dd-e04d9c2ad3c1', '4c499b61-ba43-45bd-8640-ac5eedb969b7', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685'),
-    ( 'ede4ca39-bbf0-98c2-e310-1ae6b14cfe0e', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
-    ( '2eca9cb1-c6ed-72f1-8048-ee8fbebc9e69', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
-    ( 'fb979076-9beb-68b8-79f5-8215c493ccf3', 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( 'b87ef286-0c55-cd3f-6e76-f32b5cdd97dc', '10ef659d-bea8-4c9c-a663-683e85392685', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( '8214865f-da9b-7591-6672-5154064732e2', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( 'aad6f9f3-0769-29e2-cd26-95d9f1ae95fd', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' );
+    ( '468cd341-9f56-3512-e592-9f55f3ae7499', '4c499b61-ba43-45bd-8640-ac5eedb969b7', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685'),
+    ( '32c8a204-c3b0-6232-1352-d440b8d083c4', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
+    ( '6910a920-88a7-9049-1af6-0166853f7b74', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' ),
+    ( 'e88008f6-5dab-03f1-b153-e4bfb4da909a', 'c388fd86-bf47-4b80-ba2d-d6a9b404c301', '0987eb49-a650-417e-8b4e-816fcead2126', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '6fed0d9e-2caf-10f1-39d9-35e7632cb3bc', '10ef659d-bea8-4c9c-a663-683e85392685', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'be103c52-8b86-a82c-714a-1810d60b0158', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( 'deb3a348-1634-ef44-6d53-ed7d57c9efb4', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459', '5a57955c-949f-4953-b346-4c907e4de0d5', 'unit', '10ef659d-bea8-4c9c-a663-683e85392685' );
 
 -- Area Delegations
 INSERT INTO "delegation"
     ( "id", "truster_id", "area_id", "scope", "trustee_id" ) VALUES
-    ( 'e333bb2d-f9d7-57e0-46fc-807543cd536d', '10ef659d-bea8-4c9c-a663-683e85392685', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( 'b97df8a9-41a5-974f-b001-100eea70608a', '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459' ),
-    ( '77cb15c9-7353-45a8-fdea-29b5afa188a7', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '45184e5b-14bd-4e03-9b97-eb28c72d7748', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
-    ( '92131bc2-218c-b9cb-6074-5cf509cfea85', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459');
+    ( '4f7ede16-8752-ce55-0bc0-c5445e733daf', '10ef659d-bea8-4c9c-a663-683e85392685', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '752efebc-fd04-15cc-6b44-b53705243f53', '9025cdde-56c6-41ed-a87d-3c19ae0bd2e6', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459' ),
+    ( 'e914b003-b369-fd8a-dea7-9b829b1dbf3e', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '45184e5b-14bd-4e03-9b97-eb28c72d7748', 'area', '4c499b61-ba43-45bd-8640-ac5eedb969b7' ),
+    ( '4b5070fd-cf6e-5459-cd4f-e926cacfff16', 'f3cfebba-32ac-460d-bc7a-005d768aa03e', '99ffb1d2-20d4-4898-b219-69d5a75619d1', 'area', '91a444b2-8b58-4c2a-95f4-6ec2ebd9e459');
 
 

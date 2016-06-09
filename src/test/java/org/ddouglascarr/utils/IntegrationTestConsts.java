@@ -15,6 +15,7 @@ public class IntegrationTestConsts
     public static UUID CARSON_MEMBER_ID = UUID.fromString("f8ba83a9-90cd-460e-b3c2-7f61f0ee6538");
     public static UUID KHORANA_MEMBER_ID = UUID.fromString("9025cdde-56c6-41ed-a87d-3c19ae0bd2e6");
     public static UUID SAHA_MEMBER_ID = UUID.fromString("0fcd54c0-abb1-4188-a592-0b583505a6f1");
+    public static UUID ADMIN_MEMBER_ID = UUID.fromString("9e805039-7816-4270-a4f5-06b69a939ce5");
 
     // member credentials
     public static String POITRAS_LOGIN = "determined_poitras";

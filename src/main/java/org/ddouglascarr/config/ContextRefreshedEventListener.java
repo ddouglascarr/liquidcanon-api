@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContextRefreshedEventListener implements ApplicationListener<ApplicationReadyEvent>
 {
-    @Autowired
-
-
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent)
     {

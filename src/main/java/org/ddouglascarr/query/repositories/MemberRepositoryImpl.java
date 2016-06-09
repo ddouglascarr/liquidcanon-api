@@ -3,6 +3,7 @@ package org.ddouglascarr.query.repositories;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.query.models.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -101,6 +102,14 @@ public class MemberRepositoryImpl implements MemberRepository
     @Override
     public Boolean isAtLeastOneAdminMember()
     {
-        return null;
+        String sql = String.join(" ",
+                "SELECT count(*) FROM member WHERE admin=true");
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        Integer adminCount = namedParameterJdbcTemplate.queryForObject(sql, mapSqlParameterSource, Integer.class);
+        if (adminCount > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -30,6 +30,7 @@ var BABBAGE_MEMBER_ID = "c388fd86-bf47-4b80-ba2d-d6a9b404c301";
 var CARSON_MEMBER_ID = "f8ba83a9-90cd-460e-b3c2-7f61f0ee6538";
 var KHORANA_MEMBER_ID = "9025cdde-56c6-41ed-a87d-3c19ae0bd2e6";
 var SAHA_MEMBER_ID = "0fcd54c0-abb1-4188-a592-0b583505a6f1";
+var ADMIN_MEMBER_ID = "9e805039-7816-4270-a4f5-06b69a939ce5";
 
 // member credentials
 var POITRAS_LOGIN = "determined_poitras";
@@ -94,7 +95,8 @@ INSERT INTO "member" ("id", "activated", "last_activity", "active", "login", "na
   ('${BABBAGE_MEMBER_ID}',  'now', 'now', TRUE, 'thirsty_babbage',  'Thirsty Babbage'),        -- id  6
   ('${CARSON_MEMBER_ID}', 'now', 'now', TRUE, 'romantic_carson',  'Romantic Carson'),        -- id 13
   ('${KHORANA_MEMBER_ID}', 'now', 'now', TRUE, 'goofy_khorana',  'Goofy Khorana'),            -- id 19
-  ('${SAHA_MEMBER_ID}', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha');                  -- id 21
+  ('${SAHA_MEMBER_ID}', 'now', 'now', TRUE, 'drunk_saha',  'Drunk Saha'),                     -- id 21
+  ('${ADMIN_MEMBER_ID}', 'now', 'now', TRUE, 'admin', 'Administrator');
 
 -- set password to "login"
 UPDATE "member" SET "password" = '$1$PcI6b1Bg$2SHjAZH2nMLFp0fxHis.Q0';
