@@ -17,4 +17,5 @@ public interface MemberService
             throws ItemNotFoundException, MemberUnprivilegedException;
     Member findOneByLogin(String login) throws ItemNotFoundException;
     List<Member> findByUnitId(UUID unitId);
+    Boolean isAtLeastOneAdminMember();
 }

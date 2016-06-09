@@ -119,4 +119,18 @@ public class MemberServiceImplTests
         assertEquals(returnedList.get(1), mockMember3);
     }
 
+    @Test
+    public void isAtLeastOneAdminMemberShouldReturnFalseIfNoAdmins()
+    {
+        when(memberRepository.isAtLeastOneAdminMember()).thenReturn(false);
+        assertEquals(false, memberService.isAtLeastOneAdminMember());
+    }
+
+    @Test
+    public void isAtLeastOneAdminMemberShouldReturnTrueIfThereAreAdmins()
+    {
+        when(memberRepository.isAtLeastOneAdminMember()).thenReturn(true);
+        assertEquals(true, memberService.isAtLeastOneAdminMember());
+    }
+
 }

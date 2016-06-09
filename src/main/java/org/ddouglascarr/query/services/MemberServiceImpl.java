@@ -53,5 +53,9 @@ public class MemberServiceImpl implements MemberService
         return members;
     }
 
-
+    @Override
+    public Boolean isAtLeastOneAdminMember()
+    {
+        return memberRepository.isAtLeastOneAdminMember();
+    }
 }

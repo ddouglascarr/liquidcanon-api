@@ -97,4 +97,10 @@ public class MemberRepositoryImpl implements MemberRepository
                 sql, mapSqlParameterSource, beanPropertyRowMapper);
         return members;
     }
+
+    @Override
+    public Boolean isAtLeastOneAdminMember()
+    {
+        return null;
+    }
 }
