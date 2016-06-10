@@ -1,4 +1,4 @@
-package org.ddouglascarr.command.member;
+package org.ddouglascarr.query.eventhandlers;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.ddouglascarr.command.member.events.AdminMemberCreatedEvent;

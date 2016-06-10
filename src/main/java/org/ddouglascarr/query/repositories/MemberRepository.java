@@ -16,4 +16,7 @@ public interface MemberRepository
     Member findOneByLogin(String login) throws ItemNotFoundException;
     List<Member> findByUnitId(UUID unitId);
     Boolean isAtLeastOneAdminMember();
+
+    void create(Member member);
+
 }

@@ -7,8 +7,10 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -111,5 +113,15 @@ public class MemberRepositoryImpl implements MemberRepository
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void create(Member member)
+    {
+        String sql = String.join(" ",
+                "INSERT INTO member (id, name, login, password, admin, notify_email, active, activated, last_activity)",
+                "VALUES (:id, :name, :login, :password, :admin, :notifyEmail, :active, :activated, :lastActivity)");
+        SqlParameterSource parameters = new BeanPropertySqlParameterSource(member);
+        namedParameterJdbcTemplate.update(sql, parameters);
     }
 }

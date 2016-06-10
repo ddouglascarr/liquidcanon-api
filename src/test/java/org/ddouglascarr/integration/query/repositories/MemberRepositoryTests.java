@@ -1,5 +1,6 @@
 package org.ddouglascarr.integration.query.repositories;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.ddouglascarr.LiquidcanonApplication;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.query.models.Member;
@@ -13,7 +14,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.ddouglascarr.utils.IntegrationTestConsts.*;
@@ -90,6 +94,33 @@ public class MemberRepositoryTests
     public void isAtLeastOneAdminMemberShouldReturnTrueIfAdminExists()
     {
         assertEquals(true, memberRepository.isAtLeastOneAdminMember());
+    }
+
+    @Test
+    public void createShouldCreateAdminMember() throws Exception
+    {
+        Member newAdminMember = new Member();
+        UUID newId = UUID.randomUUID();
+        Date now = new Date();
+        newAdminMember.setId(newId);
+        newAdminMember.setAdmin(true);
+        newAdminMember.setName("New Admin");
+        newAdminMember.setLogin("newadmin");
+        newAdminMember.setPassword("password1234");
+        newAdminMember.setActive(true);
+        newAdminMember.setActivated(now);
+        newAdminMember.setLastActivity(now);
+        memberRepository.create(newAdminMember);
+        Member createdMember = memberRepository.findOneById(newId);
+        assertNotNull(createdMember);
+        assertEquals(newId, createdMember.getId());
+        assertEquals(true, createdMember.getAdmin());
+        assertEquals("New Admin", createdMember.getName());
+        assertEquals("newadmin", createdMember.getLogin());
+        assertEquals(true, createdMember.getActive());
+        assertEquals(now.toInstant(), createdMember.getActivated().toInstant());
+        assertTrue(DateUtils.isSameDay(now, createdMember.getLastActivity()));
+
     }
 
 }
