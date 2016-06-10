@@ -102,6 +102,11 @@ public class SqlStringCreatorImpl implements SqlStringCreator
         return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s);
     }
 
+    private String toCamelCase(String s)
+    {
+        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, s);
+    }
+
     public SqlStringCreatorImpl clone() throws CloneNotSupportedException
     {
         return (SqlStringCreatorImpl) super.clone();
@@ -109,16 +114,16 @@ public class SqlStringCreatorImpl implements SqlStringCreator
 
     private String mapSelectAlias(String parameter)
     {
-        if (aliases.containsKey(parameter)) {
-            return aliases.get(parameter) + " AS " + parameter;
+        if (aliases.containsKey(toCamelCase(parameter))) {
+            return toSnakeCase(aliases.get(toCamelCase(parameter))) + " AS " + parameter;
         }
         return parameter;
     }
 
     private String mapInsertAlias(String parameter)
     {
-        if (aliases.containsKey(parameter)) {
-            return aliases.get(parameter);
+        if (aliases.containsKey(toCamelCase(parameter))) {
+            return toSnakeCase(aliases.get(toCamelCase(parameter)));
         }
         return parameter;
     }

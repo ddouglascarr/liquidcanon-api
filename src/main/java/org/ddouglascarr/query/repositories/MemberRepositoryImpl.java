@@ -27,7 +27,7 @@ public class MemberRepositoryImpl implements MemberRepository
             new BeanPropertyRowMapper<>(Member.class);
 
     private SqlStringCreator sqlStringCreator = new SqlStringCreatorImpl(new Member())
-            .alias("password", "password_liquidcanon");
+            .alias("password", "passwordLiquidcanon");
 
     private static String SELECT_LIST = String.join(" ",
             "m.id, m.password_liquidcanon AS password, m.login,",
