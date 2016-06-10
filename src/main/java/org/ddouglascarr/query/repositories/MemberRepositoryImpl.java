@@ -2,6 +2,9 @@ package org.ddouglascarr.query.repositories;
 
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.query.models.Member;
+import org.ddouglascarr.utils.SqlStringBuilder;
+import org.ddouglascarr.utils.SqlStringBuilderColumnPrefix;
+import org.ddouglascarr.utils.SqlStringBuilderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +28,8 @@ public class MemberRepositoryImpl implements MemberRepository
     private BeanPropertyRowMapper<Member> beanPropertyRowMapper =
             new BeanPropertyRowMapper<>(Member.class);
 
+    private SqlStringBuilder sqlStringBuilder = new SqlStringBuilderImpl(new Member());
+
     private static String SELECT_LIST = String.join(" ",
             "m.id, m.password_liquidcanon AS password, m.login,",
             "m.name, m.admin, m.notify_email, m.active, m.activated, m.identification,",
@@ -37,7 +42,9 @@ public class MemberRepositoryImpl implements MemberRepository
     public Member findOneById(UUID id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
-                "SELECT", SELECT_LIST, "FROM member AS m WHERE id = :id");
+                "SELECT",
+                sqlStringBuilder.getColumnList(),
+                "FROM member WHERE id = :id");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("id", id);
         try {
@@ -53,7 +60,9 @@ public class MemberRepositoryImpl implements MemberRepository
     public Member findOneByUnitIdAndId(UUID unitId, UUID id) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
-                "SELECT", SELECT_LIST, "FROM",
+                "SELECT",
+                sqlStringBuilder.getColumnList(new SqlStringBuilderColumnPrefix("m.")),
+                "FROM",
                 "(SELECT * FROM member WHERE member.id = :id) AS m",
                 "JOIN privilege AS p on m.id = p.member_id",
                 "JOIN unit AS u ON u.id = p.unit_id",
@@ -74,7 +83,9 @@ public class MemberRepositoryImpl implements MemberRepository
     public Member findOneByLogin(String login) throws ItemNotFoundException
     {
         final String sql = String.join(" ",
-                "SELECT", SELECT_LIST, "FROM member AS m WHERE login = :login");
+                "SELECT",
+                sqlStringBuilder.getColumnList(),
+                "FROM member AS m WHERE login = :login");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("login", login);
         try {
@@ -90,7 +101,9 @@ public class MemberRepositoryImpl implements MemberRepository
     public List<Member> findByUnitId(UUID unitId)
     {
         String sql = String.join(" ",
-                "SELECT", SELECT_LIST, "FROM",
+                "SELECT",
+                sqlStringBuilder.getColumnList(new SqlStringBuilderColumnPrefix("m.")),
+                "FROM",
                 "(SELECT * FROM unit WHERE unit.id = :unitId) AS u",
                 "JOIN privilege AS p on u.id = p.unit_id",
                 "JOIN member AS m ON m.id = p.member_id");
