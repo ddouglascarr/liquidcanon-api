@@ -129,12 +129,15 @@ public class MemberRepositoryImpl implements MemberRepository
     @Override
     public void create(Member member)
     {
+        // TODO: These parameters cause sql errors
+        String[] toExclude = {"birthday", "locked"};
+        
         String sql = String.join(" ",
                 "INSERT INTO member (",
-                    sqlStringCreator.getColumnList(),
+                    sqlStringCreator.exclude(toExclude).getColumnList(),
                 ")",
                 "VALUES (",
-                    sqlStringCreator.getParameterList(),
+                    sqlStringCreator.exclude(toExclude).getParameterList(),
                 ")");
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(member);
         namedParameterJdbcTemplate.update(sql, parameters);

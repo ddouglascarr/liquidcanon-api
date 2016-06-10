@@ -119,7 +119,6 @@ public class MemberRepositoryTests
         assertEquals(true, createdMember.getActive());
         assertEquals(now.toInstant(), createdMember.getActivated().toInstant());
         assertTrue(DateUtils.isSameDay(now, createdMember.getLastActivity()));
-
     }
 
 }
