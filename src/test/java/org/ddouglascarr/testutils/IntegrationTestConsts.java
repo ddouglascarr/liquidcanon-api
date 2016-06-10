@@ -1,4 +1,4 @@
-package org.ddouglascarr.utils;
+package org.ddouglascarr.testutils;
 
 import java.util.UUID;
 

@@ -18,7 +18,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.ddouglascarr.utils.IntegrationTestConsts.*;
+import static org.ddouglascarr.testutils.IntegrationTestConsts.*;
 
 
 public class MemberServiceImplTests

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
-import static org.ddouglascarr.utils.IntegrationTestConsts.*;
+import static org.ddouglascarr.testutils.IntegrationTestConsts.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
