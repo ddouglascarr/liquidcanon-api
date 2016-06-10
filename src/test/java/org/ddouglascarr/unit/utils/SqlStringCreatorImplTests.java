@@ -1,38 +1,55 @@
 package org.ddouglascarr.unit.utils;
 
-import org.ddouglascarr.utils.SqlStringBuilder;
-import org.ddouglascarr.utils.SqlStringBuilderColumnPrefix;
+import org.ddouglascarr.utils.SqlStringCreator;
 import org.junit.Test;
-import org.ddouglascarr.utils.SqlStringBuilderImpl;
+import org.ddouglascarr.utils.SqlStringCreatorImpl;
 
 import static org.junit.Assert.*;
 
 
-public class SqlStringBuilderImplTests
+public class SqlStringCreatorImplTests
 {
     TestClass testClass = new TestClass("a", "b", new Long(555));
-    SqlStringBuilder sqlStringBuilder = new SqlStringBuilderImpl(testClass);
+    SqlStringCreator sqlStringCreator = new SqlStringCreatorImpl(testClass);
 
     @Test
     public void getColumnListShouldReturnSqlFormattedListWithoutPrefix() throws Exception
     {
-        String sqlList = sqlStringBuilder.getColumnList();
+        String sqlList = sqlStringCreator.getColumnList();
         assertEquals("foo_bar, id, long_property_name", sqlList);
     }
 
     @Test
     public void getColumnListShouldReturnSqlFormattedListWithPrefix() throws Exception
     {
-        String sqlList = sqlStringBuilder.getColumnList(new SqlStringBuilderColumnPrefix("m."));
+        String sqlList = sqlStringCreator.prefix("m.").getColumnList();
         assertEquals("m.foo_bar, m.id, m.long_property_name", sqlList);
     }
 
     @Test
     public void getParameterListShouldReturnSqlFormattedListOfParameters() throws Exception
     {
-        String sqlParameters = sqlStringBuilder.getParameterList();
+        String sqlParameters = sqlStringCreator.getParameterList();
         assertEquals(":fooBar, :id, :longPropertyName", sqlParameters);
     }
+
+    @Test
+    public void excludeShouldExcludeParameters() throws Exception
+    {
+        String[] toExclude = {"id", "fooBar"};
+        String sqlParameters = sqlStringCreator.exclude(toExclude).getParameterList();
+        assertEquals(":longPropertyName", sqlParameters);
+    }
+
+    @Test
+    public void excludeAndPrefixShouldWorkTogether() throws Exception
+    {
+        String[] toExclude = {"longPropertyName"};
+        String sqlList = sqlStringCreator.exclude(toExclude).prefix("m.")
+                .getColumnList();
+        assertEquals("m.foo_bar, m.id", sqlList);
+    }
+
 
     private class TestClass
     {

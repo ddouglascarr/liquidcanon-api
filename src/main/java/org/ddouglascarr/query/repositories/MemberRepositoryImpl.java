@@ -2,11 +2,9 @@ package org.ddouglascarr.query.repositories;
 
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.query.models.Member;
-import org.ddouglascarr.utils.SqlStringBuilder;
-import org.ddouglascarr.utils.SqlStringBuilderColumnPrefix;
-import org.ddouglascarr.utils.SqlStringBuilderImpl;
+import org.ddouglascarr.utils.SqlStringCreator;
+import org.ddouglascarr.utils.SqlStringCreatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -28,7 +26,7 @@ public class MemberRepositoryImpl implements MemberRepository
     private BeanPropertyRowMapper<Member> beanPropertyRowMapper =
             new BeanPropertyRowMapper<>(Member.class);
 
-    private SqlStringBuilder sqlStringBuilder = new SqlStringBuilderImpl(new Member());
+    private SqlStringCreator sqlStringCreator = new SqlStringCreatorImpl(new Member());
 
     private static String SELECT_LIST = String.join(" ",
             "m.id, m.password_liquidcanon AS password, m.login,",
@@ -43,7 +41,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         final String sql = String.join(" ",
                 "SELECT",
-                sqlStringBuilder.getColumnList(),
+                sqlStringCreator.getColumnList(),
                 "FROM member WHERE id = :id");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("id", id);
@@ -61,7 +59,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         final String sql = String.join(" ",
                 "SELECT",
-                sqlStringBuilder.getColumnList(new SqlStringBuilderColumnPrefix("m.")),
+                sqlStringCreator.prefix("m.").getColumnList(),
                 "FROM",
                 "(SELECT * FROM member WHERE member.id = :id) AS m",
                 "JOIN privilege AS p on m.id = p.member_id",
@@ -84,7 +82,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         final String sql = String.join(" ",
                 "SELECT",
-                sqlStringBuilder.getColumnList(),
+                sqlStringCreator.getColumnList(),
                 "FROM member AS m WHERE login = :login");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("login", login);
@@ -102,7 +100,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         String sql = String.join(" ",
                 "SELECT",
-                sqlStringBuilder.getColumnList(new SqlStringBuilderColumnPrefix("m.")),
+                sqlStringCreator.prefix("m.").getColumnList(),
                 "FROM",
                 "(SELECT * FROM unit WHERE unit.id = :unitId) AS u",
                 "JOIN privilege AS p on u.id = p.unit_id",
@@ -132,8 +130,12 @@ public class MemberRepositoryImpl implements MemberRepository
     public void create(Member member)
     {
         String sql = String.join(" ",
-                "INSERT INTO member (id, name, login, password, admin, notify_email, active, activated, last_activity)",
-                "VALUES (:id, :name, :login, :password, :admin, :notifyEmail, :active, :activated, :lastActivity)");
+                "INSERT INTO member (",
+                    sqlStringCreator.getColumnList(),
+                ")",
+                "VALUES (",
+                    sqlStringCreator.getParameterList(),
+                ")");
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(member);
         namedParameterJdbcTemplate.update(sql, parameters);
     }
