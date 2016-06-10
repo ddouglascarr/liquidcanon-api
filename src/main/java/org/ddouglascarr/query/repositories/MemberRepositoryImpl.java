@@ -26,7 +26,8 @@ public class MemberRepositoryImpl implements MemberRepository
     private BeanPropertyRowMapper<Member> beanPropertyRowMapper =
             new BeanPropertyRowMapper<>(Member.class);
 
-    private SqlStringCreator sqlStringCreator = new SqlStringCreatorImpl(new Member());
+    private SqlStringCreator sqlStringCreator = new SqlStringCreatorImpl(new Member())
+            .alias("password", "password_liquidcanon");
 
     private static String SELECT_LIST = String.join(" ",
             "m.id, m.password_liquidcanon AS password, m.login,",
@@ -41,7 +42,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         final String sql = String.join(" ",
                 "SELECT",
-                sqlStringCreator.getColumnList(),
+                sqlStringCreator.getSelectColumns(),
                 "FROM member WHERE id = :id");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("id", id);
@@ -59,7 +60,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         final String sql = String.join(" ",
                 "SELECT",
-                sqlStringCreator.prefix("m.").getColumnList(),
+                sqlStringCreator.prefix("m.").getSelectColumns(),
                 "FROM",
                 "(SELECT * FROM member WHERE member.id = :id) AS m",
                 "JOIN privilege AS p on m.id = p.member_id",
@@ -82,7 +83,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         final String sql = String.join(" ",
                 "SELECT",
-                sqlStringCreator.getColumnList(),
+                sqlStringCreator.getSelectColumns(),
                 "FROM member AS m WHERE login = :login");
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("login", login);
@@ -100,7 +101,7 @@ public class MemberRepositoryImpl implements MemberRepository
     {
         String sql = String.join(" ",
                 "SELECT",
-                sqlStringCreator.prefix("m.").getColumnList(),
+                sqlStringCreator.prefix("m.").getSelectColumns(),
                 "FROM",
                 "(SELECT * FROM unit WHERE unit.id = :unitId) AS u",
                 "JOIN privilege AS p on u.id = p.unit_id",
@@ -133,9 +134,8 @@ public class MemberRepositoryImpl implements MemberRepository
         String[] toExclude = {"birthday", "locked"};
         
         String sql = String.join(" ",
-                "INSERT INTO member (",
-                    sqlStringCreator.exclude(toExclude).getColumnList(),
-                ")",
+                "INSERT INTO member",
+                    sqlStringCreator.exclude(toExclude).getInsertColumns(),
                 "VALUES (",
                     sqlStringCreator.exclude(toExclude).getParameterList(),
                 ")");

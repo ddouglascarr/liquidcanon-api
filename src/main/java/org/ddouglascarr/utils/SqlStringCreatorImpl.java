@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SqlStringCreatorImpl implements SqlStringCreator
 {
@@ -36,14 +37,19 @@ public class SqlStringCreatorImpl implements SqlStringCreator
     }
 
     @Override
-    public String getColumnList()
+    public String getInsertColumns()
     {
-        List<String> columns = Arrays.stream(
-                beanPropertySqlParameterSource.getReadablePropertyNames())
-                .map(c -> mapAlias(c))
-                .filter(c -> !c.equals("class"))
-                .filter(c -> !exclude.contains(c))
-                .map(c -> toSnakeCase(c))
+        List<String> columns = createColumnsStream()
+                .map(c -> mapInsertAlias(c))
+                .map(c -> prefix.concat(c))
+                .collect(Collectors.toList());
+        return "(" + String.join(", ", columns) + ")";
+    }
+
+    public String getSelectColumns()
+    {
+        List<String> columns = createColumnsStream()
+                .map(c -> mapSelectAlias(c))
                 .map(c -> prefix.concat(c))
                 .collect(Collectors.toList());
         return String.join(", ", columns);
@@ -54,7 +60,6 @@ public class SqlStringCreatorImpl implements SqlStringCreator
     {
         List<String> parameters = Arrays.stream(
                 beanPropertySqlParameterSource.getReadablePropertyNames())
-                .map(p -> mapAlias(p))
                 .filter(p -> !p.equals("class"))
                 .filter(p -> !exclude.contains(p))
                 .map(p -> ":".concat(p))
@@ -83,6 +88,15 @@ public class SqlStringCreatorImpl implements SqlStringCreator
                 prefix, exclude, aliases.assoc(key, value));
     }
 
+    private Stream<String> createColumnsStream()
+    {
+        return Arrays.stream(
+                beanPropertySqlParameterSource.getReadablePropertyNames())
+                .filter(c -> !c.equals("class"))
+                .filter(c -> !exclude.contains(c))
+                .map(c -> toSnakeCase(c));
+    }
+
     private String toSnakeCase(String s)
     {
         return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s);
@@ -93,7 +107,15 @@ public class SqlStringCreatorImpl implements SqlStringCreator
         return (SqlStringCreatorImpl) super.clone();
     }
 
-    private String mapAlias(String parameter)
+    private String mapSelectAlias(String parameter)
+    {
+        if (aliases.containsKey(parameter)) {
+            return aliases.get(parameter) + " AS " + parameter;
+        }
+        return parameter;
+    }
+
+    private String mapInsertAlias(String parameter)
     {
         if (aliases.containsKey(parameter)) {
             return aliases.get(parameter);

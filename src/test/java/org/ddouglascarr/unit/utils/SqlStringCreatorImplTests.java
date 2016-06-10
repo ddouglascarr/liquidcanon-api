@@ -13,16 +13,16 @@ public class SqlStringCreatorImplTests
     SqlStringCreator sqlStringCreator = new SqlStringCreatorImpl(testClass);
 
     @Test
-    public void getColumnListShouldReturnSqlFormattedListWithoutPrefix() throws Exception
+    public void getSelectColumnshouldReturnSqlFormattedListWithoutPrefix() throws Exception
     {
-        String sqlList = sqlStringCreator.getColumnList();
+        String sqlList = sqlStringCreator.getSelectColumns();
         assertEquals("foo_bar, id, long_property_name", sqlList);
     }
 
     @Test
-    public void getColumnListShouldReturnSqlFormattedListWithPrefix() throws Exception
+    public void getSelectColumnsShouldReturnSqlFormattedListWithPrefix() throws Exception
     {
-        String sqlList = sqlStringCreator.prefix("m.").getColumnList();
+        String sqlList = sqlStringCreator.prefix("m.").getSelectColumns();
         assertEquals("m.foo_bar, m.id, m.long_property_name", sqlList);
     }
 
@@ -42,27 +42,42 @@ public class SqlStringCreatorImplTests
     }
 
     @Test
-    public void aliasShouldSubstituteParameters() throws Exception
+    public void aliasShouldNotSubstituteParameters() throws Exception
     {
         String sqlParameters = sqlStringCreator.alias("longPropertyName", "longerPropertyName")
                 .getParameterList();
-        assertEquals(":fooBar, :id, :longerPropertyName", sqlParameters);
+        assertEquals(":fooBar, :id, :longPropertyName", sqlParameters);
     }
 
     @Test
-    public void aliasShouldSubstituteColumns() throws Exception
+    public void aliasShouldSubstituteSelectColumns() throws Exception
     {
-        String sqlColumns = sqlStringCreator.alias("longPropertyName", "longerPropertyName")
-                .getColumnList();
-        assertEquals("foo_bar, id, longer_property_name", sqlColumns);
+        String sqlColumns = sqlStringCreator.alias("long_property_name", "longer_property_name")
+                .getSelectColumns();
+        assertEquals("foo_bar, id, longer_property_name AS long_property_name", sqlColumns);
     }
 
+    @Test
+    public void aliasShouldSubstituteInsertColumns() throws Exception
+    {
+        String sqlColumns = sqlStringCreator.alias("long_property_name", "longer_property_name")
+                .exclude(new String[] {"fooBar", "id"}).getInsertColumns();
+        assertEquals("(longer_property_name)", sqlColumns);
+    }
+
+    @Test
+    public void aliasShouldNotEffectParameters() throws Exception
+    {
+        String sqlColumns = sqlStringCreator.alias("long_property_name", "longer_property_name")
+                .exclude(new String[] {"fooBar", "id"}).getParameterList();
+        assertEquals(":longPropertyName", sqlColumns);
+    }
     @Test
     public void excludeAndPrefixShouldWorkTogether() throws Exception
     {
         String[] toExclude = {"longPropertyName"};
         String sqlList = sqlStringCreator.exclude(toExclude).prefix("m.")
-                .getColumnList();
+                .getSelectColumns();
         assertEquals("m.foo_bar, m.id", sqlList);
     }
 

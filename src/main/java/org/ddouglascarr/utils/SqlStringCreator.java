@@ -6,7 +6,8 @@ import java.util.Map;
 
 public interface SqlStringCreator extends Cloneable
 {
-    String getColumnList();
+    String getInsertColumns();
+    String getSelectColumns();
     String getParameterList();
 
     SqlStringCreator prefix(String prefix);
