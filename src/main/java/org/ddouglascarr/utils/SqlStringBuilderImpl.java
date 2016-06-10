@@ -41,14 +41,20 @@ public class SqlStringBuilderImpl implements SqlStringBuilder
         return String.join(", ", columns);
     }
 
+    @Override
+    public String getParameterList()
+    {
+        List<String> parameters = Arrays.stream(
+                beanPropertySqlParameterSource.getReadablePropertyNames())
+                .filter(p -> !p.equals("class"))
+                .map(p -> ":".concat(p))
+                .collect(Collectors.toList());
+        return String.join(", ", parameters);
+    }
+
     private String toSnakeCase(String s)
     {
         return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s);
     }
 
-    @Override
-    public String getParameterList()
-    {
-        return null;
-    }
 }

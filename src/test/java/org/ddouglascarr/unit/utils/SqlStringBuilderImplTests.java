@@ -10,12 +10,12 @@ import static org.junit.Assert.*;
 
 public class SqlStringBuilderImplTests
 {
+    TestClass testClass = new TestClass("a", "b", new Long(555));
+    SqlStringBuilder sqlStringBuilder = new SqlStringBuilderImpl(testClass);
 
     @Test
     public void getColumnListShouldReturnSqlFormattedListWithoutPrefix() throws Exception
     {
-        TestClass testClass = new TestClass("a", "b", new Long(555));
-        SqlStringBuilder sqlStringBuilder = new SqlStringBuilderImpl(testClass);
         String sqlList = sqlStringBuilder.getColumnList();
         assertEquals("foo_bar, id, long_property_name", sqlList);
     }
@@ -23,10 +23,15 @@ public class SqlStringBuilderImplTests
     @Test
     public void getColumnListShouldReturnSqlFormattedListWithPrefix() throws Exception
     {
-        TestClass testClass = new TestClass("a", "b", new Long(555));
-        SqlStringBuilder sqlStringBuilder = new SqlStringBuilderImpl(testClass);
         String sqlList = sqlStringBuilder.getColumnList(new SqlStringBuilderColumnPrefix("m."));
         assertEquals("m.foo_bar, m.id, m.long_property_name", sqlList);
+    }
+
+    @Test
+    public void getParameterListShouldReturnSqlFormattedListOfParameters() throws Exception
+    {
+        String sqlParameters = sqlStringBuilder.getParameterList();
+        assertEquals(":fooBar, :id, :longPropertyName", sqlParameters);
     }
 
     private class TestClass
