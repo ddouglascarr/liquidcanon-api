@@ -42,6 +42,22 @@ public class SqlStringCreatorImplTests
     }
 
     @Test
+    public void aliasShouldSubstituteParameters() throws Exception
+    {
+        String sqlParameters = sqlStringCreator.alias("longPropertyName", "longerPropertyName")
+                .getParameterList();
+        assertEquals(":fooBar, :id, :longerPropertyName", sqlParameters);
+    }
+
+    @Test
+    public void aliasShouldSubstituteColumns() throws Exception
+    {
+        String sqlColumns = sqlStringCreator.alias("longPropertyName", "longerPropertyName")
+                .getColumnList();
+        assertEquals("foo_bar, id, longer_property_name", sqlColumns);
+    }
+
+    @Test
     public void excludeAndPrefixShouldWorkTogether() throws Exception
     {
         String[] toExclude = {"longPropertyName"};
