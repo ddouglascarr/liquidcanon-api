@@ -25,6 +25,7 @@ public class MemberQueryEventListener
         member.setAdmin(true);
         member.setActive(true);
         member.setActivated(event.getActivated());
+        member.setLastActivity(event.getActivated());
 
         memberService.create(member);
     }

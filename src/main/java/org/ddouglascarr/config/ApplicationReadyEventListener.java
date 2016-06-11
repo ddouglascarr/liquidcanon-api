@@ -24,8 +24,10 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
     {
         System.out.println("applicationReadyEvent");
         if (!memberService.isAtLeastOneAdminMember()) {
+            String password = UUID.randomUUID().toString();
+            System.out.println("Created user defaultadmin with password: " + password);
             CreateAdminMemberCommand command = new CreateAdminMemberCommand(
-                    UUID.randomUUID(), "admin", "password", "Default Admin", null );
+                    UUID.randomUUID(), "defaultadmin", password, "Default Admin", null );
             commandGateway.send(command);
         }
     }

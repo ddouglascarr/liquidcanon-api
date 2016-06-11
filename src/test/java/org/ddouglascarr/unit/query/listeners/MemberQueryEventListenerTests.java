@@ -48,6 +48,7 @@ public class MemberQueryEventListenerTests
         assertEquals(true, member.getAdmin());
         assertEquals(true, member.getActive());
         assertEquals(now, member.getActivated());
+        assertEquals(now, member.getLastActivity());
         assertEquals("Test Name", member.getName());
         assertEquals("test@email.com", member.getNotifyEmail());
     }
