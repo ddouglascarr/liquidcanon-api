@@ -5,6 +5,8 @@ import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.ddouglascarr.command.member.events.AdminMemberCreatedEvent;
 import org.ddouglascarr.command.member.events.MemberCreatedEvent;
+import org.ddouglascarr.utils.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.UUID;
@@ -43,10 +45,12 @@ public class MemberAggregate extends AbstractAnnotatedAggregateRoot
 
     public MemberAggregate() {}
 
-    public MemberAggregate(UUID id, String login, String password, String notifyEmail, Boolean admin)
+    public MemberAggregate(UUID id, String login, String password, String name,
+                           String notifyEmail, Boolean admin, Date activated)
     {
         if(admin) {
-            apply(new AdminMemberCreatedEvent(id, login, password));
+            apply(new AdminMemberCreatedEvent(id, login, password, name, notifyEmail,
+                    activated));
         } else {
             apply(new MemberCreatedEvent(id, login, password, notifyEmail));
         }
@@ -59,6 +63,9 @@ public class MemberAggregate extends AbstractAnnotatedAggregateRoot
         this.id = event.getId();
         this.login = event.getLogin();
         this.password = event.getPassword();
+        this.name = event.getName();
+        this.notifyEmail = event.getNotifyEmail();
+        this.activated = event.getActivated();
     }
 
     @EventSourcingHandler

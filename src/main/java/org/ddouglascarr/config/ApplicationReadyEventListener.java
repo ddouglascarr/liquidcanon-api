@@ -25,7 +25,7 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
         System.out.println("applicationReadyEvent");
         if (!memberService.isAtLeastOneAdminMember()) {
             CreateAdminMemberCommand command = new CreateAdminMemberCommand(
-                    UUID.randomUUID(), "admin", "password" );
+                    UUID.randomUUID(), "admin", "password", "Default Admin", null );
             commandGateway.send(command);
         }
     }

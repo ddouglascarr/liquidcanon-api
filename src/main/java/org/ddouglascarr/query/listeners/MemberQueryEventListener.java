@@ -21,6 +21,7 @@ public class MemberQueryEventListener
         member.setLogin(event.getLogin());
         member.setPassword(event.getPassword());
         member.setAdmin(true);
+        member.setActive(true);
         memberService.create(member);
     }
 }

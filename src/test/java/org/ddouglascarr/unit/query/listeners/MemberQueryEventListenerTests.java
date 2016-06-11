@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.ddouglascarr.testutils.IntegrationTestConsts.*;
@@ -32,8 +34,9 @@ public class MemberQueryEventListenerTests
     @Test
     public void handleAdminMemberCreatedEvent() throws Exception
     {
+        Date now = new Date();
         AdminMemberCreatedEvent event = new AdminMemberCreatedEvent(
-                ADMIN_MEMBER_ID, "admin", "password1234");
+                ADMIN_MEMBER_ID, "admin", "password1234", "Test Name", "test@email.com", now);
         ArgumentCaptor<Member> argument = ArgumentCaptor.forClass(Member.class);
 
         listener.handle(event);
@@ -43,5 +46,6 @@ public class MemberQueryEventListenerTests
         assertEquals("admin", member.getLogin());
         assertEquals("password1234", member.getPassword());
         assertEquals(true, member.getAdmin());
+        assertEquals(true, member.getActive());
     }
 }
