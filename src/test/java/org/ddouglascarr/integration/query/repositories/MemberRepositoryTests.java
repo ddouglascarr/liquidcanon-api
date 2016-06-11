@@ -116,6 +116,7 @@ public class MemberRepositoryTests
         assertEquals(true, createdMember.getAdmin());
         assertEquals("New Admin", createdMember.getName());
         assertEquals("newadmin", createdMember.getLogin());
+        assertEquals("password1234", createdMember.getPassword());
         assertEquals(true, createdMember.getActive());
         assertEquals(now.toInstant(), createdMember.getActivated().toInstant());
         assertTrue(DateUtils.isSameDay(now, createdMember.getLastActivity()));
