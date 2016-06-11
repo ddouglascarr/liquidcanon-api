@@ -20,8 +20,12 @@ public class MemberQueryEventListener
         member.setId(event.getId());
         member.setLogin(event.getLogin());
         member.setPassword(event.getPassword());
+        member.setName(event.getName());
+        member.setNotifyEmail(event.getNotifyEmail());
         member.setAdmin(true);
         member.setActive(true);
+        member.setActivated(event.getActivated());
+
         memberService.create(member);
     }
 }
