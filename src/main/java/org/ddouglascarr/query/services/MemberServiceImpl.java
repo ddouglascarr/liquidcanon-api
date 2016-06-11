@@ -58,4 +58,10 @@ public class MemberServiceImpl implements MemberService
     {
         return memberRepository.isAtLeastOneAdminMember();
     }
+
+    @Override
+    public void create(Member member)
+    {
+        memberRepository.create(member);
+    }
 }

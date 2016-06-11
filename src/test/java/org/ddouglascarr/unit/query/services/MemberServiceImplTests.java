@@ -133,4 +133,11 @@ public class MemberServiceImplTests
         assertEquals(true, memberService.isAtLeastOneAdminMember());
     }
 
+    @Test
+    public void createShouldCallCreateOnRepository()
+    {
+        memberService.create(mockMember2);
+        verify(memberRepository, times(1)).create(mockMember2);
+    }
+
 }
