@@ -1,7 +1,7 @@
 package org.ddouglascarr.unit.controllers;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.ddouglascarr.config.ProjectUtils;
+import org.ddouglascarr.utils.IdUtils;
 import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
 import org.ddouglascarr.controllers.UnitsController;
 import org.ddouglascarr.enums.ExceptionCodes;
@@ -46,7 +46,7 @@ public class UnitsControllerTests
     private CommandGateway commandGateway;
 
     @Mock
-    private ProjectUtils projectUtils;
+    private IdUtils idUtils;
 
     @Mock
     private UserDetailsImpl userDetails;
@@ -161,7 +161,7 @@ public class UnitsControllerTests
         String name = "test";
         String description = "test description";
 
-        when(projectUtils.generateUniqueId()).thenReturn(id);
+        when(idUtils.generateUniqueId()).thenReturn(id);
         ArgumentCaptor<CreateUnitCommand> argument = ArgumentCaptor.forClass(
                 CreateUnitCommand.class);
 

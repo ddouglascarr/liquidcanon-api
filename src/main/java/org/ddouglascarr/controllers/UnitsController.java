@@ -2,7 +2,7 @@ package org.ddouglascarr.controllers;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
-import org.ddouglascarr.config.ProjectUtils;
+import org.ddouglascarr.utils.IdUtils;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.query.models.Member;
@@ -14,7 +14,6 @@ import org.ddouglascarr.query.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +40,7 @@ public class UnitsController
     private CommandGateway commandGateway;
 
     @Autowired
-    private ProjectUtils projectUtils;
+    private IdUtils idUtils;
 
     @RequestMapping(
             value = "/units/{unitId}",
@@ -76,7 +75,7 @@ public class UnitsController
     public ResponseEntity<UUID> createUnit(
             @RequestBody CreateUnitRequest request)
     {
-        UUID id = projectUtils.generateUniqueId();
+        UUID id = idUtils.generateUniqueId();
         CreateUnitCommand command = new CreateUnitCommand(
                 id, request.getParentId(), request.getName(), request.getDescription());
         commandGateway.send(command);
