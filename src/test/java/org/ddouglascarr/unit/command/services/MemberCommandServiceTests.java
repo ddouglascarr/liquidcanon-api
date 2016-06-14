@@ -11,6 +11,7 @@ import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.utils.IdUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -43,6 +44,11 @@ public class MemberCommandServiceTests
     private UUID MEMBER_ID = UUID.randomUUID();
     private UUID OTHER_MEMBER_ID = UUID.randomUUID();
 
+    private String LOGIN = "mocklogin";
+    private String PASSWORD = "mockPasssword";
+    private String NAME = "Mock Name";
+    private String EMAIL = "mock@email.com";
+
     @Before
     public void setup()
     {
@@ -62,16 +68,26 @@ public class MemberCommandServiceTests
     @Test(expected = MemberUnprivilegedException.class)
     public void createShouldThrowIfRequestingMemberIsNotAdmin() throws Exception
     {
-        when(mockCommand.getRequestingMemberId()).thenReturn(OTHER_MEMBER_ID);
-        memberCommandService.create(mockCommand);
+        memberCommandService.create(OTHER_MEMBER_ID, LOGIN, PASSWORD, NAME, EMAIL);
     }
 
     @Test
     public void createShouldCallCommandBusAndReturnId() throws Exception
     {
-        when(mockCommand.getRequestingMemberId()).thenReturn(ADMIN_MEMBER_ID);
-        UUID returnedId = memberCommandService.create(mockCommand);
-        verify(commandGateway, times(1)).send(mockCommand);
+        ArgumentCaptor<CreateMemberCommand> argument = ArgumentCaptor.forClass(
+                CreateMemberCommand.class);
+
+        UUID returnedId = memberCommandService.create(
+                ADMIN_MEMBER_ID, LOGIN, PASSWORD, NAME, EMAIL);
+
         assertEquals(MEMBER_ID, returnedId);
+        verify(commandGateway).send(argument.capture());
+        CreateMemberCommand command = argument.getValue();
+        assertEquals(MEMBER_ID, command.getId());
+        assertEquals(ADMIN_MEMBER_ID, command.getRequestingMemberId());
+        assertEquals(LOGIN, command.getLogin());
+        assertEquals(PASSWORD, command.getPassword());
+        assertEquals(NAME, command.getName());
+        assertEquals(EMAIL, command.getNotifyEmail());
     }
 }

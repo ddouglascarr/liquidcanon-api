@@ -21,13 +21,15 @@ public class MemberCommandServiceImpl implements MemberCommandService
     private IdUtils idUtils;
 
     @Override
-    public UUID create(CreateMemberCommand command) throws MemberUnprivilegedException
+    public UUID create(UUID requestingMemberId, String login, String password, String name,
+                       String notifyEmail)
+            throws MemberUnprivilegedException
     {
-        MemberAggregate requestingMember = repository.load(command.getRequestingMemberId());
+        MemberAggregate requestingMember = repository.load(requestingMemberId);
         if (!requestingMember.getAdmin()) throw new MemberUnprivilegedException();
         UUID id = idUtils.generateUniqueId();
-        commandGateway.send(new CreateMemberCommand(id, command));
+        commandGateway.send(new CreateMemberCommand(requestingMemberId, id,
+                login, password, name, notifyEmail));
         return id;
     }
-
 }

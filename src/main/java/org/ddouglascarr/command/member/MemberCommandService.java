@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface MemberCommandService
 {
-    UUID create(CreateMemberCommand command) throws MemberUnprivilegedException;
+    UUID create(UUID requestingMemberId, String login, String password, String name,
+                String notifyEmail) throws MemberUnprivilegedException;
 }

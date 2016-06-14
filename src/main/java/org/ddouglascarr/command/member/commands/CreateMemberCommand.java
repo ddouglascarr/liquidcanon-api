@@ -25,18 +25,6 @@ public class CreateMemberCommand
         this.notifyEmail = notifyEmail;
     }
 
-    public CreateMemberCommand(UUID newId, CreateMemberCommand command)
-    {
-        if (null != command.getId()) throw new RuntimeException(
-                "The UUID constructor is for adding an id to a command only");
-        this.id = newId;
-        this.requestingMemberId = command.getRequestingMemberId();
-        this.login = command.getLogin();
-        this.password = command.getPassword();
-        this.name = command.getName();
-        this.notifyEmail = command.getNotifyEmail();
-    }
-
     public UUID getRequestingMemberId()
     {
         return requestingMemberId;
