@@ -45,14 +45,14 @@ public class MemberAggregate extends AbstractAnnotatedAggregateRoot
 
     public MemberAggregate() {}
 
-    public MemberAggregate(UUID id, String login, String password, String name,
+    public MemberAggregate(UUID requestingMemberId, UUID id, String login, String password, String name,
                            String notifyEmail, Boolean admin, Date activated)
     {
         if(admin) {
             apply(new AdminMemberCreatedEvent(id, login, password, name, notifyEmail,
                     activated));
         } else {
-            apply(new MemberCreatedEvent(id, login, password, notifyEmail));
+            apply(new MemberCreatedEvent(requestingMemberId, id, login, password, name, notifyEmail, activated));
         }
     }
 
@@ -71,11 +71,13 @@ public class MemberAggregate extends AbstractAnnotatedAggregateRoot
     @EventSourcingHandler
     public void applyMemberCreatedEvent(MemberCreatedEvent event)
     {
-        this.admin = false;
         this.id = event.getId();
+        this.admin = false;
         this.login = event.getLogin();
         this.password = event.getPassword();
+        this.name = event.getName();
         this.notifyEmail = event.getNotifyEmail();
+        this.activated = event.getActivated();
     }
 
     // Getters

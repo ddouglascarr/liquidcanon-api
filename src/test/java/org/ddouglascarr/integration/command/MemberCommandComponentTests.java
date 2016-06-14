@@ -65,27 +65,19 @@ public class MemberCommandComponentTests
                         ADMIN_MEMBER_ID, ADMIN_LOGIN, PASSWORD, NAME, EMAIL, now));
     }
 
-    /*
-    @Test
-    public void createMemberShouldThrowIfRequestingMemberIsNotAdmin() throws Exception
-    {
-        UUID OTHER_MEMBER_ID = UUID.fromString("0893fa8f-7e92-4fe7-9d0e-af349d2cbaa6");
-        String OTHER_MEMBER_LOGIN = "other_member";
-        String OTHER_MEMBER_EMAIL = "foo@bar.com";
-
-        fixture.given(new AdminMemberCreatedEvent(ADMIN_MEMBER_ID, ADMIN_LOGIN, PASSWORD),
-                        new MemberCreatedEvent(OTHER_MEMBER_ID, OTHER_MEMBER_LOGIN,
-                                PASSWORD, OTHER_MEMBER_EMAIL))
-                .when(new CreateMemberCommand(OTHER_MEMBER_ID, MEMBER_ID, LOGIN, PASSWORD, EMAIL))
-                .expectException(MemberUnprivilegedException.class);
-    }
-
     @Test
     public void createMemberShouldCreateMember() throws Exception
     {
-        fixture.given(new AdminMemberCreatedEvent(ADMIN_MEMBER_ID, ADMIN_LOGIN, PASSWORD))
-                .when(new CreateMemberCommand(ADMIN_MEMBER_ID, MEMBER_ID, LOGIN, PASSWORD, EMAIL))
-                .expectEvents(new MemberCreatedEvent(MEMBER_ID, LOGIN, PASSWORD, EMAIL));
+        Date now = new Date();
+
+        when(dateUtils.generateCurrentDate()).thenReturn(now);
+
+        fixture.given()
+                .when(new CreateMemberCommand(
+                        ADMIN_MEMBER_ID, MEMBER_ID, LOGIN, PASSWORD, NAME, EMAIL))
+                .expectEvents(new MemberCreatedEvent(
+                        ADMIN_MEMBER_ID, MEMBER_ID, LOGIN, PASSWORD, NAME, EMAIL, now ));
+
     }
-    */
+
 }

@@ -12,15 +12,16 @@ public class CreateMemberCommand
     private final UUID id;
     private final String login;
     private final String password;
+    private final String name;
     private final String notifyEmail;
 
-    public CreateMemberCommand(UUID requestingMemberId, UUID id, String login,
-                               String password, String notifyEmail)
+    public CreateMemberCommand(UUID requestingMemberId, UUID id, String login, String password, String name, String notifyEmail)
     {
-        this.id = id;
         this.requestingMemberId = requestingMemberId;
+        this.id = id;
         this.login = login;
         this.password = password;
+        this.name = name;
         this.notifyEmail = notifyEmail;
     }
 
@@ -42,6 +43,11 @@ public class CreateMemberCommand
     public String getPassword()
     {
         return password;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public String getNotifyEmail()

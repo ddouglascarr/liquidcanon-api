@@ -27,22 +27,18 @@ public class MemberCommandHandler
     public void handleCreateAdminMember(CreateAdminMemberCommand command)
     {
         MemberAggregate memberAggregate = new MemberAggregate(
-                command.getId(), command.getLogin(), command.getPassword(), command.getName(),
+                null, command.getId(), command.getLogin(), command.getPassword(), command.getName(),
                 command.getNotifyEmail(), true, dateUtils.generateCurrentDate());
         repository.add(memberAggregate);
     }
 
     @CommandHandler
     public void handleCreateMember(CreateMemberCommand command)
-            throws MemberUnprivilegedException
     {
-        MemberAggregate requester = repository.load(command.getRequestingMemberId());
-        if (!requester.getAdmin()) {
-            throw new MemberUnprivilegedException();
-        }
         MemberAggregate memberAggregate = new MemberAggregate(
-                command.getId(), command.getLogin(), command.getPassword(), null,
-                command.getNotifyEmail(), false, dateUtils.generateCurrentDate() );
+                command.getRequestingMemberId(), command.getId(), command.getLogin(), command.getPassword(), command.getName(),
+                command.getNotifyEmail(), false, dateUtils.generateCurrentDate());
         repository.add(memberAggregate);
     }
+
 }
