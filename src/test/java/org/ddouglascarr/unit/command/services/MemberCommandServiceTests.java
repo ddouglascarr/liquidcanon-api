@@ -1,13 +1,13 @@
 package org.ddouglascarr.unit.command.services;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.repository.Repository;
-import org.ddouglascarr.command.member.MemberAggregate;
 import org.ddouglascarr.command.member.MemberCommandService;
 import org.ddouglascarr.command.member.MemberCommandServiceImpl;
 import org.ddouglascarr.command.member.commands.CreateMemberCommand;
 import org.ddouglascarr.command.member.requests.CreateMemberRequest;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
+import org.ddouglascarr.query.models.Member;
+import org.ddouglascarr.query.services.MemberService;
 import org.ddouglascarr.utils.IdUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 public class MemberCommandServiceTests
 {
     @Mock
-    private Repository repository;
+    private MemberService memberService;
 
     @Mock
     private CommandGateway commandGateway;
@@ -38,8 +38,8 @@ public class MemberCommandServiceTests
 
     @Mock private CreateMemberRequest mockRequest;
     @Mock private CreateMemberCommand mockCommand;
-    @Mock private MemberAggregate mockMemberAggregate;
-    @Mock private MemberAggregate mockAdminMemberAggregate;
+    @Mock private Member mockMemberModel;
+    @Mock private Member mockAdminMemberModel;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -53,18 +53,18 @@ public class MemberCommandServiceTests
     private String EMAIL = "mock@email.com";
 
     @Before
-    public void setup()
+    public void setup() throws Exception
     {
         MockitoAnnotations.initMocks(this);
 
 
         when(idUtils.generateUniqueId()).thenReturn(MEMBER_ID);
-        when(repository.load(ADMIN_MEMBER_ID)).thenReturn(mockAdminMemberAggregate);
-        when(repository.load(OTHER_MEMBER_ID)).thenReturn(mockMemberAggregate);
-        when(mockMemberAggregate.getId()).thenReturn(MEMBER_ID);
-        when(mockMemberAggregate.getAdmin()).thenReturn(false);
-        when(mockAdminMemberAggregate.getId()).thenReturn(ADMIN_MEMBER_ID);
-        when(mockAdminMemberAggregate.getAdmin()).thenReturn(true);
+        when(memberService.findOne(ADMIN_MEMBER_ID)).thenReturn(mockAdminMemberModel);
+        when(memberService.findOne(OTHER_MEMBER_ID)).thenReturn(mockMemberModel);
+        when(mockMemberModel.getId()).thenReturn(MEMBER_ID);
+        when(mockMemberModel.getAdmin()).thenReturn(false);
+        when(mockAdminMemberModel.getId()).thenReturn(ADMIN_MEMBER_ID);
+        when(mockAdminMemberModel.getAdmin()).thenReturn(true);
 
     }
 
