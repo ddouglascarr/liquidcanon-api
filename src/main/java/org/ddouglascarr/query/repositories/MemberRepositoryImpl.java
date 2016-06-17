@@ -142,4 +142,10 @@ public class MemberRepositoryImpl implements MemberRepository
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(member);
         namedParameterJdbcTemplate.update(sql, parameters);
     }
+
+    @Override
+    public void update(Member member)
+    {
+
+    }
 }

@@ -1,6 +1,9 @@
 package org.ddouglascarr.controllers;
 
 import org.ddouglascarr.aop.HandleServiceErrors;
+import org.ddouglascarr.command.member.MemberCommandService;
+import org.ddouglascarr.command.member.commands.CreateMemberCommand;
+import org.ddouglascarr.command.member.requests.CreateMemberRequest;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.query.models.Member;
@@ -11,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,14 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/units/{unitId}")
 public class MembersController
 {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private MemberCommandService memberCommandService;
+
     @RequestMapping(
-            value = "/members/{memberId}",
+            value = "/units/{unitId}/members/{memberId}",
             method = RequestMethod.GET
     )
     @HandleServiceErrors
@@ -40,4 +46,17 @@ public class MembersController
         return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
+    @HandleServiceErrors
+    @RequestMapping(
+            value = "/members",
+            method = RequestMethod.POST)
+    public ResponseEntity<UUID> createMember(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @RequestBody CreateMemberRequest request)
+            throws MemberUnprivilegedException
+    {
+        UUID id = memberCommandService.create(userDetails.getId(), request.getLogin(),
+                request.getPassword(), request.getName(), request.getNotifyEmail());
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
 }

@@ -45,6 +45,6 @@ public class MemberQueryEventListener
         member.setActivated(event.getActivated());
         member.setLastActivity(event.getActivated());
 
-        // memberService.create(member);
+        memberService.create(member);
     }
 }

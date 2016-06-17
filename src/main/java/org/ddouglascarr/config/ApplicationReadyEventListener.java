@@ -6,6 +6,7 @@ import org.ddouglascarr.query.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -26,8 +27,9 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
         if (!memberService.isAtLeastOneAdminMember()) {
             String password = UUID.randomUUID().toString();
             System.out.println("Created user defaultadmin with password: " + password);
+            String encodedPassword = new BCryptPasswordEncoder().encode(password);
             CreateAdminMemberCommand command = new CreateAdminMemberCommand(
-                    UUID.randomUUID(), "defaultadmin", password, "Default Admin", null );
+                    UUID.randomUUID(), "defaultadmin", encodedPassword, "Default Admin", null );
             commandGateway.send(command);
         }
     }

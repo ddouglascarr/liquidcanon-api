@@ -15,6 +15,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.UUID;
 
@@ -39,6 +40,8 @@ public class MemberCommandServiceTests
     @Mock private CreateMemberCommand mockCommand;
     @Mock private MemberAggregate mockMemberAggregate;
     @Mock private MemberAggregate mockAdminMemberAggregate;
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private UUID ADMIN_MEMBER_ID = UUID.randomUUID();
     private UUID MEMBER_ID = UUID.randomUUID();
@@ -86,7 +89,7 @@ public class MemberCommandServiceTests
         assertEquals(MEMBER_ID, command.getId());
         assertEquals(ADMIN_MEMBER_ID, command.getRequestingMemberId());
         assertEquals(LOGIN, command.getLogin());
-        assertEquals(PASSWORD, command.getPassword());
+        assertTrue(passwordEncoder.matches(PASSWORD, command.getPassword()));
         assertEquals(NAME, command.getName());
         assertEquals(EMAIL, command.getNotifyEmail());
     }

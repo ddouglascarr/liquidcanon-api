@@ -18,5 +18,6 @@ public interface MemberRepository
     Boolean isAtLeastOneAdminMember();
 
     void create(Member member);
+    void update(Member member);
 
 }

@@ -4,6 +4,7 @@ import org.ddouglascarr.command.member.commands.CreateAdminMemberCommand;
 import org.ddouglascarr.command.member.commands.CreateMemberCommand;
 import org.ddouglascarr.command.member.requests.CreateMemberRequest;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.UUID;
 

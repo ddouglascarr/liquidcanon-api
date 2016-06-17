@@ -6,9 +6,12 @@ import org.ddouglascarr.command.member.commands.CreateMemberCommand;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
 import org.ddouglascarr.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class MemberCommandServiceImpl implements MemberCommandService
 {
     @Autowired
@@ -28,8 +31,9 @@ public class MemberCommandServiceImpl implements MemberCommandService
         MemberAggregate requestingMember = repository.load(requestingMemberId);
         if (!requestingMember.getAdmin()) throw new MemberUnprivilegedException();
         UUID id = idUtils.generateUniqueId();
+        String encodedPassword = new BCryptPasswordEncoder().encode(password);
         commandGateway.send(new CreateMemberCommand(requestingMemberId, id,
-                login, password, name, notifyEmail));
+                login, encodedPassword, name, notifyEmail));
         return id;
     }
 }
