@@ -31,6 +31,8 @@ public class IntegrationTestConsts
 
     // unit names
     public static String EARTH_MOON_FEDERATION_UNIT_NAME = "Earth Moon Federation";
+    public static String EARTH_UNIT_NAME = "Earth";
+    public static String EARTH_UNIT_DESCRIPTION = "The Earth";
 
     // area ids
     public static UUID NON_EXISTANT_AREA_ID = UUID.fromString("33f53dbf-1442-4f7b-a900-12f586da7406");

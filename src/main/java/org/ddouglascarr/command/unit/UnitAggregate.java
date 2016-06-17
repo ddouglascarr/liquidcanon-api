@@ -1,8 +1,10 @@
 package org.ddouglascarr.command.unit;
 
+import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
+import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
 import org.ddouglascarr.command.unit.events.UnitCreatedEvent;
 
 import java.util.UUID;
@@ -19,9 +21,11 @@ public class UnitAggregate extends AbstractAnnotatedAggregateRoot
 
     public UnitAggregate() {}
 
-    public UnitAggregate(UUID id, UUID parentId, String name, String description)
+    @CommandHandler
+    public UnitAggregate(CreateUnitCommand command)
     {
-        apply(new UnitCreatedEvent(id, parentId, name, description));
+        apply(new UnitCreatedEvent(command.getRequestingMemberId(), command.getId(),
+                command.getParentId(), command.getName(), command.getDescription()));
     }
 
     @EventSourcingHandler

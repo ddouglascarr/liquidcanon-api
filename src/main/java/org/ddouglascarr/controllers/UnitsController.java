@@ -77,7 +77,7 @@ public class UnitsController
     {
         UUID id = idUtils.generateUniqueId();
         CreateUnitCommand command = new CreateUnitCommand(
-                id, request.getParentId(), request.getName(), request.getDescription());
+                id, id, request.getParentId(), request.getName(), request.getDescription());
         commandGateway.send(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }

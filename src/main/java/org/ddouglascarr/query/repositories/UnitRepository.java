@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface UnitRepository extends JpaRepository<Unit, UUID>
 {
+    Unit findOneByName(String name);
 }

@@ -4,5 +4,6 @@ public enum ExceptionCodes
 {
     ITEM_NOT_FOUND,
     UNAUTHORIZED,
-    UNPRIVILEGED
+    UNPRIVILEGED,
+    CONFLICT
 }
