@@ -26,7 +26,8 @@ public class PrivilegeServiceImpl implements PrivilegeService
     {
         Unit unit;
         Boolean hasUnitReadPermission = false;
-        unit = unitRepository.findOneById(unitId);
+        unit = unitRepository.findOne(unitId);
+        if (null == unit) throw new ItemNotFoundException();
         if (unit.getPublicRead()) return;
 
         try {

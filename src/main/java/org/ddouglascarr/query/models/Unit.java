@@ -1,17 +1,23 @@
 package org.ddouglascarr.query.models;
 
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+
+@Entity
 public class Unit
 {
     @Id
+    @Type(type="pg-uuid")
     private UUID id;
 
+    @Type(type="pg-uuid")
     private UUID parentId;
 
     private Boolean active;
@@ -21,8 +27,6 @@ public class Unit
     private Long memberCount;
     private Boolean publicRead;
 
-    @ReadOnlyProperty
-    private List<Area> areas;
 
     // Getters and Setters
 
@@ -84,16 +88,6 @@ public class Unit
     public void setMemberCount(Long memberCount)
     {
         this.memberCount = memberCount;
-    }
-
-    public List<Area> getAreas()
-    {
-        return areas;
-    }
-
-    public void setAreas(List<Area> areas)
-    {
-        this.areas = areas;
     }
 
     public Boolean getPublicRead()

@@ -33,7 +33,7 @@ public class UnitRepositoryTests
     @Test
     public void findOneById() throws Exception
     {
-        Unit unit = unitRepository.findOneById(EARTH_MOON_FEDERATION_UNIT_ID);
+        Unit unit = unitRepository.findOne(EARTH_MOON_FEDERATION_UNIT_ID);
         assertEquals(EARTH_MOON_FEDERATION_UNIT_ID, unit.getId());
     }
 }

@@ -88,7 +88,7 @@ public class UnitsControllerTests
         mockMvc.perform(get("/units/" + MOON_UNIT_ID.toString())
                     .with(httpBasic(POITRAS_LOGIN, POITRAS_PASSWORD)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", hasSize(8)));
+                .andExpect(jsonPath("$.*", hasSize(7)));
     }
 
     @Test
@@ -105,8 +105,7 @@ public class UnitsControllerTests
                 .andExpect(jsonPath("$.description", isEmptyOrNullString()))
                 .andExpect(jsonPath("$.member_count", isEmptyOrNullString()))    // TODO
                 .andExpect(jsonPath("$.public_read", is(true)))
-                .andExpect(jsonPath("$.areas", isEmptyOrNullString()))          // TODO
-                .andExpect(jsonPath("$.*", hasSize(8)))
+                .andExpect(jsonPath("$.*", hasSize(7)))
                 .andDo(document("units/get", responseFields(
                         fieldWithPath("id")
                                 .type(JsonFieldType.STRING)
@@ -128,10 +127,7 @@ public class UnitsControllerTests
                                 .description("Count of currently active members with voting right for this unit."),
                         fieldWithPath("public_read")
                                 .type(JsonFieldType.BOOLEAN)
-                                .description("Are unit events readable by non-members"),
-                        fieldWithPath("areas")
-                                .type(JsonFieldType.ARRAY)
-                                .description("Areas which belong to this unit"))))
+                                .description("Are unit events readable by non-members"))))
                 .andDo(document("units/get", pathParameters(
                         parameterWithName("unitId").description("The unit id"))));
     }

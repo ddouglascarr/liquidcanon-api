@@ -52,7 +52,7 @@ public class PrivilegeServiceImplTests
             throws Exception
     {
         when(mockUnit.getPublicRead()).thenReturn(false);
-        when(unitRepository.findOneById(MOCK_UNIT_ID)).thenReturn(mockUnit);
+        when(unitRepository.findOne(MOCK_UNIT_ID)).thenReturn(mockUnit);
         doThrow(new ItemNotFoundException()).when(privilegeRepository)
                 .findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
@@ -63,7 +63,7 @@ public class PrivilegeServiceImplTests
             throws Exception
     {
         when(mockUnit.getPublicRead()).thenReturn(false);
-        when(unitRepository.findOneById(MOCK_UNIT_ID)).thenReturn(mockUnit);
+        when(unitRepository.findOne(MOCK_UNIT_ID)).thenReturn(mockUnit);
         doThrow(new ItemNotFoundException()).when(privilegeRepository)
                 .findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
@@ -74,7 +74,7 @@ public class PrivilegeServiceImplTests
             throws Exception
     {
         when(mockUnit.getPublicRead()).thenReturn(false);
-        when(unitRepository.findOneById(MOCK_UNIT_ID)).thenReturn(mockUnit);
+        when(unitRepository.findOne(MOCK_UNIT_ID)).thenReturn(mockUnit);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
                 .thenReturn(mockPrivilege);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
@@ -85,7 +85,7 @@ public class PrivilegeServiceImplTests
             throws Exception
     {
         when(mockUnit.getPublicRead()).thenReturn(false);
-        when(unitRepository.findOneById(MOCK_UNIT_ID)).thenReturn(mockUnit);
+        when(unitRepository.findOne(MOCK_UNIT_ID)).thenReturn(mockUnit);
         when(privilegeRepository.findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID))
                 .thenReturn(mockPrivilege);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);
@@ -96,7 +96,7 @@ public class PrivilegeServiceImplTests
             throws Exception
     {
         when(mockUnit.getPublicRead()).thenReturn(true);
-        when(unitRepository.findOneById(MOCK_UNIT_ID)).thenReturn(mockUnit);
+        when(unitRepository.findOne(MOCK_UNIT_ID)).thenReturn(mockUnit);
         doThrow(new ItemNotFoundException()).when(privilegeRepository)
                 .findOneByMemberIdAndUnitId(MOCK_MEMBER_ID, MOCK_UNIT_ID);
         privilegeService.assertUnitReadPrivilege(MOCK_MEMBER_ID, MOCK_UNIT_ID);

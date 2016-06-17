@@ -43,7 +43,7 @@ public class AxonConfig
     public EventStore eventStore()
     {
         EventStore eventStore =
-                new FileSystemEventStore(new SimpleEventFileResolver(new File("./events")));
+                new FileSystemEventStore(new SimpleEventFileResolver(new File("./target/events")));
         return eventStore;
     }
 

@@ -84,7 +84,6 @@ public class UnitsControllerTests
         mockAreaList = new ArrayList<>();
         mockAreaList.add(mockArea12);
         mockAreaList.add(mockArea13);
-        mockUnit2.setAreas(mockAreaList);
 
         when(userDetails.getId()).thenReturn(MEMBER_ID);
     }

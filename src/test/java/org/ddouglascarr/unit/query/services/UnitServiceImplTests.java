@@ -54,7 +54,7 @@ public class UnitServiceImplTests
     public void findOneShouldThrowIfUnitNotFound()
             throws ItemNotFoundException, MemberUnprivilegedException
     {
-        when(unitRepository.findOneById(UNIT_2_ID)).thenReturn(null);
+        when(unitRepository.findOne(UNIT_2_ID)).thenReturn(null);
         Unit returnedUnit = unitService.findOne(MEMBER_ID, UNIT_2_ID);
     }
 
@@ -71,7 +71,7 @@ public class UnitServiceImplTests
     public void findOneShouldReturnUnit()
             throws ItemNotFoundException, MemberUnprivilegedException
     {
-        when(unitRepository.findOneById(UNIT_2_ID)).thenReturn(mockUnit2);
+        when(unitRepository.findOne(UNIT_2_ID)).thenReturn(mockUnit2);
         Unit returnedUnit = unitService.findOne(MEMBER_ID, UNIT_2_ID);
         assertEquals(returnedUnit, mockUnit2);
     }
