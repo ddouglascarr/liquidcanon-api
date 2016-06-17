@@ -1,6 +1,7 @@
 package org.ddouglascarr.unit.query.listeners;
 
 import org.ddouglascarr.command.member.events.AdminMemberCreatedEvent;
+import org.ddouglascarr.command.member.events.MemberCreatedEvent;
 import org.ddouglascarr.query.listeners.MemberQueryEventListener;
 import org.ddouglascarr.query.models.Member;
 import org.ddouglascarr.query.services.MemberService;
@@ -50,6 +51,29 @@ public class MemberQueryEventListenerTests
         assertEquals(now, member.getActivated());
         assertEquals(now, member.getLastActivity());
         assertEquals("Test Name", member.getName());
+        assertEquals("test@email.com", member.getNotifyEmail());
+    }
+
+    @Test
+    public void handleMemberCreatedEvent() throws Exception
+    {
+        Date now = new Date();
+        MemberCreatedEvent event = new MemberCreatedEvent(
+                ADMIN_MEMBER_ID, POITRAS_MEMBER_ID, POITRAS_LOGIN, POITRAS_PASSWORD,
+                "Determined Poitras", "test@email.com", now);
+        ArgumentCaptor<Member> argument = ArgumentCaptor.forClass(Member.class);
+
+        listener.handle(event);
+        verify(memberService).create(argument.capture());
+        Member member = argument.getValue();
+        assertEquals(POITRAS_MEMBER_ID, member.getId());
+        assertEquals(POITRAS_LOGIN, member.getLogin());
+        assertEquals(POITRAS_PASSWORD, member.getPassword());
+        assertEquals(false, member.getAdmin());
+        assertEquals(true, member.getActive());
+        assertEquals(now, member.getActivated());
+        assertEquals(now, member.getLastActivity());
+        assertEquals("Determined Poitras", member.getName());
         assertEquals("test@email.com", member.getNotifyEmail());
     }
 }
