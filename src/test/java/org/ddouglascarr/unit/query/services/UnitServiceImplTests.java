@@ -9,6 +9,7 @@ import org.ddouglascarr.query.services.UnitService;
 import org.ddouglascarr.query.services.UnitServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -83,5 +84,13 @@ public class UnitServiceImplTests
         when(unitRepository.findOne(UNIT_2_ID)).thenReturn(mockUnit2);
         Unit returnedUnit = unitService.findOne(UNIT_2_ID);
         assertEquals(mockUnit2, returnedUnit);
+    }
+
+    @Test
+    public void createShouldCallRepositoryCreate()
+            throws Exception
+    {
+        unitService.create(mockUnit2);
+        verify(unitRepository).save(mockUnit2);
     }
 }

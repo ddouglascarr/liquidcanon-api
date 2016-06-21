@@ -33,4 +33,10 @@ public class UnitServiceImpl implements UnitService
         if (null == unit) throw new ItemNotFoundException();
         return unit;
     }
+
+    @Override
+    public void create(Unit unit)
+    {
+        unitRepository.save(unit);
+    }
 }

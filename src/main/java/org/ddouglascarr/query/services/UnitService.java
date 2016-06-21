@@ -15,4 +15,6 @@ public interface UnitService
     Unit findOne(UUID id)
             throws ItemNotFoundException;
 
+    void create(Unit unit);
+
 }
