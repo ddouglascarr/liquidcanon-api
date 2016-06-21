@@ -75,4 +75,13 @@ public class UnitServiceImplTests
         Unit returnedUnit = unitService.findOne(MEMBER_ID, UNIT_2_ID);
         assertEquals(returnedUnit, mockUnit2);
     }
+
+    @Test
+    public void findOneShouldWorkWithoutMemberId()
+            throws Exception
+    {
+        when(unitRepository.findOne(UNIT_2_ID)).thenReturn(mockUnit2);
+        Unit returnedUnit = unitService.findOne(UNIT_2_ID);
+        assertEquals(mockUnit2, returnedUnit);
+    }
 }

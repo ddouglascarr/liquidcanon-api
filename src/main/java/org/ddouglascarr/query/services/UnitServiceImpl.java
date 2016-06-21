@@ -23,6 +23,12 @@ public class UnitServiceImpl implements UnitService
             throws ItemNotFoundException, MemberUnprivilegedException
     {
         privilegeService.assertUnitReadPrivilege(memberId, id);
+        return findOne(id);
+    }
+
+    @Override
+    public Unit findOne(UUID id) throws ItemNotFoundException
+    {
         Unit unit = unitRepository.findOne(id);
         if (null == unit) throw new ItemNotFoundException();
         return unit;

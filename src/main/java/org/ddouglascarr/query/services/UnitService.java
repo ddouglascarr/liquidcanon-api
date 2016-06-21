@@ -12,10 +12,7 @@ public interface UnitService
             throws ItemNotFoundException, MemberUnprivilegedException;
 
 
-    default Unit findOne(UUID id)
-            throws ItemNotFoundException
-    {
-        throw new RuntimeException("Method removed");
-    }
+    Unit findOne(UUID id)
+            throws ItemNotFoundException;
 
 }
