@@ -6,9 +6,11 @@ import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
 import org.ddouglascarr.command.unit.events.UnitCreatedEvent;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class UnitAggregate extends AbstractAnnotatedAggregateRoot
 {
     @AggregateIdentifier

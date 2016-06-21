@@ -5,7 +5,9 @@ import org.ddouglascarr.command.unit.events.UnitCreatedEvent;
 import org.ddouglascarr.query.models.Unit;
 import org.ddouglascarr.query.services.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UnitQueryEventListener
 {
     @Autowired

@@ -1,8 +1,8 @@
 package org.ddouglascarr.controllers;
 
-import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.ddouglascarr.aop.HandleServiceErrors;
 import org.ddouglascarr.command.unit.UnitCommandService;
-import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
+import org.ddouglascarr.command.unit.requests.CreateUnitRequest;
 import org.ddouglascarr.utils.IdUtils;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
 import org.ddouglascarr.exceptions.MemberUnprivilegedException;
@@ -73,48 +73,15 @@ public class UnitsController
     @RequestMapping(
             value = "/units",
             method = RequestMethod.POST)
+    @HandleServiceErrors
     public ResponseEntity<UUID> createUnit(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
             @RequestBody CreateUnitRequest request)
+            throws ItemNotFoundException, MemberUnprivilegedException
     {
-
-        return null;
-    }
-
-    public static class CreateUnitRequest
-    {
-        private UUID parentId;
-        private String name;
-        private String description;
-
-        public UUID getParentId()
-        {
-            return parentId;
-        }
-
-        public void setParentId(UUID parentId)
-        {
-            this.parentId = parentId;
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-
-        public void setName(String name)
-        {
-            this.name = name;
-        }
-
-        public String getDescription()
-        {
-            return description;
-        }
-
-        public void setDescription(String description)
-        {
-            this.description = description;
-        }
+        UUID id = unitCommandService.create(userDetails.getId(), request.getParentId(),
+                request.getName(), request.getDescription());
+        return new ResponseEntity<UUID>(id, HttpStatus.CREATED);
     }
 
 }

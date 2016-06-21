@@ -1,6 +1,8 @@
 package org.ddouglascarr.unit.controllers;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.ddouglascarr.command.unit.UnitCommandService;
+import org.ddouglascarr.command.unit.requests.CreateUnitRequest;
 import org.ddouglascarr.utils.IdUtils;
 import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
 import org.ddouglascarr.controllers.UnitsController;
@@ -30,6 +32,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.ddouglascarr.testutils.IntegrationTestConsts.*;
 
 public class UnitsControllerTests
 {
@@ -43,7 +46,7 @@ public class UnitsControllerTests
     private AreaService areaService;
 
     @Mock
-    private CommandGateway commandGateway;
+    private UnitCommandService unitCommandService;
 
     @Mock
     private IdUtils idUtils;
@@ -153,29 +156,17 @@ public class UnitsControllerTests
     }
 
     @Test
-    public void createUnitIssueCommandAndReturnSuccess()
+    public void createUnitIssueCommandAndReturnSuccess() throws Exception
     {
-        UUID id = UUID.randomUUID();
-        UUID parentId = UUID.randomUUID();
-        String name = "test";
-        String description = "test description";
-
-        when(idUtils.generateUniqueId()).thenReturn(id);
-        ArgumentCaptor<CreateUnitCommand> argument = ArgumentCaptor.forClass(
-                CreateUnitCommand.class);
-
-        UnitsController.CreateUnitRequest request = new UnitsController.CreateUnitRequest();
-        request.setParentId(parentId);
-        request.setName(name);
-        request.setDescription(description);
-
-        ResponseEntity<UUID> resp = unitsController.createUnit(request);
+        CreateUnitRequest request = new CreateUnitRequest();
+        request.setParentId(EARTH_MOON_FEDERATION_UNIT_ID);
+        request.setName(EARTH_UNIT_NAME);
+        request.setDescription(EARTH_UNIT_DESCRIPTION);
+        when(unitCommandService.create(MEMBER_ID, request.getParentId(), request.getName(),
+                request.getDescription())).thenReturn(EARTH_UNIT_ID);
+        ResponseEntity<UUID> resp = unitsController.createUnit(userDetails, request);
+        assertEquals(EARTH_UNIT_ID, resp.getBody());
         assertEquals(HttpStatus.CREATED, resp.getStatusCode());
-        assertEquals(id, resp.getBody());
-        verify(commandGateway).send(argument.capture());
-        assertEquals(parentId, argument.getValue().getParentId());
-        assertEquals(name, argument.getValue().getName());
-        assertEquals(description, argument.getValue().getDescription());
     }
 
 
