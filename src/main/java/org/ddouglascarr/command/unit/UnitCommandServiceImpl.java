@@ -10,9 +10,11 @@ import org.ddouglascarr.query.services.MemberService;
 import org.ddouglascarr.query.services.UnitService;
 import org.ddouglascarr.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class UnitCommandServiceImpl implements UnitCommandService
 {
     @Autowired
@@ -32,7 +34,9 @@ public class UnitCommandServiceImpl implements UnitCommandService
             throws MemberUnprivilegedException, ItemNotFoundException
     {
         UUID id = idUtils.generateUniqueId();
-        if (null == unitService.findOne(parentId)) throw new ItemNotFoundException();
+        if (null != parentId && null == unitService.findOne(parentId)) {
+            throw new ItemNotFoundException();
+        }
         Member requestingMember = memberService.findOne(requestingMemberId);
         if (!requestingMember.getAdmin()) throw new MemberUnprivilegedException();
         commandGateway.send(new CreateUnitCommand(requestingMemberId, id, parentId,

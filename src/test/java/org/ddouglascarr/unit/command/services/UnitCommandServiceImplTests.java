@@ -89,6 +89,13 @@ public class UnitCommandServiceImplTests
         assertEquals(EARTH_UNIT_ID, command.getId());
         assertEquals(EARTH_UNIT_NAME, command.getName());
         assertEquals(EARTH_UNIT_DESCRIPTION, command.getDescription());
+    }
 
+    @Test
+    public void createShouldNotFailIfNullParent() throws Exception
+    {
+        UUID newUnitId = unitCommandService.create(ADMIN_MEMBER_ID, null,
+                EARTH_UNIT_NAME, EARTH_UNIT_DESCRIPTION);
+        assertEquals(EARTH_UNIT_ID, newUnitId);
     }
 }

@@ -1,6 +1,7 @@
 package org.ddouglascarr.controllers;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.ddouglascarr.command.unit.UnitCommandService;
 import org.ddouglascarr.command.unit.commands.CreateUnitCommand;
 import org.ddouglascarr.utils.IdUtils;
 import org.ddouglascarr.exceptions.ItemNotFoundException;
@@ -37,7 +38,7 @@ public class UnitsController
     private AreaService areaService;
 
     @Autowired
-    private CommandGateway commandGateway;
+    private UnitCommandService unitCommandService;
 
     @Autowired
     private IdUtils idUtils;
@@ -75,11 +76,8 @@ public class UnitsController
     public ResponseEntity<UUID> createUnit(
             @RequestBody CreateUnitRequest request)
     {
-        UUID id = idUtils.generateUniqueId();
-        CreateUnitCommand command = new CreateUnitCommand(
-                id, id, request.getParentId(), request.getName(), request.getDescription());
-        commandGateway.send(command);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+
+        return null;
     }
 
     public static class CreateUnitRequest
