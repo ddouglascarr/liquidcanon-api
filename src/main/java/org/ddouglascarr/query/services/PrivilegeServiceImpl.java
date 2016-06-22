@@ -51,4 +51,10 @@ public class PrivilegeServiceImpl implements PrivilegeService
             throw new MemberUnprivilegedException();
         }
     }
+
+    @Override
+    public void assertPrivilegeDoesNotExist(UUID memberId, UUID unitId)
+    {
+
+    }
 }
