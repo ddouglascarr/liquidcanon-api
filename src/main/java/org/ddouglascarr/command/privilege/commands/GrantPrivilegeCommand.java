@@ -19,6 +19,7 @@ public class GrantPrivilegeCommand
 
     @NotNull private final Boolean pollingRight;
     @NotNull private final Boolean votingRight;
+    @NotNull private final Boolean initiativeRight;
 
     public GrantPrivilegeCommand(UUID requestingMemberId, UUID id, GrantPrivilegeRequest request)
     {
@@ -28,6 +29,7 @@ public class GrantPrivilegeCommand
         this.unitId = request.getUnitId();
         this.pollingRight = request.getPollingRight();
         this.votingRight = request.getVotingRight();
+        this.initiativeRight = request.getInitiativeRight();
     }
 
     public UUID getId()
@@ -58,5 +60,10 @@ public class GrantPrivilegeCommand
     public Boolean getVotingRight()
     {
         return votingRight;
+    }
+
+    public Boolean getInitiativeRight()
+    {
+        return initiativeRight;
     }
 }

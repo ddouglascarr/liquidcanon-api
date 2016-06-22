@@ -23,9 +23,9 @@ public class PrivilegeAggregate extends AbstractAnnotatedAggregateRoot
     private Boolean unitManager = false;
     private Boolean areaManager = false;
     private Boolean memberManager = false;
-    private Boolean initiativeRight = false;
-    private Boolean pollingRight = false;
-    private Boolean votingRight = false;
+    private Boolean initiativeRight;
+    private Boolean pollingRight;
+    private Boolean votingRight;
 
     public PrivilegeAggregate() {}
 
@@ -34,7 +34,7 @@ public class PrivilegeAggregate extends AbstractAnnotatedAggregateRoot
     {
         apply(new PrivilegeGrantedEvent(command.getRequestingMemberId(), command.getId(),
                 command.getMemberId(), command.getUnitId(), command.getPollingRight(),
-                command.getVotingRight()));
+                command.getVotingRight(), command.getInitiativeRight()));
     }
 
     @EventSourcingHandler
@@ -45,5 +45,6 @@ public class PrivilegeAggregate extends AbstractAnnotatedAggregateRoot
         this.unitId = event.getUnitId();
         this.votingRight = event.getVotingRight();
         this.pollingRight = event.getPollingRight();
+        this.initiativeRight = event.getInitiativeRight();
     }
 }

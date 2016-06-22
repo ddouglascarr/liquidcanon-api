@@ -8,6 +8,7 @@ public class GrantPrivilegeRequest
     private UUID unitId;
     private Boolean pollingRight;
     private Boolean votingRight;
+    private Boolean initiativeRight;
 
     public GrantPrivilegeRequest() {}
 
@@ -49,5 +50,15 @@ public class GrantPrivilegeRequest
     public void setVotingRight(Boolean votingRight)
     {
         this.votingRight = votingRight;
+    }
+
+    public Boolean getInitiativeRight()
+    {
+        return initiativeRight;
+    }
+
+    public void setInitiativeRight(Boolean initiativeRight)
+    {
+        this.initiativeRight = initiativeRight;
     }
 }

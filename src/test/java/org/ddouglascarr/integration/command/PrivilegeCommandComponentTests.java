@@ -33,10 +33,11 @@ public class PrivilegeCommandComponentTests
         request.setUnitId(EARTH_UNIT_ID);
         request.setPollingRight(true);
         request.setVotingRight(true);
+        request.setInitiativeRight(true);
         fixture.given()
                 .when(new GrantPrivilegeCommand(ADMIN_MEMBER_ID, PRIVILEGE_ID, request))
                 .expectEvents(new PrivilegeGrantedEvent(ADMIN_MEMBER_ID, PRIVILEGE_ID,
-                        POITRAS_MEMBER_ID, EARTH_UNIT_ID, true, true));
+                        POITRAS_MEMBER_ID, EARTH_UNIT_ID, true, true, true));
     }
 
 }

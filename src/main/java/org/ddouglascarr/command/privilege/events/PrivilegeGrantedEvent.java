@@ -13,8 +13,10 @@ public class PrivilegeGrantedEvent
     private final UUID unitId;
     private final Boolean pollingRight;
     private final Boolean votingRight;
+    private final Boolean initiativeRight;
 
-    public PrivilegeGrantedEvent(UUID requestingMemberId, UUID id, UUID memberId, UUID unitId, Boolean pollingRight, Boolean votingRight)
+    public PrivilegeGrantedEvent(UUID requestingMemberId, UUID id, UUID memberId, UUID unitId,
+                                 Boolean pollingRight, Boolean votingRight, Boolean initiativeRight)
     {
         this.requestingMemberId = requestingMemberId;
         this.id = id;
@@ -22,6 +24,7 @@ public class PrivilegeGrantedEvent
         this.unitId = unitId;
         this.pollingRight = pollingRight;
         this.votingRight = votingRight;
+        this.initiativeRight = initiativeRight;
     }
 
     public UUID getId()
@@ -52,5 +55,10 @@ public class PrivilegeGrantedEvent
     public Boolean getVotingRight()
     {
         return votingRight;
+    }
+
+    public Boolean getInitiativeRight()
+    {
+        return initiativeRight;
     }
 }
